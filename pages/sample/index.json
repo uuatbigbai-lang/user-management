@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "报告查询",
+  "usingComponents": {
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-action-sheet": "tdesign-miniprogram/action-sheet/action-sheet"
+  }
+}

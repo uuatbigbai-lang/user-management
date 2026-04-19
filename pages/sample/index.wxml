@@ -1,0 +1,74 @@
+<view class="sample-page">
+  <view class="sample-section">
+    <t-tabs
+      t-class="sample-tabs"
+      t-class-active="sample-tabs__active"
+      t-class-item="sample-tabs__item"
+      value="{{activeTab}}"
+      bind:change="onTabChange"
+    >
+      <t-tab-panel
+        wx:for="{{filterTabs}}"
+        wx:for-index="index"
+        wx:key="index"
+        label="{{item}}"
+        value="{{index}}"
+      />
+    </t-tabs>
+  </view>
+
+  <view class="sample-actions">
+    <t-button theme="primary" block size="large" bind:tap="onOpenSampleVideo">
+      采样视频
+    </t-button>
+    <t-button theme="default" block size="large" bind:tap="onOpenBindSample">
+      绑定样本
+    </t-button>
+  </view>
+
+  <view class="sample-list">
+    <view wx:if="{{loading}}" class="sample-loading">
+      加载中...
+    </view>
+    <view wx:elif="{{list.length === 0}}" class="sample-empty">
+      暂无样本
+    </view>
+    <view wx:else>
+      <view
+        class="sample-item"
+        wx:for="{{list}}"
+        wx:key="_id"
+        data-id="{{item._id}}"
+        bind:tap="onItemTap"
+      >
+        <view class="sample-item__row">
+          <view class="sample-item__label">样本编号</view>
+          <view class="sample-item__value">{{item.sampleNo}}</view>
+        </view>
+        <view class="sample-item__row">
+          <view class="sample-item__label">姓名</view>
+          <view class="sample-item__value">{{item.name}}</view>
+        </view>
+      </view>
+      <view class="sample-load-more" wx:if="{{loadingMore}}">
+        加载更多...
+      </view>
+      <view class="sample-load-more" wx:elif="{{!hasMore}}">
+        已加载全部
+      </view>
+    </view>
+  </view>
+
+  <t-action-sheet
+    visible="{{sampleVideoVisible}}"
+    items="{{actionItems}}"
+    bind:visible-change="onSampleVideoVisibleChange"
+    bind:selected="onSampleVideoSelect"
+  />
+  <t-action-sheet
+    visible="{{bindSampleVisible}}"
+    items="{{actionItems}}"
+    bind:visible-change="onBindSampleVisibleChange"
+    bind:selected="onBindSampleSelect"
+  />
+</view>

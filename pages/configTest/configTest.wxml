@@ -1,0 +1,156 @@
+<view class="config-test-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-title">签到页面配置管理</view>
+    <view class="header-desc">查看和管理签到页面的动态配置</view>
+  </view>
+
+  <!-- 当前配置显示 -->
+  <view class="current-config-section">
+    <view class="section-title">
+      <text class="title-text">当前配置</text>
+      <view class="title-actions">
+        <t-button size="small" variant="outline" bind:tap="onRefreshConfig">刷新</t-button>
+        <t-button size="small" variant="outline" bind:tap="onViewConfig">查看详情</t-button>
+      </view>
+    </view>
+    
+    <view wx:if="{{loading}}" class="loading-placeholder">
+      <t-loading theme="circular" size="40rpx" />
+      <text class="loading-text">加载中...</text>
+    </view>
+    
+    <view wx:else class="config-display">
+      <view class="config-item">
+        <text class="config-label">页面标题：</text>
+        <text class="config-value">{{config.pageInfo.title || '未设置'}}</text>
+      </view>
+      <view class="config-item">
+        <text class="config-label">页面副标题：</text>
+        <text class="config-value">{{config.pageInfo.subtitle || '未设置'}}</text>
+      </view>
+      <view class="config-item">
+        <text class="config-label">页面描述：</text>
+        <text class="config-value">{{config.pageInfo.description || '未设置'}}</text>
+      </view>
+      <view class="config-item">
+        <text class="config-label">表单字段数量：</text>
+        <text class="config-value">{{config.formFields.length}}个</text>
+      </view>
+      <view class="config-item">
+        <text class="config-label">按钮文本：</text>
+        <text class="config-value">{{config.buttonConfig.submitText || '未设置'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 字段配置管理 -->
+  <view class="fields-config-section">
+    <view class="section-title">
+      <text class="title-text">字段配置</text>
+    </view>
+    
+    <view wx:if="{{!loading && config}}" class="fields-list">
+      <view 
+        wx:for="{{config.formFields}}" 
+        wx:key="key" 
+        wx:for-item="field"
+        class="field-card {{field.visible ? '' : 'field-hidden'}}"
+      >
+        <view class="field-header">
+          <view class="field-info">
+            <view class="field-name">{{field.label}}</view>
+            <view class="field-meta">
+              <text class="field-type">{{field.type}}</text>
+              <text class="field-required {{field.required ? 'required' : 'optional'}}">
+                {{field.required ? '必填' : '可选'}}
+              </text>
+              <text class="field-status {{field.visible ? 'visible' : 'hidden'}}">
+                {{field.visible ? '显示' : '隐藏'}}
+              </text>
+            </view>
+          </view>
+          
+          <view class="field-actions">
+            <t-button 
+              size="small" 
+              variant="outline" 
+              bind:tap="onEditField"
+              data-index="{{index}}"
+            >
+              查看
+            </t-button>
+            <t-button 
+              size="small" 
+              theme="{{field.visible ? 'warning' : 'primary'}}" 
+              bind:tap="onToggleFieldVisible"
+              data-index="{{index}}"
+            >
+              {{field.visible ? '隐藏' : '显示'}}
+            </t-button>
+          </view>
+        </view>
+        
+        <view class="field-content">
+          <view class="field-detail">
+            <text class="detail-label">占位符：</text>
+            <text class="detail-value">{{field.placeholder || '无'}}</text>
+          </view>
+          <view wx:if="{{field.validation}}" class="field-detail">
+            <text class="detail-label">验证规则：</text>
+            <text class="detail-value">{{field.validation.errorMessage || '默认验证'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮区域 -->
+  <view class="action-section">
+    <view class="action-buttons">
+      <t-button 
+        theme="primary" 
+        size="large" 
+        bind:tap="onTestSignIn"
+        class="test-button"
+      >
+        测试签到页面
+      </t-button>
+      
+      <t-button 
+        variant="outline" 
+        size="large" 
+        bind:tap="onResetConfig"
+        class="reset-button"
+      >
+        重置为默认配置
+      </t-button>
+    </view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="help-section">
+    <view class="section-title">
+      <text class="title-text">使用说明</text>
+    </view>
+    
+    <view class="help-content">
+      <view class="help-item">
+        <text class="help-number">1</text>
+        <text class="help-text">查看当前配置信息和字段设置</text>
+      </view>
+      <view class="help-item">
+        <text class="help-number">2</text>
+        <text class="help-text">可以隐藏或显示特定字段来调整表单</text>
+      </view>
+      <view class="help-item">
+        <text class="help-number">3</text>
+        <text class="help-text">点击"测试签到页面"查看配置效果</text>
+      </view>
+      <view class="help-item">
+        <text class="help-number">4</text>
+        <text class="help-text">需要时可重置为默认配置</text>
+      </view>
+    </view>
+  </view>
+</view>

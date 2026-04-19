@@ -1,0 +1,241 @@
+/* 模板列表页面样式 */
+
+.template-list-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 0 24rpx;
+}
+
+/* 页面标题 */
+.page-header {
+  padding: 40rpx 0 32rpx;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+/* 错误状态 */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.error-icon {
+  margin-bottom: 24rpx;
+}
+
+.error-message {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.retry-button {
+  width: 200rpx;
+}
+
+/* 空状态 */
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.empty-icon {
+  margin-bottom: 24rpx;
+}
+
+.empty-message {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 列表内容 */
+.list-content {
+  padding-bottom: 40rpx;
+}
+
+/* 列表内容 */
+.list-container {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.list-item {
+  width: calc(100% -24rpx) !important;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-column {
+  flex: 1;
+  padding-right: 24rpx;
+}
+
+.right-column {
+  align-items: flex-start;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1.4;
+}
+
+.item-value {
+  font-size: 28rpx;
+  color: #666666;
+  text-align: right;
+}
+
+/* 加载更多 */
+.load-more-container {
+  padding: 40rpx 0;
+  text-align: center;
+}
+
+.loading-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.loading-text {
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.no-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-more-text {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+/* 响应式适配 */
+@media (max-width: 400px) {
+  .template-list-container {
+    padding: 0 16rpx;
+  }
+
+  .list-grid {
+    gap: 16rpx;
+  }
+
+  .list-item {
+    width: calc(50% - 8rpx);
+    margin-bottom: 16rpx;
+  }
+}
+
+/* 单列布局适配小屏幕 */
+@media (max-width: 320px) {
+  .list-item {
+    width: 100%;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: row;
+    height: 200rpx;
+  }
+
+  .image-container {
+    width: 200rpx;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
+  .content-area {
+    padding: 16rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .arrow-section {
+    position: static;
+    align-self: center;
+    margin-right: 16rpx;
+  }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .template-list-container {
+    background-color: #1a1a1a;
+  }
+
+  .page-title {
+    color: #ffffff;
+  }
+
+  .card-container {
+    background-color: #2a2a2a;
+    box-shadow: 0 4rpx 12rpx rgba(255, 255, 255, 0.05);
+  }
+
+  .item-title {
+    color: #ffffff;
+  }
+
+  .item-description {
+    color: #cccccc;
+  }
+
+  .placeholder-image {
+    background-color: #3a3a3a;
+  }
+
+  .error-message,
+  .loading-text {
+    color: #cccccc;
+  }
+
+  .empty-message,
+  .time-text,
+  .no-more-text {
+    color: #999999;
+  }
+}

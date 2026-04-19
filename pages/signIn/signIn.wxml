@@ -1,0 +1,209 @@
+<view class="signin-container">
+  <!-- 加载状态 -->
+  <view wx:if="{{configLoading}}" class="loading-container">
+    <view class="loading-content">
+      <t-loading theme="circular" size="40rpx" />
+      <text class="loading-text">加载配置中...</text>
+    </view>
+  </view>
+
+  <!-- 主要内容 -->
+  <view wx:else class="main-content">
+    <!-- Banner 图片部分 -->
+    <view class="banner-section">
+      <view class="banner-image">
+        <view class="banner-overlay">
+          <view class="banner-title">{{pageConfig.pageInfo.title || '每日签到'}}</view>
+          <view class="banner-subtitle">{{pageConfig.pageInfo.subtitle || '记录美好时光，获取专属奖励'}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 签到表单部分 -->
+    <view class="form-section">
+      <view class="form-container">
+        <view class="form-header">
+          <view class="form-title">签到信息</view>
+          <view class="form-desc">{{pageConfig.pageInfo.description || '请填写您的基本信息完成签到'}}</view>
+        </view>
+
+        <view class="form-content">
+          <!-- 动态表单字段 -->
+          <block wx:for="{{pageConfig.formFields}}" wx:key="key" wx:for-item="field">
+            <view wx:if="{{field.visible}}" class="input-group" style="order: {{field.order || 999}}">
+              <view class="input-label">
+                <text class="label-text">{{field.label}}</text>
+                <text wx:if="{{field.required}}" class="required-mark">*</text>
+              </view>
+              
+              <!-- 文本输入框 -->
+              <t-input 
+                wx:if="{{field.type === 'text'}}"
+                placeholder="{{field.placeholder}}" 
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                bind:clear="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-input"
+                maxlength="{{field.validation.maxLength || -1}}"
+              />
+              
+              <!-- 数字输入框 -->
+              <t-input 
+                wx:elif="{{field.type === 'number'}}"
+                placeholder="{{field.placeholder}}" 
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                bind:clear="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-input"
+                type="number"
+                maxlength="{{field.validation.maxLength || -1}}"
+              />
+              
+              <!-- 手机号输入框 -->
+              <t-input 
+                wx:elif="{{field.type === 'phone'}}"
+                placeholder="{{field.placeholder}}" 
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                bind:clear="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-input"
+                type="number"
+                maxlength="11"
+              />
+              
+              <!-- 邮箱输入框 -->
+              <t-input 
+                wx:elif="{{field.type === 'email'}}"
+                placeholder="{{field.placeholder}}" 
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                bind:clear="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-input"
+                type="text"
+              />
+              
+              <!-- 多行文本输入框 -->
+              <t-textarea 
+                wx:elif="{{field.type === 'textarea'}}"
+                placeholder="{{field.placeholder}}" 
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-textarea"
+                maxlength="{{field.validation.maxLength || -1}}"
+                autosize="{{true}}"
+              />
+              
+              <!-- 选择器 -->
+              <t-picker 
+                wx:elif="{{field.type === 'picker'}}"
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-picker"
+              >
+                <t-input 
+                  slot="trigger"
+                  placeholder="{{field.placeholder}}" 
+                  value="{{formData[field.key]}}"
+                  readonly
+                  class="custom-input"
+                />
+              </t-picker>
+              
+              <!-- 日期选择器 -->
+              <t-date-time-picker 
+                wx:elif="{{field.type === 'date'}}"
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                data-field="{{field.key}}"
+                mode="date"
+                class="custom-date-picker"
+              >
+                <t-input 
+                  slot="trigger"
+                  placeholder="{{field.placeholder}}" 
+                  value="{{formData[field.key]}}"
+                  readonly
+                  class="custom-input"
+                />
+              </t-date-time-picker>
+              
+              <!-- 开关 -->
+              <t-switch 
+                wx:elif="{{field.type === 'switch'}}"
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-switch"
+              />
+              
+              <!-- 单选框组 -->
+              <t-radio-group 
+                wx:elif="{{field.type === 'radio'}}"
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-radio-group"
+              >
+                <t-radio 
+                  wx:for="{{field.options}}" 
+                  wx:key="value" 
+                  wx:for-item="option"
+                  value="{{option.value}}"
+                  label="{{option.label}}"
+                />
+              </t-radio-group>
+              
+              <!-- 复选框组 -->
+              <t-checkbox-group 
+                wx:elif="{{field.type === 'checkbox'}}"
+                value="{{formData[field.key]}}"
+                bind:change="onInputChange"
+                data-field="{{field.key}}"
+                class="custom-checkbox-group"
+              >
+                <t-checkbox 
+                  wx:for="{{field.options}}" 
+                  wx:key="value" 
+                  wx:for-item="option"
+                  value="{{option.value}}"
+                  label="{{option.label}}"
+                />
+              </t-checkbox-group>
+            </view>
+          </block>
+        </view>
+
+        <!-- 确认按钮 -->
+        <view class="button-section">
+          <t-button 
+            theme="{{pageConfig.buttonConfig.theme || 'primary'}}" 
+            size="{{pageConfig.buttonConfig.size || 'large'}}"
+            bind:tap="onSubmit"
+            loading="{{submitting}}"
+            disabled="{{!canSubmit}}"
+            class="submit-button"
+          >
+            {{submitting ? (pageConfig.buttonConfig.submittingText || '签到中...') : (pageConfig.buttonConfig.submitText || '确认签到')}}
+          </t-button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 装饰元素 -->
+    <view wx:if="{{pageConfig.styleConfig.showDecorations}}" class="decoration-elements">
+      <view class="decoration-circle circle-1"></view>
+      <view class="decoration-circle circle-2"></view>
+      <view class="decoration-circle circle-3"></view>
+    </view>
+  </view>
+
+  <!-- Toast 消息 -->
+  <t-toast id="t-toast" />
+  <t-message id="t-message" />
+</view>

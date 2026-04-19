@@ -1,0 +1,130 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 渐变定义 -->
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="sunGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#F0F8FF;stop-opacity:0.7" />
+    </linearGradient>
+    
+    <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8FBC8F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#228B22;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景天空 -->
+  <rect width="400" height="300" fill="url(#skyGradient)"/>
+  
+  <!-- 太阳 -->
+  <circle cx="320" cy="60" r="25" fill="url(#sunGradient)" filter="url(#shadow)">
+    <animate attributeName="r" values="25;28;25" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- 太阳光芒 -->
+  <g transform="translate(320,60)">
+    <g opacity="0.6">
+      <line x1="-40" y1="0" x2="-50" y2="0" stroke="#FFD700" stroke-width="2"/>
+      <line x1="40" y1="0" x2="50" y2="0" stroke="#FFD700" stroke-width="2"/>
+      <line x1="0" y1="-40" x2="0" y2="-50" stroke="#FFD700" stroke-width="2"/>
+      <line x1="0" y1="40" x2="0" y2="50" stroke="#FFD700" stroke-width="2"/>
+      <line x1="-28" y1="-28" x2="-35" y2="-35" stroke="#FFD700" stroke-width="2"/>
+      <line x1="28" y1="-28" x2="35" y2="-35" stroke="#FFD700" stroke-width="2"/>
+      <line x1="-28" y1="28" x2="-35" y2="35" stroke="#FFD700" stroke-width="2"/>
+      <line x1="28" y1="28" x2="35" y2="35" stroke="#FFD700" stroke-width="2"/>
+    </g>
+    <animateTransform attributeName="transform" type="rotate" values="0 320 60;360 320 60" dur="20s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- 云朵1 -->
+  <g opacity="0.8">
+    <ellipse cx="80" cy="50" rx="25" ry="15" fill="url(#cloudGradient)"/>
+    <ellipse cx="95" cy="45" rx="20" ry="12" fill="url(#cloudGradient)"/>
+    <ellipse cx="110" cy="50" rx="18" ry="10" fill="url(#cloudGradient)"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;20,0;0,0" dur="15s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- 云朵2 -->
+  <g opacity="0.6">
+    <ellipse cx="200" cy="40" rx="20" ry="12" fill="url(#cloudGradient)"/>
+    <ellipse cx="215" cy="35" rx="15" ry="9" fill="url(#cloudGradient)"/>
+    <ellipse cx="225" cy="40" rx="12" ry="8" fill="url(#cloudGradient)"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;-15,0;0,0" dur="12s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- 远山 -->
+  <polygon points="0,180 100,120 200,140 300,100 400,130 400,300 0,300" fill="url(#mountainGradient)" opacity="0.7"/>
+  
+  <!-- 近山 -->
+  <polygon points="0,220 80,160 160,180 240,140 320,170 400,150 400,300 0,300" fill="url(#mountainGradient)"/>
+  
+  <!-- 签到图标 -->
+  <g transform="translate(200,150)">
+    <!-- 日历背景 -->
+    <rect x="-30" y="-25" width="60" height="50" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" filter="url(#shadow)"/>
+    
+    <!-- 日历顶部 -->
+    <rect x="-30" y="-25" width="60" height="12" rx="8" fill="#667eea"/>
+    
+    <!-- 日历孔 -->
+    <circle cx="-15" cy="-19" r="2" fill="#FFFFFF"/>
+    <circle cx="15" cy="-19" r="2" fill="#FFFFFF"/>
+    
+    <!-- 日期数字 -->
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">签</text>
+    <text x="0" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">到</text>
+    
+    <!-- 勾选标记 -->
+    <g transform="translate(20,-15)">
+      <circle r="8" fill="#4CAF50"/>
+      <path d="M-3,0 L-1,2 L3,-2" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+  
+  <!-- 装饰性星星 -->
+  <g opacity="0.7">
+    <g transform="translate(50,80)">
+      <polygon points="0,-8 2,-2 8,-2 3,1 5,7 0,4 -5,7 -3,1 -8,-2 -2,-2" fill="#FFD700">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+      </polygon>
+    </g>
+    
+    <g transform="translate(350,120)">
+      <polygon points="0,-6 1.5,-1.5 6,-1.5 2.25,0.75 3.75,5.25 0,3 -3.75,5.25 -2.25,0.75 -6,-1.5 -1.5,-1.5" fill="#FFD700">
+        <animateTransform attributeName="transform" type="rotate" values="0;-360" dur="10s" repeatCount="indefinite"/>
+      </polygon>
+    </g>
+    
+    <g transform="translate(150,90)">
+      <polygon points="0,-4 1,-1 4,-1 1.5,0.5 2.5,3.5 0,2 -2.5,3.5 -1.5,0.5 -4,-1 -1,-1" fill="#FFD700">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="6s" repeatCount="indefinite"/>
+      </polygon>
+    </g>
+  </g>
+  
+  <!-- 飞鸟 -->
+  <g opacity="0.6">
+    <g transform="translate(120,70)">
+      <path d="M0,0 Q-5,-3 -10,0 Q-5,3 0,0" fill="#333" opacity="0.5"/>
+      <path d="M5,0 Q0,-3 -5,0 Q0,3 5,0" fill="#333" opacity="0.5"/>
+      <animateTransform attributeName="transform" type="translate" values="120,70;280,60;120,70" dur="25s" repeatCount="indefinite"/>
+    </g>
+  </g>
+  
+  <!-- 底部装饰波浪 -->
+  <path d="M0,250 Q100,240 200,250 T400,250 L400,300 L0,300 Z" fill="rgba(255,255,255,0.1)"/>
+</svg>

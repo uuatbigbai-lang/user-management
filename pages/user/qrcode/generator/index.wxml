@@ -1,0 +1,77 @@
+<!--pages/user/qrcode/generator/index.wxml-->
+<view class="qrcode-container">
+<!-- 主内容区域 -->
+  <view class="content">
+    <!-- 加载状态 -->
+    <view wx:if="{{isLoading}}" class="loading-container">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">正在生成二维码...</text>
+    </view>
+
+    <!-- 二维码展示区域 -->
+    <view wx:else class="qrcode-section">
+      <!-- 标题和说明 -->
+      <view class="header-section">
+        <view class="title">扫码邀请</view>
+        <view class="subtitle">使用微信扫一扫，快速注册</view>
+      </view>
+
+      <!-- 二维码卡片 -->
+      <view class="qrcode-card">
+        <view class="qrcode-wrapper">
+          <!-- Canvas用于生成二维码 -->
+         <!-- 使用 canvas 组件，注意 type="2d" -->
+          <canvas 
+            type="2d"
+            id="myCanvas" 
+            style="width: 300px; height: 300px; border: 1px solid #ccc;"
+          ></canvas>
+
+          <!-- 备用：直接显示图片 -->
+          <image wx:if="{{qrCodeImage}}" src="{{qrCodeImage}}" mode="widthFix" style="width: 300px;"></image>
+          <!-- 显示生成的二维码图片 -->
+         
+        </view>
+      </view>
+
+      <!-- 操作按钮区域 -->
+      <view class="action-section">
+        <view class="action-buttons">
+          <button class="action-btn save-btn" bindtap="saveBase64ToPhotosAlbum">
+            <text class="btn-icon">📁</text>
+            <text class="btn-text">保存到相册</text>
+          </button>
+        
+        </view>
+      </view>
+
+      <!-- 使用说明 -->
+      <view class="usage-section">
+        <view class="usage-title">使用说明</view>
+        <view class="usage-list">
+          <view class="usage-item">
+            <text class="usage-number">1</text>
+            <text class="usage-text">打开微信，点击右上角"+"号</text>
+          </view>
+          <view class="usage-item">
+            <text class="usage-number">2</text>
+            <text class="usage-text">选择"扫一扫"功能</text>
+          </view>
+          <view class="usage-item">
+            <text class="usage-number">3</text>
+            <text class="usage-text">对准二维码扫描即可注册</text>
+          </view>
+          <view class="usage-item">
+            <text class="usage-number">4</text>
+            <text class="usage-text">若对方未注册小程序，即可成功成为您名下会员</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer">
+    <text class="footer-text">二维码有效期为永久有效</text>
+  </view>
+</view>

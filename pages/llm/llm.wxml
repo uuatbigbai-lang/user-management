@@ -1,0 +1,5 @@
+<!--pages/llm.wxml-->
+<view>
+  <agent-ui agentConfig="{{agentConfig}}" showBotAvatar="{{showBotAvatar}}" chatMode="{{chatMode}}" modelConfig="{{modelConfig}}" envShareConfig="{{envShareConfig}}">
+  </agent-ui>
+</view>

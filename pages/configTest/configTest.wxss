@@ -1,0 +1,401 @@
+/* pages/configTest/configTest.wxss */
+page {
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+.config-test-container {
+  padding: 40rpx;
+  min-height: 100vh;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+
+.header-desc {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  line-height: 1.5;
+}
+
+/* 通用区块样式 */
+.current-config-section,
+.test-configs-section,
+.action-section,
+.help-section {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+/* 区块标题 */
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #ecf0f1;
+}
+
+.title-text {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  letter-spacing: 1rpx;
+}
+
+.title-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+/* 当前配置显示 */
+.loading-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  margin-top: 24rpx;
+}
+
+.config-display {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.config-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  border-left: 6rpx solid #3498db;
+}
+
+.config-label {
+  font-size: 28rpx;
+  color: #34495e;
+  font-weight: 500;
+  min-width: 200rpx;
+}
+
+.config-value {
+  font-size: 28rpx;
+  color: #2c3e50;
+  flex: 1;
+}
+
+/* 字段配置管理 */
+.fields-config-section {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.fields-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.field-card {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 2rpx solid #ecf0f1;
+  transition: all 0.3s ease;
+}
+
+.field-card.field-hidden {
+  opacity: 0.6;
+  background: #f1f3f4;
+  border-style: dashed;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.field-info {
+  flex: 1;
+}
+
+.field-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 8rpx;
+}
+
+.field-meta {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.field-type {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  background: #e8f4fd;
+  color: #3498db;
+  border: 1rpx solid #3498db;
+}
+
+.field-required {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  border: 1rpx solid;
+}
+
+.field-required.required {
+  background: #fef2f2;
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.field-required.optional {
+  background: #f0f9ff;
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.field-status {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  border: 1rpx solid;
+}
+
+.field-status.visible {
+  background: #f0f9ff;
+  color: #2ed573;
+  border-color: #2ed573;
+}
+
+.field-status.hidden {
+  background: #fff5f5;
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.field-actions {
+  display: flex;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.field-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.field-detail {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: #7f8c8d;
+  min-width: 120rpx;
+}
+
+.detail-value {
+  font-size: 24rpx;
+  color: #2c3e50;
+  flex: 1;
+}
+
+/* 操作按钮区域 */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.test-button,
+.reset-button {
+  width: 100%;
+  --td-button-default-height: 96rpx;
+  --td-button-default-font-size: 32rpx;
+  --td-button-border-radius: 48rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+
+.test-button {
+  --td-button-primary-bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --td-button-primary-border-color: transparent;
+  box-shadow: 0 12rpx 24rpx rgba(102, 126, 234, 0.3);
+}
+
+.reset-button {
+  --td-button-default-border-color: #bdc3c7;
+  --td-button-default-color: #7f8c8d;
+}
+
+/* 使用说明 */
+.help-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.help-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+}
+
+.help-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 24rpx;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.help-text {
+  font-size: 28rpx;
+  color: #34495e;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .config-test-container {
+    padding: 30rpx 20rpx;
+  }
+  
+  .current-config-section,
+  .test-configs-section,
+  .action-section,
+  .help-section {
+    padding: 30rpx 24rpx;
+  }
+  
+  .header-title {
+    font-size: 40rpx;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+  }
+  
+  .action-buttons {
+    gap: 20rpx;
+  }
+}
+
+/* 动画效果 */
+.config-card {
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.current-config-section {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  page {
+    background: #1a1a1a;
+  }
+  
+  .current-config-section,
+  .test-configs-section,
+  .action-section,
+  .help-section {
+    background: #2c2c2c;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .header-title,
+  .title-text,
+  .card-title,
+  .config-value {
+    color: #fff;
+  }
+  
+  .header-desc,
+  .loading-text,
+  .card-desc,
+  .config-label,
+  .preview-label,
+  .help-text {
+    color: #bbb;
+  }
+  
+  .config-item,
+  .config-card,
+  .help-item {
+    background: #3c3c3c;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .section-title {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+}

@@ -1,0 +1,74 @@
+<!--模板列表页面-->
+<view class="template-list-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">{{title}}</text>
+    <view
+      wx:for="{{subtitle}}"
+      wx:key="id"
+      data-item="{{item}}"
+    >
+      {{item}}
+    </view>
+  </view>
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <t-loading theme="circular" size="40rpx" text="加载中..." />
+  </view>
+  <!-- 错误状态 -->
+  <view wx:elif="{{error}}" class="error-container">
+    <view class="error-icon">
+      <t-icon name="error-circle" size="80rpx" color="#E34D59" />
+    </view>
+    <text class="error-message">{{errorMessage}}</text>
+    <t-button
+      theme="primary"
+      size="medium"
+      class="retry-button"
+      bind:tap="onRetry">
+      重试
+    </t-button>
+  </view>
+  <!-- 列表内容 -->
+  <view wx:else class="list-content">
+    <!-- 空状态 -->
+    <view wx:if="{{listData.length === 0}}" class="empty-container">
+      <view class="empty-icon">
+        <t-icon name="file" size="80rpx" color="#BBBBBB" />
+      </view>
+      <text class="empty-message">暂无数据</text>
+    </view>
+    <!-- 列表数据 - 左右布局 -->
+    <view wx:else class="list-container">
+      <view
+        wx:for="{{listData}}"
+        wx:key="id"
+        class="list-item"
+        data-item="{{item}}"
+        bind:tap="onItemClick">
+        <view class="item-content">
+          <view class="left-column">
+            <text class="item-title">{{item.title || '无标题'}}</text>
+          </view>
+          <view class="right-column">
+            <text class="item-value">{{item.value1 || ''}}</text>
+            <text class="item-value">{{item.value2 || ''}}</text>
+            <text class="item-value">{{item.value3 || ''}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 加载更多 -->
+    <view wx:if="{{listData.length > 0}}" class="load-more-container">
+      <view wx:if="{{loadingMore}}" class="loading-more">
+        <t-loading theme="circular" size="32rpx" />
+        <text class="loading-text">加载更多...</text>
+      </view>
+      <view wx:elif="{{!hasMore}}" class="no-more">
+        <text class="no-more-text">没有更多数据了</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- Toast 组件 -->
+<t-toast id="t-toast" />

@@ -1,0 +1,345 @@
+/* pages/user/qrcode/generator/index.wxss */
+
+/* 页面容器 */
+.qrcode-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 32rpx;
+  padding-top: calc(20rpx + var(--status-bar-height, 44rpx));
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10rpx);
+}
+
+.nav-left {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.nav-title {
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.nav-right {
+  width: 80rpx;
+}
+
+/* 主内容区域 */
+.content {
+  flex: 1;
+  padding: 40rpx 32rpx;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 600rpx;
+}
+
+.loading-spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid rgba(255, 255, 255, 0.3);
+  border-top: 6rpx solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #fff;
+  font-size: 28rpx;
+  margin-top: 32rpx;
+}
+
+/* 二维码展示区域 */
+.qrcode-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 标题区域 */
+.header-section {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.title {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 700;
+  margin-bottom: 16rpx;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+/* 二维码卡片 */
+.qrcode-card {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 60rpx 40rpx;
+  margin-bottom: 60rpx;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qrcode-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+}
+
+.qrcode-canvas {
+  pointer-events: none;
+}
+
+.qrcode-image {
+  width: 280rpx;
+  height: 280rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+
+.qrcode-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60rpx;
+  height: 60rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.logo-text {
+  font-size: 20rpx;
+  color: #666;
+  font-weight: 600;
+}
+
+.qrcode-info {
+  text-align: center;
+}
+
+.info-text {
+  color: #999;
+  font-size: 24rpx;
+}
+
+/* 操作按钮区域 */
+.action-section {
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 24rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 96rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.save-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(10rpx);
+}
+
+.save-btn:active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.98);
+}
+
+.share-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+}
+
+.share-btn:active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  font-size: 32rpx;
+}
+
+.btn-text {
+  font-size: 28rpx;
+}
+
+/* 使用说明 */
+.usage-section {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx;
+  backdrop-filter: blur(10rpx);
+}
+
+.usage-title {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 32rpx;
+  text-align: center;
+}
+
+.usage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.usage-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.usage-number {
+  width: 48rpx;
+  height: 48rpx;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.usage-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 26rpx;
+  line-height: 1.4;
+}
+
+/* 底部提示 */
+.footer {
+  padding: 32rpx;
+  text-align: center;
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 24rpx;
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .title {
+    font-size: 44rpx;
+  }
+  
+  .qrcode-image {
+    width: 240rpx;
+    height: 240rpx;
+  }
+  
+  .qrcode-card {
+    padding: 40rpx 24rpx;
+  }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .qrcode-card {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* 动画效果 */
+.qrcode-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.action-buttons {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.usage-section {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 长按效果 */
+.qrcode-image {
+  transition: transform 0.2s ease;
+}
+
+.qrcode-image:active {
+  transform: scale(0.98);
+}
+
+/* 安全区域适配 */
+.qrcode-container {
+  padding-bottom: env(safe-area-inset-bottom);
+}

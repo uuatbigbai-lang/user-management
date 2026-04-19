@@ -1,0 +1,150 @@
+<view class="register-page">
+  <view class="register-header">
+    <t-button theme="primary" block size="large" bind:tap="onSampleVideoTap">
+      采样视频
+    </t-button>
+  </view>
+
+  <view class="register-form">
+    <view class="form-item">
+      <view class="form-title">样本编号<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入样本编号"
+        value="{{form.sampleNo}}"
+        bind:change="onInputChange"
+        data-key="sampleNo"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">姓名<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入姓名"
+        value="{{form.name}}"
+        bind:change="onInputChange"
+        data-key="name"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">年龄<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入年龄"
+        type="number"
+        value="{{form.age}}"
+        bind:change="onInputChange"
+        data-key="age"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">性别<text class="required">*</text></view>
+      <t-radio-group
+        value="{{form.gender}}"
+        bind:change="onInputChange"
+        data-key="gender"
+        class="radio-group"
+      >
+        <t-radio
+          wx:for="{{genderOptions}}"
+          wx:key="value"
+          value="{{item.value}}"
+          label="{{item.label}}"
+        />
+      </t-radio-group>
+    </view>
+    <view class="form-item">
+      <view class="form-title">手机号<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入手机号"
+        type="number"
+        value="{{form.phone}}"
+        bind:change="onInputChange"
+        data-key="phone"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">城市<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入城市"
+        value="{{form.city}}"
+        bind:change="onInputChange"
+        data-key="city"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">身高（厘米）<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入身高"
+        type="number"
+        value="{{form.height}}"
+        bind:change="onInputChange"
+        data-key="height"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">体重（公斤）<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入体重"
+        type="number"
+        value="{{form.weight}}"
+        bind:change="onInputChange"
+        data-key="weight"
+      />
+    </view>
+    <view class="form-item" wx:if="{{showAntibiotics}}">
+      <view class="form-title">
+        两周内是否使用过抗生素、止泻药或者导泻药等影响肠道菌群的药物？若是用过，会影响检测结果的精准性，建议超过两周后再来检测。
+        <text class="required">*</text>
+      </view>
+      <t-radio-group
+        value="{{form.antibiotics}}"
+        bind:change="onInputChange"
+        data-key="antibiotics"
+        class="radio-group"
+      >
+        <t-radio
+          wx:for="{{antibioticsOptions}}"
+          wx:key="value"
+          value="{{item.value}}"
+          label="{{item.label}}"
+        />
+      </t-radio-group>
+    </view>
+    <view class="form-item">
+      <view class="form-title">您是从哪个渠道获得检测盒?<text class="required">*</text></view>
+      <t-input
+        class="form-input"
+        placeholder="请输入渠道"
+        value="{{form.channel}}"
+        bind:change="onInputChange"
+        data-key="channel"
+      />
+    </view>
+    <view class="form-item">
+      <view class="form-title">备注（主诉）<text class="required">*</text></view>
+      <t-textarea
+        class="form-textarea"
+        placeholder="请输入备注"
+        value="{{form.remark}}"
+        bind:change="onInputChange"
+        data-key="remark"
+      />
+    </view>
+  </view>
+  <view class="register-actions">
+    <t-button
+      theme="primary"
+      block
+      size="large"
+      loading="{{submitting}}"
+      bind:tap="onSubmit"
+    >
+      保存
+    </t-button>
+  </view>
+</view>
