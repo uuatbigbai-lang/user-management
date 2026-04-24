@@ -249,8 +249,8 @@ Page({
       Dialog.confirm({
         title: '商品库存不足',
         content: `当前商品库存不足，最大可购买数量为${stockQuantity}件`,
-        confirmBtn: '修改为最大可购买数量',
-        cancelBtn: '取消',
+        confirmBtn: { content: '修改为最大可购买数量', variant: 'base', style: 'color: #5aaa6e' },
+        cancelBtn: { content: '取消', variant: 'base', style: 'color: #a3b5a6' },
       })
         .then(() => {
           this.changeQuantityService({
@@ -291,8 +291,8 @@ Page({
     } = e.detail;
     Dialog.confirm({
       content: '确认删除该商品吗?',
-      confirmBtn: '确定',
-      cancelBtn: '取消',
+      confirmBtn: { content: '确定', variant: 'base', style: 'color: #5aaa6e' },
+      cancelBtn: { content: '取消', variant: 'base', style: 'color: #a3b5a6' },
     }).then(() => {
       wx.cloud.callFunction({
         name: 'fetchCart',

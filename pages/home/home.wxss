@@ -1,107 +1,661 @@
+/* ========== 小清新益生菌首页样式 ========== */
 page {
+  background: #f8faf5;
   box-sizing: border-box;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 96rpx);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 120rpx);
+  --green-primary: #5aaa6e;
+  --green-light: #e8f5e9;
+  --green-dark: #3d8b4f;
+  --text-main: #2d3a2e;
+  --text-sub: #7a8a7c;
+  --text-light: #a3b5a6;
+  --bg-card: #ffffff;
 }
 
-.t-tabs.t-tabs--top .t-tabs__scroll {
-  border-bottom: none !important;
+.page {
+  min-height: 100vh;
 }
 
-.home-page-header {
-  background: linear-gradient(#fff, #f5f5f5);
+/* ========== Loading ========== */
+.loading-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  color: var(--text-light);
 }
 
-.home-page-container {
-  background: #f5f5f5;
+/* ========== Hero Banner ========== */
+.hero {
+  position: relative;
+  padding: 80rpx 48rpx 60rpx;
+  overflow: hidden;
 }
 
-.home-page-container,
-.home-page-header {
-  display: block;
-  padding: 0 24rpx;
+.hero-bg {
+  position: absolute;
+  top: -60rpx;
+  left: -40rpx;
+  right: -40rpx;
+  bottom: -40rpx;
+  background: linear-gradient(160deg, #e8f5e9 0%, #c8e6c9 30%, #a5d6a7 60%, #e8f5e9 100%);
+  border-radius: 0 0 60rpx 60rpx;
+  z-index: 0;
 }
 
-.home-page-header .t-search__input-container {
-  border-radius: 32rpx !important;
-  height: 64rpx !important;
+/* ========== 装饰圆形 - 层次感 ========== */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
 }
 
-.home-page-header .t-search__input {
-  font-size: 28rpx !important;
-  color: rgb(116, 116, 116) !important;
+.deco-c1 {
+  width: 280rpx;
+  height: 280rpx;
+  top: -60rpx;
+  right: -40rpx;
+  background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 70%);
 }
 
-.home-page-header .swiper-wrap {
-  margin-top: 20rpx;
+.deco-c2 {
+  width: 180rpx;
+  height: 180rpx;
+  bottom: 20rpx;
+  left: -30rpx;
+  background: radial-gradient(circle, rgba(90,170,110,0.1) 0%, transparent 70%);
 }
 
-.home-page-header .t-image__swiper {
-  width: 100%;
-  height: 300rpx;
-  border-radius: 10rpx;
+.deco-c3 {
+  width: 120rpx;
+  height: 120rpx;
+  top: 50rpx;
+  right: 140rpx;
+  background: rgba(255,255,255,0.18);
 }
 
-.home-page-container .t-tabs {
-  background: #f5f5f5 !important;
+.deco-c4 {
+  width: 200rpx;
+  height: 200rpx;
+  bottom: -50rpx;
+  right: 60rpx;
+  background: radial-gradient(circle, rgba(168,213,174,0.25) 0%, transparent 65%);
 }
 
-.home-page-container .t-tabs .t-tabs-nav {
-  background-color: transparent;
-  line-height: 80rpx;
-  font-size: 28rpx;
-  color: #333;
+/* 装饰圆环 */
+.deco-ring {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+  border: 2rpx solid rgba(255,255,255,0.35);
+  background: transparent;
 }
 
-.home-page-container .t-tabs .t-tabs-scroll {
-  border: none !important;
+.deco-r1 {
+  width: 160rpx;
+  height: 160rpx;
+  top: 30rpx;
+  right: 40rpx;
 }
 
-/* 半个字 */
-.home-page-container .tab.order-nav .order-nav-item.scroll-width {
-  min-width: 165rpx;
-}
-.home-page-container .tab .order-nav-item.active {
-  color: #fa550f !important;
-}
-
-.home-page-container .tab .bottom-line {
-  border-radius: 4rpx;
+.deco-r2 {
+  width: 100rpx;
+  height: 100rpx;
+  bottom: 40rpx;
+  left: 80rpx;
+  border-color: rgba(90,170,110,0.15);
 }
 
-.home-page-container .tab .order-nav-item.active .bottom-line {
-  background-color: #fa550f !important;
+/* 装饰小圆点 */
+.deco-dot {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+  background: rgba(255,255,255,0.5);
 }
 
-.home-page-container .tabs-external__item {
-  /* color: #666 !important; */
-  font-size: 28rpx;
+.deco-d1 {
+  width: 16rpx;
+  height: 16rpx;
+  top: 100rpx;
+  right: 100rpx;
 }
 
-.home-page-container .tabs-external__active {
-  color: #333333 !important;
+.deco-d2 {
+  width: 12rpx;
+  height: 12rpx;
+  top: 60rpx;
+  left: 180rpx;
+  background: rgba(90,170,110,0.2);
+}
+
+.deco-d3 {
+  width: 20rpx;
+  height: 20rpx;
+  bottom: 60rpx;
+  right: 200rpx;
+  background: rgba(255,255,255,0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Hero Title Row ========== */
+.hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.logo {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(90, 170, 110, 0.15);
+  flex-shrink: 0;
 }
 
-.home-page-container .tabs-external__track {
-  /* background-color: #fa4126 !important; */
-  height: 6rpx !important;
-  border-radius: 4rpx !important;
-  width: 48rpx !important;
+.hero-title {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 4rpx;
 }
 
-.t-tabs.t-tabs--top .t-tabs__item,
-.t-tabs.t-tabs--bottom .t-tabs__item {
-  height: 86rpx !important;
+.brand-tag {
+  font-size: 22rpx;
+  color: var(--green-primary);
+  letter-spacing: 6rpx;
+  margin-bottom: 16rpx;
 }
 
-.home-page-container .goods-list-container {
-  background: #f5f5f5 !important;
-  margin-top: 16rpx;
+.hero-subtitle {
+  font-size: 28rpx;
+  color: var(--green-dark);
+  font-weight: 500;
+  margin-bottom: 28rpx;
+  letter-spacing: 2rpx;
 }
 
-.home-page-tabs {
-  --td-tab-nav-bg-color: transparent;
-  --td-tab-border-color: transparent;
-  --td-tab-item-color: #666;
-  --td-tab-track-color: red;
+.hero-desc {
+  font-size: 24rpx;
+  color: var(--text-sub);
+  line-height: 1.8;
+  max-width: 580rpx;
+}
+
+/* ========== Section Header ========== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 36rpx;
+}
+
+.section-line {
+  width: 56rpx;
+  height: 2rpx;
+  background: var(--green-primary);
+  opacity: 0.4;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0 24rpx;
+  letter-spacing: 4rpx;
+}
+
+/* ========== 公司理念 ========== */
+.philosophy-section {
+  padding: 56rpx 40rpx 40rpx;
+}
+
+.philosophy-cards {
+  display: flex;
+  gap: 20rpx;
+}
+
+.phi-card {
+  flex: 1;
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  padding: 32rpx 16rpx 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4rpx 24rpx rgba(90, 170, 110, 0.08);
+}
+
+.phi-icon {
+  font-size: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.phi-label {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 8rpx;
+}
+
+.phi-desc {
+  font-size: 20rpx;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ========== 产品列表 ========== */
+.products-section {
+  padding: 40rpx 40rpx 20rpx;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 32rpx rgba(90, 170, 110, 0.08);
+  transition: transform 0.2s;
+}
+
+.product-card:active {
+  transform: scale(0.985);
+}
+
+.product-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 360rpx;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f7f1, #e8f5e9);
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-badge {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #fff;
+  font-size: 20rpx;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.product-info {
+  padding: 28rpx 32rpx 32rpx;
+}
+
+.product-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.product-brief {
+  font-size: 22rpx;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 24rpx;
+  line-height: 1.6;
+}
+
+.product-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-price {
+  display: flex;
+  align-items: baseline;
+}
+
+.price-symbol {
+  font-size: 22rpx;
+  color: var(--green-primary);
+  font-weight: 600;
+  margin-right: 2rpx;
+}
+
+.price-num {
+  font-size: 40rpx;
+  color: var(--green-primary);
+  font-weight: 700;
+  letter-spacing: 1rpx;
+}
+
+/* ========== 高级感详情按钮 ========== */
+.detail-btn {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 14rpx 28rpx 14rpx 32rpx;
+  background: linear-gradient(135deg, #eef7ef 0%, #dceedd 100%);
+  border-radius: 40rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1rpx solid rgba(90, 170, 110, 0.2);
+  border-radius: 40rpx;
+  pointer-events: none;
+}
+
+.detail-btn:active {
+  background: linear-gradient(135deg, #dceedd 0%, #c8e6c9 100%);
+}
+
+.detail-btn-text {
+  font-size: 22rpx;
+  color: var(--green-dark);
+  font-weight: 500;
+  letter-spacing: 2rpx;
+  white-space: nowrap;
+}
+
+.detail-btn-arrow {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 36rpx;
+  height: 20rpx;
+}
+
+.arrow-line {
+  position: absolute;
+  width: 28rpx;
+  height: 2rpx;
+  background: var(--green-dark);
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 2rpx;
+}
+
+.arrow-head {
+  position: absolute;
+  right: 0;
+  width: 12rpx;
+  height: 12rpx;
+  border-top: 2rpx solid var(--green-dark);
+  border-right: 2rpx solid var(--green-dark);
+  transform: rotate(45deg);
+  top: 50%;
+  margin-top: -6rpx;
+}
+
+/* ========== 营养学堂入口 ========== */
+.nutrition-section {
+  padding: 8rpx 40rpx 0;
+}
+
+.nutrition-card {
+  position: relative;
+  border-radius: 24rpx;
+  overflow: hidden;
+  padding: 32rpx 32rpx 28rpx;
+}
+
+.nutrition-card:active {
+  opacity: 0.92;
+}
+
+.nutrition-card-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #5aaa6e 0%, #3d8b4f 100%);
+  z-index: 0;
+}
+
+.nutrition-card-bg::after {
+  content: '';
+  position: absolute;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+  top: -60rpx;
+  right: -40rpx;
+}
+
+.nutrition-card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nutrition-top-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  flex: 1;
+}
+
+.nutrition-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.nutrition-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.nutrition-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2rpx;
+}
+
+.nutrition-tip {
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1rpx;
+}
+
+.nutrition-enter {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 10rpx 24rpx;
+  background: rgba(255,255,255,0.2);
+  border-radius: 32rpx;
+  flex-shrink: 0;
+  border: 1rpx solid rgba(255,255,255,0.25);
+}
+
+.nutrition-enter-text {
+  font-size: 22rpx;
+  color: #ffffff;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+  white-space: nowrap;
+}
+
+.nutrition-enter-arrow {
+  font-size: 24rpx;
+  color: #ffffff;
+}
+
+/* ========== 关于我们 ========== */
+.about-section {
+  padding: 40rpx 40rpx 20rpx;
+}
+
+.about-card {
+  background: linear-gradient(170deg, #ffffff 0%, #f0f7f1 100%);
+  border-radius: 28rpx;
+  padding: 48rpx 36rpx 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(90, 170, 110, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::after {
+  content: '';
+  position: absolute;
+  top: -80rpx;
+  right: -80rpx;
+  width: 240rpx;
+  height: 240rpx;
+  background: radial-gradient(circle, rgba(90, 170, 110, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.about-top {
+  margin-bottom: 24rpx;
+}
+
+.about-label {
+  font-size: 20rpx;
+  color: var(--text-light);
+  letter-spacing: 6rpx;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.about-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  display: block;
+  letter-spacing: 2rpx;
+}
+
+.about-desc {
+  font-size: 24rpx;
+  color: var(--text-sub);
+  line-height: 1.9;
+  display: block;
+  margin-bottom: 36rpx;
+}
+
+.about-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40rpx;
+  padding: 28rpx 0;
+  border-top: 1rpx solid rgba(90, 170, 110, 0.12);
+  border-bottom: 1rpx solid rgba(90, 170, 110, 0.12);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-num {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--green-primary);
+  margin-bottom: 6rpx;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: var(--text-light);
+}
+
+/* ========== 了解更多按钮 - 高级感 ========== */
+.about-enter {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.about-enter-inner {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 20rpx 56rpx;
+  background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-dark) 100%);
+  border-radius: 48rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.about-enter:active .about-enter-inner {
+  opacity: 0.9;
+  transform: scale(0.97);
+}
+
+.about-enter-text {
+  font-size: 26rpx;
+  color: #ffffff;
+  font-weight: 500;
+  letter-spacing: 4rpx;
+}
+
+.about-enter-icon {
+  font-size: 28rpx;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.about-enter-glow {
+  position: absolute;
+  top: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200rpx;
+  height: 100%;
+  background: radial-gradient(ellipse, rgba(90, 170, 110, 0.25) 0%, transparent 70%);
+  filter: blur(12rpx);
+  z-index: 0;
+}
+
+/* ========== Footer ========== */
+.footer {
+  padding: 48rpx 40rpx 32rpx;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 20rpx;
+  color: var(--text-light);
+  letter-spacing: 2rpx;
 }

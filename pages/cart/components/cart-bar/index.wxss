@@ -23,13 +23,13 @@
 
 .cart-bar {
   height: 112rpx;
-  background-color: #fff;
-  border-top: 1rpx solid #e5e5e5;
+  background-color: #ffffff;
+  border-top: 1rpx solid rgba(90, 170, 110, 0.12);
   padding: 16rpx 32rpx;
   box-sizing: border-box;
   font-size: 24rpx;
   line-height: 36rpx;
-  color: #333;
+  color: #2d3a2e;
 }
 
 .cart-bar .cart-bar__check {
@@ -44,34 +44,36 @@
   width: 192rpx;
   height: 80rpx;
   border-radius: 40rpx;
-  background-color: #fa4126;
+  background: linear-gradient(135deg, #5aaa6e 0%, #3d8b4f 100%);
   font-size: 28rpx;
   font-weight: bold;
   line-height: 80rpx;
   color: #ffffff;
   text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(90, 170, 110, 0.25);
 }
 .cart-bar .disabled-btn {
-  background-color: #cccccc !important;
+  background: #c8d8cb !important;
+  box-shadow: none !important;
 }
 .cart-bar .hover-btn {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 .cart-bar__total .cart-bar__total--bold {
   font-size: 28rpx;
   line-height: 40rpx;
-  color: #333;
+  color: #2d3a2e;
   font-weight: bold;
 }
 .cart-bar__total .cart-bar__total--normal {
   font-size: 24rpx;
   line-height: 32rpx;
-  color: #999;
+  color: #a3b5a6;
 }
 
 .cart-bar__total .cart-bar__total--price {
-  color: #fa4126;
+  color: #5aaa6e;
   font-weight: bold;
 }
 

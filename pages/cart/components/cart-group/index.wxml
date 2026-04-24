@@ -50,7 +50,7 @@
             <view class="check-wrap" catchtap="selectGoods" data-goods="{{goods}}">
               <t-icon
                 size="40rpx"
-                color="{{goods.isSelected ? '#FA4126' : '#BBBBBB'}}"
+                color="{{goods.isSelected ? '#5aaa6e' : '#c8d8cb'}}"
                 name="{{goods.isSelected ? 'check-circle-filled' : 'circle'}}"
                 class="check"
               />

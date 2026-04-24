@@ -260,6 +260,12 @@ Page({
     }
   },
 
+  navToPromotion() {
+    wx.navigateTo({
+      url: '/pages/promotion-share/index',
+    });
+  },
+
   getVersionInfo() {
     const versionInfo = wx.getAccountInfoSync();
     const {

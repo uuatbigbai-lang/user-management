@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "报告查询",
+  "navigationBarBackgroundColor": "#e8f5e9",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",

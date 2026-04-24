@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "购物车",
+  "navigationBarBackgroundColor": "#e8f5e9",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
     "cart-group": "./components/cart-group/index",
     "cart-empty": "./components/cart-empty/index",

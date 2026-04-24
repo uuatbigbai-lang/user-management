@@ -1,11 +1,13 @@
 <view class="register-page">
   <view class="register-header">
     <t-button theme="primary" block size="large" bind:tap="onSampleVideoTap">
-      采样视频
+      观看采样视频
     </t-button>
   </view>
 
   <view class="register-form">
+    <view class="section-title">基本信息</view>
+
     <view class="form-item">
       <view class="form-title">样本编号<text class="required">*</text></view>
       <t-input
@@ -74,6 +76,10 @@
         data-key="city"
       />
     </view>
+
+    <view class="form-divider"></view>
+    <view class="section-title">身体指标</view>
+
     <view class="form-item">
       <view class="form-title">身高（厘米）<text class="required">*</text></view>
       <t-input
@@ -115,6 +121,10 @@
         />
       </t-radio-group>
     </view>
+
+    <view class="form-divider"></view>
+    <view class="section-title">其他信息</view>
+
     <view class="form-item">
       <view class="form-title">您是从哪个渠道获得检测盒?<text class="required">*</text></view>
       <t-input
@@ -136,6 +146,7 @@
       />
     </view>
   </view>
+
   <view class="register-actions">
     <t-button
       theme="primary"

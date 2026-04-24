@@ -18,10 +18,10 @@
   </view>
 
   <view class="sample-actions">
-    <t-button theme="primary" block size="large" bind:tap="onOpenSampleVideo">
+    <t-button theme="primary" block size="medium" bind:tap="onOpenSampleVideo">
       采样视频
     </t-button>
-    <t-button theme="default" block size="large" bind:tap="onOpenBindSample">
+    <t-button theme="default" block size="medium" bind:tap="onOpenBindSample">
       绑定样本
     </t-button>
   </view>

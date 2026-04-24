@@ -8,6 +8,23 @@
   bind:gotoUserEditPage="gotoUserEditPage"
 />
 <view class="content-wrapper">
+  <!-- 推广有礼入口 -->
+  <view class="promo-entry" bindtap="navToPromotion">
+    <view class="promo-entry__left">
+      <view class="promo-entry__icon-wrap">
+        <text class="promo-entry__icon">🎁</text>
+      </view>
+      <view class="promo-entry__text">
+        <view class="promo-entry__title">推广有礼</view>
+        <view class="promo-entry__desc">分享赚佣金，邀请好友一起健康</view>
+      </view>
+    </view>
+    <view class="promo-entry__right">
+      <view class="promo-entry__badge">赚钱</view>
+      <t-icon name="chevron-right" size="36rpx" color="#5aaa6e" />
+    </view>
+  </view>
+
   <view class="order-group-wrapper">
     <t-order-group orderTagInfos="{{orderTagInfos}}" bind:onClickTop="jumpAllOrder" bind:onClickItem="jumpNav" />
   </view>

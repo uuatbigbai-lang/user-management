@@ -1,3 +1,20 @@
+page {
+  background: #f8faf5;
+  --green-primary: #5aaa6e;
+  --green-dark: #3d8b4f;
+  --text-main: #2d3a2e;
+  --text-sub: #7a8a7c;
+  --text-light: #a3b5a6;
+  /* stepper 数量选择器 */
+  --td-stepper-input-bg-color: #f0f7f1;
+  --td-stepper-input-font-color: #2d3a2e;
+  --td-stepper-normal-bg-color: #f0f7f1;
+  --td-stepper-hover-bg-color: #e8f5e9;
+  /* dialog 弹窗 */
+  --td-dialog-confirm-btn-color: #5aaa6e;
+  --td-dialog-border-radius: 24rpx;
+}
+
 :host {
   padding-bottom: 100rpx;
 }
@@ -8,6 +25,6 @@
 }
 
 .t-button {
-  --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-default-color: #2d3a2e;
+  --td-button-primary-text-color: #5aaa6e;
 }

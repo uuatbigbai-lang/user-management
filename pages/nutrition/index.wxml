@@ -1,0 +1,61 @@
+<view class="page">
+
+  <!-- Banner -->
+  <view class="banner">
+    <view class="banner-bg"></view>
+    <view class="banner-deco banner-deco-1"></view>
+    <view class="banner-deco banner-deco-2"></view>
+    <view class="banner-content">
+      <view class="banner-icon">📖</view>
+      <view class="banner-title">营养学堂</view>
+      <view class="banner-desc">汇集肠道健康、益生菌科普、日常营养等专业内容，由我们的营养师团队精心撰写，帮助您和家人建立科学的健康认知。</view>
+    </view>
+  </view>
+
+  <!-- 分类 Tab -->
+  <view class="tab-bar">
+    <view
+      class="tab-item {{activeTab === index ? 'tab-item--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="index"
+      data-index="{{index}}"
+      bind:tap="onTabChange"
+    >
+      <text>{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 文章列表 -->
+  <view class="article-list">
+    <view
+      class="article-card"
+      wx:for="{{filteredArticles}}"
+      wx:key="id"
+      data-url="{{item.url}}"
+      bind:tap="onArticleTap"
+    >
+      <image class="article-cover" src="{{item.cover}}" mode="aspectFill" />
+      <view class="article-body">
+        <text class="article-title">{{item.title}}</text>
+        <text class="article-summary">{{item.summary}}</text>
+        <view class="article-meta">
+          <view class="article-tag">{{item.tag}}</view>
+          <text class="article-date">{{item.date}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="empty" wx:if="{{filteredArticles.length === 0}}">
+    <text class="empty-text">暂无相关文章</text>
+  </view>
+
+  <!-- 底部 -->
+  <view class="list-footer">
+    <view class="footer-line"></view>
+    <text class="footer-text">持续更新中，敬请关注公众号</text>
+    <view class="footer-line"></view>
+  </view>
+
+</view>

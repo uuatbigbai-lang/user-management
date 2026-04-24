@@ -1,63 +1,151 @@
-<view style="text-align: center; color: #b9b9b9" wx:if="{{pageLoading}}">
-  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
-</view>
-<view class="home-page-header">
-  <!-- <view class="search" bind:tap="navToSearchPage">
-    <t-search
-      t-class-input="t-search__input"
-      t-class-input-container="t-search__input-container"
-      placeholder="iphone 13 火热发售中"
-      leftIcon=""
-      disabled
-    >
-      <t-icon slot="left-icon" prefix="wr" name="search" size="40rpx" color="#bbb" />
-    </t-search>
-  </view> -->
-  <view class="swiper-wrap">
-    <t-swiper
-      wx:if="{{imgSrcs.length > 0}}"
-      current="{{current}}"
-      autoplay="{{autoplay}}"
-      duration="{{duration}}"
-      interval="{{interval}}"
-      navigation="{{navigation}}"
-      imageProps="{{swiperImageProps}}"
-      list="{{imgSrcs}}"
-      bind:click="navToActivityDetail"
-    />
-  </view>
-</view>
-<!-- <view class="block">
-  <t-grid column="{{2}}" align="left">
-    <t-grid-item t-class-image="image" text="健康顾问" description="根据专属数据提供专业建议" layout="horizontal" image="{{img1}}" bind:tap="navToLLM" />
-  </t-grid>
-</view> -->
-<view class="home-page-container">
-  <view class="home-page-tabs">
-    <t-tabs
-      t-class="t-tabs"
-      t-class-active="tabs-external__active"
-      t-class-item="tabs-external__item"
-      defaultValue="{{0}}"
-      space-evenly="{{false}}"
-      bind:change="tabChangeHandle"
-    >
-      <t-tab-panel
-        wx:for="{{tabList}}"
-        wx:for-index="index"
-        wx:key="index"
-        label="{{item.text}}"
-        value="{{item.key}}"
-      />
-    </t-tabs>
+<!-- 小清新益生菌首页 -->
+<view class="page" wx:if="{{!pageLoading}}">
+  <!-- Hero Banner -->
+  <view class="hero">
+    <view class="hero-bg"></view>
+    <!-- 装饰圆形 -->
+    <view class="deco-circle deco-c1"></view>
+    <view class="deco-circle deco-c2"></view>
+    <view class="deco-circle deco-c3"></view>
+    <view class="deco-circle deco-c4"></view>
+    <view class="deco-ring deco-r1"></view>
+    <view class="deco-ring deco-r2"></view>
+    <view class="deco-dot deco-d1"></view>
+    <view class="deco-dot deco-d2"></view>
+    <view class="deco-dot deco-d3"></view>
+    <view class="hero-content">
+      <view class="brand-tag">· 纯净生活 ·</view>
+      <view class="hero-title-row">
+        <view class="logo">🌱</view>
+        <view class="hero-title">立康林</view>
+      </view>
+      <view class="hero-subtitle">源自自然的肠道守护力量</view>
+      <view class="hero-desc">我们专注益生菌领域超过10年，甄选全球优质菌株，以科学配方守护每一位家人的肠道健康。</view>
+    </view>
   </view>
 
-  <goods-list
-    wr-class="goods-list-container"
-    goodsList="{{goodsList}}"
-    bind:click="goodListClickHandle"
-    bind:addcart="goodListAddCartHandle"
-  />
-  <load-more list-is-empty="{{!goodsList.length}}" status="{{goodsListLoadStatus}}" bind:retry="onReTry" />
-  <t-toast id="t-toast" />
+  <!-- 公司理念 -->
+  <view class="philosophy-section">
+    <view class="section-header">
+      <view class="section-line"></view>
+      <text class="section-title">我们的理念</text>
+      <view class="section-line"></view>
+    </view>
+    <view class="philosophy-cards">
+      <view class="phi-card">
+        <view class="phi-icon">🌿</view>
+        <text class="phi-label">天然菌株</text>
+        <text class="phi-desc">精选自然环境中的优质活性菌</text>
+      </view>
+      <view class="phi-card">
+        <view class="phi-icon">🔬</view>
+        <text class="phi-label">科学配方</text>
+        <text class="phi-desc">联合国内外微生态专家研发</text>
+      </view>
+      <view class="phi-card">
+        <view class="phi-icon">💚</view>
+        <text class="phi-label">品质保障</text>
+        <text class="phi-desc">GMP认证工厂全程质控生产</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 营养学堂入口 -->
+  <view class="nutrition-section">
+    <view class="nutrition-card" bind:tap="navToNutrition">
+      <view class="nutrition-card-bg"></view>
+      <view class="nutrition-card-content">
+        <view class="nutrition-top-row">
+          <view class="nutrition-icon">📖</view>
+          <view class="nutrition-info">
+            <text class="nutrition-name">营养学堂</text>
+            <text class="nutrition-tip">肠道科普 · 益生菌知识 · 饮食指南</text>
+          </view>
+        </view>
+        <view class="nutrition-enter">
+          <text class="nutrition-enter-text">立即阅读</text>
+          <view class="nutrition-enter-arrow">→</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 明星产品 -->
+  <view class="products-section">
+    <view class="section-header">
+      <view class="section-line"></view>
+      <text class="section-title">明星产品</text>
+      <view class="section-line"></view>
+    </view>
+
+    <view class="product-list">
+      <view class="product-card" wx:for="{{products}}" wx:key="id" data-id="{{item.spuId}}" bind:tap="goDetail">
+        <view class="product-img-wrap">
+          <image class="product-img" src="{{item.thumb}}" mode="aspectFill" />
+          <view class="product-badge" wx:if="{{item.badge}}">{{item.badge}}</view>
+        </view>
+        <view class="product-info">
+          <text class="product-name">{{item.title}}</text>
+          <text class="product-brief">{{item.brief}}</text>
+          <view class="product-bottom">
+            <view class="product-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-num">{{item.price}}</text>
+            </view>
+            <!-- 高级感详情入口 -->
+            <view class="detail-btn" data-id="{{item.spuId}}" catchtap="goDetail">
+              <text class="detail-btn-text">探索详情</text>
+              <view class="detail-btn-arrow">
+                <view class="arrow-line"></view>
+                <view class="arrow-head"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于我们 -->
+  <view class="about-section">
+    <view class="about-card">
+      <view class="about-top">
+        <text class="about-label">ABOUT US</text>
+        <text class="about-title">关于益生元研究所</text>
+      </view>
+      <text class="about-desc">我们是一家专注于肠道微生态健康的创新企业。团队汇聚微生物学、营养学等多领域专家，致力于将前沿科研成果转化为人人可及的健康产品。从菌株筛选到产品出厂，每一步都经过严格把控。</text>
+      <view class="about-stats">
+        <view class="stat-item">
+          <text class="stat-num">10+</text>
+          <text class="stat-label">年研发经验</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">50+</text>
+          <text class="stat-label">专利菌株</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">100万+</text>
+          <text class="stat-label">用户信赖</text>
+        </view>
+      </view>
+      <view class="about-enter" bind:tap="navToAbout">
+        <view class="about-enter-inner">
+          <text class="about-enter-text">了解更多</text>
+          <view class="about-enter-icon">→</view>
+        </view>
+        <view class="about-enter-glow"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="footer">
+    <text class="footer-text">益生元研究所 © 守护您的肠道健康</text>
+  </view>
 </view>
+
+<!-- Loading -->
+<view class="loading-wrap" wx:if="{{pageLoading}}">
+  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+</view>
+<t-toast id="t-toast" />

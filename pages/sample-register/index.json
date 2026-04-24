@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "信息登记",
+  "navigationBarBackgroundColor": "#e8f5e9",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
     "t-button": "tdesign-miniprogram/button/button",
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",

@@ -1,0 +1,171 @@
+<view class="about-page">
+
+  <!-- Hero -->
+  <view class="hero">
+    <view class="hero-bg"></view>
+    <view class="hero-deco hero-deco-1"></view>
+    <view class="hero-deco hero-deco-2"></view>
+    <view class="hero-deco hero-deco-3"></view>
+    <view class="hero-content">
+      <view class="hero-tag">ABOUT US</view>
+      <view class="hero-title">益生元研究所</view>
+      <view class="hero-sub">用科学守护每一个人的肠道微生态</view>
+    </view>
+  </view>
+
+  <!-- 企业介绍 -->
+  <view class="section">
+    <view class="sec-header">
+      <view class="sec-line"></view>
+      <text class="sec-title">企业简介</text>
+      <view class="sec-line"></view>
+    </view>
+    <view class="card intro-card">
+      <text class="card-text">益生元研究所是一家深耕肠道微生态领域的创新型健康企业。我们集「检测 + 干预」于一体，拥有自主研发的高标准微生物实验室和科研团队，致力于通过精准检测了解每个人独特的肠道菌群状态，再以科学配方的益生菌产品提供个性化的健康解决方案。</text>
+      <text class="card-text" style="margin-top: 16rpx;">从菌株筛选、配方研发、生产质控到售后服务，我们坚持全链路自主可控，只为让每一位用户享受到安全、有效、值得信赖的产品与服务。</text>
+    </view>
+  </view>
+
+  <!-- 核心业务 -->
+  <view class="section">
+    <view class="sec-header">
+      <view class="sec-line"></view>
+      <text class="sec-title">核心业务</text>
+      <view class="sec-line"></view>
+    </view>
+
+    <!-- 业务1: 益生菌产品 -->
+    <view class="biz-card">
+      <view class="biz-icon-wrap biz-icon--green">
+        <text class="biz-icon-text">🌿</text>
+      </view>
+      <view class="biz-body">
+        <text class="biz-name">益生菌系列产品</text>
+        <text class="biz-desc">覆盖成人肠道调理、儿童肠胃守护、女性私密护理等多场景。所有产品均选用全球优质专利菌株，经科学复配，确保活性菌数量达标，真正做到"活着到达肠道"。</text>
+      </view>
+    </view>
+
+    <!-- 业务2: 肠道菌群检测 -->
+    <view class="biz-card">
+      <view class="biz-icon-wrap biz-icon--blue">
+        <text class="biz-icon-text">🔬</text>
+      </view>
+      <view class="biz-body">
+        <text class="biz-name">肠道菌群检测</text>
+        <text class="biz-desc">通过高通量基因测序技术，全面解析您肠道内数百种菌群的组成与比例。检测完成后将出具详细的菌群分析报告，帮您了解自身肠道微生态的真实状况。</text>
+      </view>
+    </view>
+
+    <!-- 业务3: 肠道炎症检测 -->
+    <view class="biz-card">
+      <view class="biz-icon-wrap biz-icon--orange">
+        <text class="biz-icon-text">🩺</text>
+      </view>
+      <view class="biz-body">
+        <text class="biz-name">肠道炎症检测</text>
+        <text class="biz-desc">采用专业级炎症标志物检测试剂，灵敏、快速地评估肠道炎症水平。适合慢性腹泻、肠易激等人群进行早期筛查，为后续调理提供科学依据。</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 实验室 -->
+  <view class="section">
+    <view class="sec-header">
+      <view class="sec-line"></view>
+      <text class="sec-title">高标准实验室</text>
+      <view class="sec-line"></view>
+    </view>
+    <view class="card lab-card">
+      <view class="lab-badges">
+        <view class="lab-badge">GMP认证</view>
+        <view class="lab-badge">ISO15189</view>
+        <view class="lab-badge">CNAS认可</view>
+      </view>
+      <text class="card-text">我们的微生物实验室严格按照国家二级生物安全实验室标准建设，配备高通量测序仪、全自动核酸提取仪等顶尖设备。实验室已通过多项国际国内资质认证，确保每一份检测数据准确可溯源。</text>
+      <view class="lab-highlights">
+        <view class="lab-hl-item">
+          <text class="lab-hl-num">3-5天</text>
+          <text class="lab-hl-label">出具报告</text>
+        </view>
+        <view class="lab-hl-item">
+          <text class="lab-hl-num">200+</text>
+          <text class="lab-hl-label">检测菌种</text>
+        </view>
+        <view class="lab-hl-item">
+          <text class="lab-hl-num">99.9%</text>
+          <text class="lab-hl-label">数据准确率</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 服务流程 -->
+  <view class="section">
+    <view class="sec-header">
+      <view class="sec-line"></view>
+      <text class="sec-title">服务流程</text>
+      <view class="sec-line"></view>
+    </view>
+    <view class="flow-list">
+      <view class="flow-item">
+        <view class="flow-num">01</view>
+        <view class="flow-body">
+          <text class="flow-name">在线下单</text>
+      <text class="flow-desc">选择检测项目，下单后我们将寄送采样包到家</text>
+        </view>
+      </view>
+      <view class="flow-connector"></view>
+      <view class="flow-item">
+        <view class="flow-num">02</view>
+        <view class="flow-body">
+          <text class="flow-name">居家采样</text>
+          <text class="flow-desc">按照视频指引轻松完成采样，寄回实验室</text>
+        </view>
+      </view>
+      <view class="flow-connector"></view>
+      <view class="flow-item">
+        <view class="flow-num">03</view>
+        <view class="flow-body">
+          <text class="flow-name">专业检测</text>
+          <text class="flow-desc">实验室接收样本后 3-5 个工作日完成全部检测</text>
+        </view>
+      </view>
+      <view class="flow-connector"></view>
+      <view class="flow-item">
+        <view class="flow-num">04</view>
+        <view class="flow-body">
+          <text class="flow-name">报告解读</text>
+          <text class="flow-desc">出具详细检测报告，并由健康顾问一对一解读</text>
+        </view>
+      </view>
+      <view class="flow-connector"></view>
+      <view class="flow-item">
+        <view class="flow-num">05</view>
+        <view class="flow-body">
+          <text class="flow-name">精准推荐</text>
+          <text class="flow-desc">根据您的检测结果，推荐最适合的益生菌调理方案</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部 CTA -->
+  <view class="section cta-section">
+    <view class="cta-card">
+      <text class="cta-title">开启您的肠道健康之旅</text>
+      <text class="cta-desc">了解自己，才能更好地守护自己</text>
+      <view class="cta-btns">
+        <view class="cta-btn cta-btn--primary" bind:tap="goHome">
+          <text>选购产品</text>
+        </view>
+        <view class="cta-btn cta-btn--outline" bind:tap="goSample">
+          <text>查看报告</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="footer-text">益生元研究所 © 用科学守护健康</text>
+  </view>
+</view>

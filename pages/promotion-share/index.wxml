@@ -1,0 +1,116 @@
+<view class="promo-page">
+  <!-- 顶部 Banner -->
+  <view class="promo-banner">
+    <view class="banner-deco-circle c1"></view>
+    <view class="banner-deco-circle c2"></view>
+    <view class="banner-deco-circle c3"></view>
+    <view class="banner-title">推广有礼</view>
+    <view class="banner-subtitle">分享好物 · 轻松赚佣金</view>
+  </view>
+
+  <!-- 分成统计 -->
+  <view class="stats-card">
+    <view class="stats-item">
+      <view class="stats-value">¥{{totalEarnings}}</view>
+      <view class="stats-label">累计收益</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <view class="stats-value">¥{{monthEarnings}}</view>
+      <view class="stats-label">本月收益</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <view class="stats-value">{{inviteCount}}</view>
+      <view class="stats-label">邀请人数</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <view class="stats-value">{{orderCount}}</view>
+      <view class="stats-label">推广订单</view>
+    </view>
+  </view>
+
+  <!-- 邀请码 -->
+  <view class="invite-card">
+    <view class="invite-header">
+      <text class="invite-icon">🔑</text>
+      <text class="invite-title">我的邀请码</text>
+    </view>
+    <view class="invite-code-wrap">
+      <view class="invite-code">{{inviteCode}}</view>
+      <view class="invite-copy-btn" bindtap="copyInviteCode">复制</view>
+    </view>
+    <view class="invite-tip">好友注册时填写您的邀请码，即可建立推广关系</view>
+  </view>
+
+  <!-- 推广规则 -->
+  <view class="rules-card">
+    <view class="rules-header">
+      <text class="rules-icon">📋</text>
+      <text class="rules-title">推广规则</text>
+    </view>
+
+    <view class="rule-steps">
+      <view class="rule-step">
+        <view class="step-num">1</view>
+        <view class="step-content">
+          <view class="step-title">分享商品</view>
+          <view class="step-desc">将商品链接或小程序分享给好友，好友通过您的专属链接进入</view>
+        </view>
+      </view>
+      <view class="rule-step">
+        <view class="step-num">2</view>
+        <view class="step-content">
+          <view class="step-title">好友购买</view>
+          <view class="step-desc">好友点击链接成功下单并完成付款，订单状态确认后生效</view>
+        </view>
+      </view>
+      <view class="rule-step">
+        <view class="step-num">3</view>
+        <view class="step-content">
+          <view class="step-title">获得分成</view>
+          <view class="step-desc">订单确认收货后，您将获得该笔订单金额的 <text class="highlight">10%</text> 作为推广佣金</view>
+        </view>
+      </view>
+      <view class="rule-step">
+        <view class="step-num">4</view>
+        <view class="step-content">
+          <view class="step-title">提现到账</view>
+          <view class="step-desc">佣金满 <text class="highlight">10元</text> 即可申请提现，将在3个工作日内到账微信零钱</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 佣金明细 -->
+  <view class="detail-card">
+    <view class="detail-header">
+      <text class="detail-icon">💰</text>
+      <text class="detail-title">收益明细</text>
+    </view>
+    <view wx:if="{{earningsDetail.length > 0}}">
+      <view class="detail-item" wx:for="{{earningsDetail}}" wx:key="index">
+        <view class="detail-left">
+          <view class="detail-name">{{item.name}}</view>
+          <view class="detail-time">{{item.time}}</view>
+        </view>
+        <view class="detail-amount {{item.status === 'pending' ? 'pending' : ''}}">
+          +¥{{item.amount}}
+          <text wx:if="{{item.status === 'pending'}}" class="detail-status">待结算</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="detail-empty">
+      <view class="empty-text">暂无收益记录</view>
+      <view class="empty-tip">快去分享商品，开启您的推广之旅吧~</view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-action">
+    <view class="share-btn" bindtap="goShareGoods">去分享商品赚佣金</view>
+  </view>
+</view>
+
+<t-toast id="t-toast" />

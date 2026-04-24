@@ -9,7 +9,10 @@
     "pages/llm/llm",
     "pages/signIn/signIn",
     "pages/signInSuccess/signInSuccess",
-    "pages/template-list/index"
+    "pages/template-list/index",
+    "pages/about/index",
+    "pages/nutrition/index",
+    "pages/promotion-share/index"
   ],
   "subpackages": [
     {
