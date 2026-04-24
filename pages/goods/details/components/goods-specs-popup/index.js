@@ -331,9 +331,7 @@ Component({
 
     handleBuyNumChange(e) {
       const { value } = e.detail;
-      this.setData({
-        buyNum: value,
-      });
+      this.setBuyNum(value);
     },
   },
 });

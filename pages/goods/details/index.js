@@ -7,6 +7,7 @@ import {
 } from '../../../services/good/fetchGoodsDetailsComments';
 
 import { cdnBase } from '../../../config/index';
+import { addToCart } from '../../../services/cart/cart';
 
 const imgPrefix = `${cdnBase}/`;
 
@@ -161,7 +162,7 @@ Page({
         }
       });
       if (status) return item;
-    });
+    })[0] || null;
     this.selectSpecsName(selectedSkuValues.length > 0 ? selectedAttrStr : '');
     if (skuItem) {
       this.setData({
@@ -216,7 +217,7 @@ Page({
   },
 
   async addCart() {
-    const { isAllSelectedSku } = this.data;
+    const { isAllSelectedSku, buyNum, selectItem, skuList, details, selectedAttrStr } = this.data;
     if (!isAllSelectedSku) {
       Toast({
         context: this,
@@ -227,26 +228,33 @@ Page({
       });
       return;
     }
-    wx.showLoading({ title: '加车中', mask: true });
-    const result = await wx.cloud.callFunction({
-      name: 'addCart',
-      data: { ...this.data.details, spec: this.data.selectedAttrStr.split('，').map(item => item.trim()).slice(1).join('+') }
-    });
-    wx.hideLoading();
-    if (result) {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '加车成功',
-      });
-      this.handlePopupHide();
+    const selectedSku = selectItem || (skuList && skuList[0]);
+    const skuPrice = selectedSku ? (selectedSku.price || details.minSalePrice) : details.minSalePrice;
+    const specsStr = selectedAttrStr ? selectedAttrStr.split('，').map((s) => s.trim()).filter(Boolean).join('+') : '';
 
-    } else {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '加车失败',
+    wx.showLoading({ title: '加车中', mask: true });
+    try {
+      const result = await addToCart({
+        spuId: details.spuId,
+        skuId: selectedSku ? selectedSku.skuId : '',
+        title: details.title,
+        thumb: details.primaryImage,
+        price: skuPrice,
+        originPrice: details.maxLinePrice || null,
+        quantity: buyNum,
+        specs: specsStr,
+        stockQuantity: details.spuStockQuantity || 999,
       });
+      wx.hideLoading();
+      if (result.data.code === 0) {
+        Toast({ context: this, selector: '#t-toast', message: '加车成功' });
+        this.handlePopupHide();
+      } else {
+        Toast({ context: this, selector: '#t-toast', message: result.data.message || '加车失败' });
+      }
+    } catch (err) {
+      wx.hideLoading();
+      Toast({ context: this, selector: '#t-toast', message: '加车失败' });
     }
   },
 
@@ -263,20 +271,22 @@ Page({
       return;
     }
     this.handlePopupHide();
+    // 获取选中 SKU 的真实价格
+    const selectedSku = type === 1 ? this.data.skuList[0] : this.data.selectItem;
+    const skuPrice = selectedSku ? (selectedSku.price || this.data.details.minSalePrice) : this.data.details.minSalePrice;
     const query = {
       quantity: buyNum,
       storeId: '1',
-      spuId: this.data.spuId,
+      spuId: this.data.details.spuId,
       goodsName: this.data.details.title,
-      skuId: type === 1 ? this.data.skuList[0].skuId : this.data.selectItem.skuId,
+      skuId: selectedSku ? selectedSku.skuId : '',
       available: this.data.details.available,
-      price: this.data.details.minSalePrice,
+      price: skuPrice,
       specInfo: this.data.details.specList?.map((item, index) => ({
         specTitle: item.title,
         specValue: this.data.selectedAttrStr.split('，')[index + 1],
       })),
       primaryImage: this.data.details.primaryImage,
-      spuId: this.data.details.spuId,
       thumb: this.data.details.primaryImage,
       title: this.data.details.title,
     };
@@ -339,6 +349,8 @@ Page({
           skuId: item.skuId,
           quantity: item.stockInfo ? item.stockInfo.stockQuantity : 0,
           specInfo: item.specInfo,
+          price: item.priceInfo ? item.priceInfo[0].price : 0,
+          skuImage: item.skuImage || '',
         });
       });
       const promotionArray = [];

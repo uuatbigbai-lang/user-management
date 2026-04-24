@@ -1,6 +1,6 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { fetchDeliveryAddress } from '../../../../services/address/fetchAddress';
-import { areaData } from '../../../../config/index';
+import { areaData, requestBackend } from '../../../../config/index';
 import { resolveAddress, rejectAddress } from '../../../../services/address/list';
 
 const innerPhoneReg = '^1(?:3\\d|4[4-9]|5[0-35-9]|6[67]|7[0-8]|8\\d|9\\d)\\d{8}$';
@@ -308,64 +308,43 @@ Page({
     }
     const { locationState } = this.data;
 
-    // 显示保存中的提示
-    wx.showLoading({
-      title: '保存中...',
-      mask: true
-    });
+    wx.showLoading({ title: '保存中...', mask: true });
 
-    // 准备要保存到数据库的地址数据
     const addressData = {
       phone: locationState.phone,
       name: locationState.name,
-      countryName: locationState.countryName,
-      countryCode: locationState.countryCode,
       provinceName: locationState.provinceName,
-      provinceCode: locationState.provinceCode,
       cityName: locationState.cityName,
-      cityCode: locationState.cityCode,
       districtName: locationState.districtName,
-      districtCode: locationState.districtCode,
       detailAddress: locationState.detailAddress,
-      isDefault: locationState.isDefault === 1 ? 1 : 0,
-      addressTag: locationState.addressTag,
-      latitude: locationState.latitude,
-      longitude: locationState.longitude,
-      createTime: new Date(),
-      updateTime: new Date()
+      isDefault: locationState.isDefault ? 1 : 0,
+      addressTag: locationState.addressTag || '',
     };
 
-    const db = wx.cloud.database();
-    const addressCollection = db.collection('Address');
+    const isEdit = !!locationState.addressId;
+    const apiPath = isEdit ? '/api/address/update' : '/api/address/create';
+    const data = isEdit ? { ...addressData, addressId: locationState.addressId } : addressData;
 
-    // 判断是新增还是更新
-    if (locationState.addressId) {
-      // 更新现有地址
-      addressCollection.doc(locationState.addressId).update({
-        data: {
-          ...addressData,
-          updateTime: new Date()
-        }
-      }).then(res => {
+    requestBackend({ path: apiPath, method: 'POST', data }).then(
+      (res) => {
         wx.hideLoading();
-        if (res.stats.updated > 0) {
+        if (res.data.code === 0) {
           this.hasSava = true;
-          
-          // 通知其他组件地址已保存
+          const saved = res.data.data;
+
           resolveAddress({
-            ...addressData,
-            id: locationState.addressId,
-            addressId: locationState.addressId,
+            ...saved,
+            id: saved.addressId || saved.id,
+            addressId: saved.addressId || String(saved.id),
           });
 
           Toast({
             context: this,
             selector: '#t-toast',
-            message: '地址更新成功',
+            message: isEdit ? '地址更新成功' : '地址添加成功',
             icon: 'check-circle',
             duration: 1000,
           });
-
           setTimeout(() => {
             wx.navigateBack({ delta: 1 });
           }, 1000);
@@ -373,70 +352,24 @@ Page({
           Toast({
             context: this,
             selector: '#t-toast',
-            message: '地址更新失败',
+            message: res.data.message || '保存失败',
             icon: 'close-circle',
             duration: 2000,
           });
         }
-      }).catch(err => {
+      },
+      (err) => {
         wx.hideLoading();
-        console.error('更新地址失败:', err);
+        console.error('保存地址失败:', err);
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '地址更新失败，请重试',
+          message: '保存地址失败，请重试',
           icon: 'close-circle',
           duration: 2000,
         });
-      });
-    } else {
-      // 新增地址
-      addressCollection.add({
-        data: addressData
-      }).then(res => {
-        wx.hideLoading();
-        if (res._id) {
-          this.hasSava = true;
-          
-          // 通知其他组件地址已保存
-          resolveAddress({
-            ...addressData,
-            id: res._id,
-            addressId: res._id,
-          });
-
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: '地址添加成功',
-            icon: 'check-circle',
-            duration: 1000,
-          });
-
-          setTimeout(() => {
-            wx.navigateBack({ delta: 1 });
-          }, 1000);
-        } else {
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: '地址添加失败',
-            icon: 'close-circle',
-            duration: 2000,
-          });
-        }
-      }).catch(err => {
-        wx.hideLoading();
-        console.error('添加地址失败:', err);
-        Toast({
-          context: this,
-          selector: '#t-toast',
-          message: '地址添加失败，请重试',
-          icon: 'close-circle',
-          duration: 2000,
-        });
-      });
-    }
+      },
+    );
   },
 
   getWeixinAddress(e) {

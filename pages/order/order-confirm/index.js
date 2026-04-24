@@ -2,6 +2,7 @@ import Toast from 'tdesign-miniprogram/toast/index';
 import { fetchSettleDetail } from '../../../services/order/orderConfirm';
 import { commitPay, wechatPayOrder } from './pay';
 import { getAddressPromise } from '../../../services/address/list';
+import { requestBackend } from '../../../config/index';
 
 const stripeImg = `https://tdesign.gtimg.com/miniprogram/template/retail/order/stripe.png`;
 
@@ -110,29 +111,29 @@ Page({
       userAddressReq,
       couponList,
     };
-    const db = wx.cloud.database();
 
-    let query = db.collection('Address');
-    fetchSettleDetail(params).then(
-      async (res) => {
-
-        const res2 = await query.where({
-          default: true
-        }).get();
-        if (res2 && res2.data && res2.data[0]) {
-          const t = res2.data[0];
-          res2.data[0].addrss = t.provinceName + t.cityName + t.districtName + t.detailAddress;
+    // 并行请求结算数据和默认地址
+    Promise.all([
+      fetchSettleDetail(params),
+      requestBackend({ path: '/api/address/default' }),
+    ]).then(
+      ([settleRes, addrRes]) => {
+        // 优先使用用户手动选择的地址，其次用默认地址
+        if (userAddressReq && userAddressReq.name) {
+          // 用户从地址选择页返回时带入的地址
+          userAddressReq.address = userAddressReq.address || `${userAddressReq.provinceName || ''}${userAddressReq.cityName || ''}${userAddressReq.districtName || ''}${userAddressReq.detailAddress || ''}`;
+          settleRes.data.userAddress = userAddressReq;
+        } else if (addrRes.data.code === 0 && addrRes.data.data) {
+          // 后端返回的默认地址
+          const addr = addrRes.data.data;
+          addr.address = addr.address || `${addr.provinceName}${addr.cityName}${addr.districtName}${addr.detailAddress}`;
+          settleRes.data.userAddress = addr;
         }
 
-        res.data.userAddress = res2.data[0];
-
-        this.setData({
-          loading: false,
-        });
-        this.initData(res.data);
+        this.setData({ loading: false });
+        this.initData(settleRes.data);
       },
       () => {
-        //接口异常处理
         this.handleError();
       },
     );
@@ -278,6 +279,15 @@ Page({
     /** 获取一个Promise */
     getAddressPromise()
       .then((address) => {
+        // 选择地址后，将该地址设为默认地址
+        const addrId = address.addressId || address.id;
+        if (addrId) {
+          requestBackend({
+            path: '/api/address/update',
+            method: 'POST',
+            data: { addressId: addrId, isDefault: 1 },
+          });
+        }
         this.handleOptionsParams({
           userAddressReq: { ...address, checked: true },
         });
@@ -366,31 +376,20 @@ Page({
       this.handleOptionsParams({ goodsRequestList });
     }
   },
-  // 提交订单
+  // 提交订单（简化版：创建订单 → 直接跳转支付结果页，本地开发跳过真实支付）
   submitOrder() {
     const { settleDetailData, userAddressReq, invoiceData, storeInfoList, submitCouponList } = this.data;
     const { goodsRequestList } = this;
-    // if (!userAddressReq && !settleDetailData.userAddress) {
-    //   Toast({
-    //     context: this,
-    //     selector: '#t-toast',
-    //     message: '请添加收货地址',
-    //     duration: 2000,
-    //     icon: 'help-circle',
-    //   });
 
-    //   return;
-    // }
-    // if (this.payLock || !settleDetailData.settleType || !settleDetailData.totalAmount) {
-    //   return;
-    // }
+    if (this.payLock) return;
     this.payLock = true;
+
     const resSubmitCouponList = this.handleCouponList(submitCouponList);
     const params = {
       userAddressReq: settleDetailData.userAddress || userAddressReq,
       goodsRequestList: goodsRequestList,
-      userName: settleDetailData.userAddress.name || userAddressReq.name,
-      totalAmount: settleDetailData.totalPayAmount, //取优惠后的结算金额
+      userName: (settleDetailData.userAddress && settleDetailData.userAddress.name) || (userAddressReq && userAddressReq.name) || '',
+      totalAmount: settleDetailData.totalPayAmount,
       invoiceRequest: null,
       storeInfoList,
       couponList: resSubmitCouponList,
@@ -398,160 +397,33 @@ Page({
     if (invoiceData && invoiceData.email) {
       params.invoiceRequest = invoiceData;
     }
-    wx.showLoading({ title: '付款中', mask: true });
+
+    wx.showLoading({ title: '提交订单中', mask: true });
+
+    // 直接调用后端创建订单（commitPay 内部调 /api/order/create）
     commitPay(params).then(
       (res) => {
-        this.payLock = false;
-        const payment = res.result.data;
         wx.hideLoading();
-        wx.showLoading({ title: '唤起支付页面', mask: true });
-        // step2. pre请求返回，生成订单，发送付款请求
-        // 调用云函数创建订单
+        this.payLock = false;
+        const orderData = res.result.data;
+        console.log('订单创建成功:', orderData);
 
-        wx.cloud.callFunction({
-          name: 'createOrder',
-          data: {
-            orderData: {
-              ...params,
-              orderItemVOs: goodsRequestList,
-              totalAmount: (params.totalAmount).toString(),
-              goodsAmount: (params.totalAmount).toString(),
-              paymentAmount: (params.totalAmount).toString(),
-              userAddressReq: params.userAddressReq,
-              userName: params.userName,
-              invoiceRequest: params.invoiceRequest,
-              couponList: params.couponList
-            }
-          },
-          success: (orderRes) => {
-            console.log('订单创建成功:', orderRes.result);
-            if (orderRes.result.success) {
-              // 订单创建成功，继续支付流程
-              const createdOrder = orderRes.result.data;
-              console.log('新订单信息:', createdOrder);
-              const orderID = createdOrder._id;
-              wx.hideLoading();
-              wx.showLoading({ title: '请稍后', mask: true });
-              wx.requestPayment({
-                ...payment,
-                package: payment.packageVal,
-                success(res) {
-                  console.log('pay success', res);
-                  wx.hideLoading();
-                  // step3. 付款成功，跳转页面
-                  // 更新订单状态为已付款
-                  wx.cloud.database().collection('Order').doc(orderID).update({
-                    data: {
-                      orderStatus: 10,
-                      orderStatusName: '待发货',
-                    },
-                    success: (updateRes) => {
-                      console.log('订单状态更新成功:', updateRes);
-                      const urlP = {
-                        totalPaid: params.totalAmount,
-                        orderID: orderID,
-                      }
-                      console.log('url params', urlP);
-                      // 跳转支付结果页面
-                      wx.redirectTo({ url: `/pages/order/pay-result/index?totalPaid=${urlP.totalPaid}&orderID=${urlP.orderID}` });
-                    },
-                    fail: (updateErr) => {
-                      console.error('订单状态更新失败:', updateErr);
-                    }
-                  });
-
-                },
-                fail(err) {
-                  // step3. 付款失败
-                  wx.hideLoading();
-                  console.error('pay fail', err)
-                  Toast({
-                    context: this,
-                    selector: '#t-toast',
-                    message: err.errMsg || '提交订单超时，请稍后重试',
-                    duration: 2000,
-                    icon: '',
-                  });
-                }
-              })
-            } else {
-              console.error('订单创建失败:', orderRes.result.error);
-              wx.hideLoading();
-
-              wx.showToast({
-                title: '订单创建失败',
-                icon: 'none'
-              });
-              this.payLock = false;
-              return;
-            }
-          },
-          fail: (err) => {
-            console.error('调用云函数失败:', err);
-            wx.hideLoading();
-
-            wx.showToast({
-              title: '订单创建失败',
-              icon: 'none'
-            });
-            this.payLock = false;
-            return;
-          }
+        // 跳转支付结果页（本地开发模拟支付成功）
+        wx.redirectTo({
+          url: `/pages/order/pay-result/index?totalPaid=${params.totalAmount}&orderNo=${orderData.orderNo}`,
         });
       },
       (err) => {
         wx.hideLoading();
-
         this.payLock = false;
-        if (err.code === 'CONTAINS_INSUFFICIENT_GOODS' || err.code === 'TOTAL_AMOUNT_DIFFERENT') {
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: err.msg || '支付异常',
-            duration: 2000,
-            icon: '',
-          });
-          this.init();
-        } else if (err.code === 'ORDER_PAY_FAIL') {
-          wx.hideLoading();
-
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: '支付失败',
-            duration: 2000,
-            icon: 'close-circle',
-          });
-          setTimeout(() => {
-            wx.redirectTo({ url: '/pages/order/order-list/index' });
-          });
-        } else if (err.code === 'ILLEGAL_CONFIG_PARAM') {
-          wx.hideLoading();
-
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: '支付失败，微信支付商户号设置有误，请商家重新检查支付设置。',
-            duration: 2000,
-            icon: 'close-circle',
-          });
-          setTimeout(() => {
-            wx.redirectTo({ url: '/pages/order/order-list/index' });
-          });
-        } else {
-          wx.hideLoading();
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: err.msg || '提交支付超时，请稍后重试',
-            duration: 2000,
-            icon: '',
-          });
-          setTimeout(() => {
-            // 提交支付失败  返回购物车
-            wx.navigateBack();
-          }, 2000);
-        }
+        console.error('创建订单失败:', err);
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: (err && err.message) || '提交订单失败，请稍后重试',
+          duration: 2000,
+          icon: '',
+        });
       },
     );
   },

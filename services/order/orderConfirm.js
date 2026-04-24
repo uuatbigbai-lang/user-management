@@ -1,83 +1,51 @@
-import { config } from '../../config/index';
-import { mockIp, mockReqId } from '../../utils/mock';
-
-/** 获取结算mock数据 */
-function mockFetchSettleDetail(params) {
-  const { delay } = require('../_utils/delay');
-  const { genSettleDetail } = require('../../model/order/orderConfirm');
-
-  return delay().then(() => genSettleDetail(params));
-}
-
-/** 提交mock订单 */
-function mockDispatchCommitPay() {
-  const { delay } = require('../_utils/delay');
-
-  return delay().then(() => ({
-    data: {
-      isSuccess: true,
-      tradeNo: '350930961469409099',
-      payInfo: '{}',
-      code: null,
-      transactionId: 'E-200915180100299000',
-      msg: null,
-      interactId: '15145',
-      channel: 'wechat',
-      limitGoodsList: null,
-    },
-    code: 'Success',
-    msg: null,
-    requestId: mockReqId(),
-    clientIp: mockIp(),
-    rt: 891,
-    success: true,
-  }));
-}
+import { requestBackend } from '../../config/index';
 
 /** 获取结算数据 */
 export function fetchSettleDetail(params) {
-  if (config.useMock) {
-    return mockFetchSettleDetail(params);
-  }
-
-  return new Promise((resolve) => {
-    resolve('real api');
+  return requestBackend({
+    path: '/api/order/settle',
+    method: 'POST',
+    data: { goodsRequestList: params.goodsRequestList },
+  }).then((res) => {
+    if (res.data.code === 0) {
+      return { data: res.data.data };
+    }
+    throw new Error(res.data.message || '获取结算数据失败');
   });
 }
 
-/* 提交订单 */
+/** 提交订单（创建订单） */
 export function dispatchCommitPay(params) {
-  // if (config.useMock) {
-  //   return mockDispatchCommitPay(params);
-  // }
-  const len = params.goodsRequestList?.length;
-  let desc = '';
-  if (len > 0) {
-    desc = params.goodsRequestList[0].goodsName || '';
-    if (len > 1) {
-      desc += `...等${len}件商品`;
-    } 
-  }
-  // step1. 开始发送pre请求
-  return wx.cloud.callFunction({
-    name: 'wxpayFunctions',
+  // 构造完整的商品快照列表
+  const goodsList = (params.goodsRequestList || []).map((item) => ({
+    spuId: item.spuId || '',
+    skuId: item.skuId || '',
+    goodsName: item.goodsName || item.title || '',
+    thumb: item.thumb || item.primaryImage || '',
+    price: item.price || 0,
+    quantity: item.quantity || 1,
+    specs: (item.specInfo || []).map((s) => s.specValue).join('，'),
+  }));
+
+  return requestBackend({
+    path: '/api/order/create',
+    method: 'POST',
     data: {
-      desc,
-      totalAmount: 1,
-      // totalAmount: params.totalAmount,
-      "type": "wxpay_order"
+      goodsList,
+      userAddress: params.userAddressReq,
+      userName: params.userName,
+      totalAmount: params.totalAmount,
+      remark: (params.storeInfoList && params.storeInfoList[0]?.remark) || '',
+    },
+  }).then((res) => {
+    if (res.data.code === 0) {
+      return { result: { data: res.data.data, success: true } };
     }
+    throw new Error(res.data.message || '创建订单失败');
   });
 }
 
 /** 开发票 */
 export function dispatchSupplementInvoice() {
-  if (config.useMock) {
-    const { delay } = require('../_utils/delay');
-    return delay();
-  }
-
-  return new Promise((resolve) => {
-    resolve('real api');
-  });
+  return Promise.resolve();
 }

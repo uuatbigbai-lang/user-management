@@ -1,8 +1,8 @@
-/* eslint-disable no-param-reassign */
 import { fetchDeliveryAddressList } from '../../../../services/address/fetchAddress';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { resolveAddress, rejectAddress } from '../../../../services/address/list';
 import { getAddressPromise } from '../../../../services/address/edit';
+import { requestBackend } from '../../../../config/index';
 
 Page({
   data: {
@@ -27,7 +27,15 @@ Page({
     this.init();
   },
 
+  onShow() {
+    // 每次页面显示时（包括从编辑页返回）都重新拉取地址列表
+    if (this._hasLoaded) {
+      this.getAddressList();
+    }
+  },
+
   init() {
+    this._hasLoaded = true;
     this.getAddressList();
   },
   onUnload() {
@@ -103,51 +111,51 @@ Page({
   },
   deleteAddressHandle(e) {
     const { id } = e.currentTarget.dataset;
-    
-    // 显示删除中的提示
-    wx.showLoading({
-      title: '删除中...',
-      mask: true
-    });
 
-    // 从云开发数据库删除地址
-    wx.cloud.database().collection('Address').doc(id).remove().then(res => {
-      wx.hideLoading();
-      if (res.stats.removed > 0) {
-        // 从本地列表中移除
-        this.setData({
-          addressList: this.data.addressList.filter((address) => address.id !== id),
-          deleteID: '',
-          showDeleteConfirm: false,
-        });
+    wx.showLoading({ title: '删除中...', mask: true });
 
+    requestBackend({
+      path: '/api/address/delete',
+      method: 'POST',
+      data: { addressId: id },
+    }).then(
+      (res) => {
+        wx.hideLoading();
+        if (res.data.code === 0) {
+          this.setData({
+            addressList: this.data.addressList.filter((address) => String(address.id) !== String(id) && String(address.addressId) !== String(id)),
+            deleteID: '',
+            showDeleteConfirm: false,
+          });
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '地址删除成功',
+            theme: 'success',
+            duration: 1000,
+          });
+        } else {
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '地址删除失败',
+            theme: 'error',
+            duration: 2000,
+          });
+        }
+      },
+      (err) => {
+        wx.hideLoading();
+        console.error('删除地址失败:', err);
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '地址删除成功',
-          theme: 'success',
-          duration: 1000,
-        });
-      } else {
-        Toast({
-          context: this,
-          selector: '#t-toast',
-          message: '地址删除失败',
+          message: '地址删除失败，请重试',
           theme: 'error',
           duration: 2000,
         });
-      }
-    }).catch(err => {
-      wx.hideLoading();
-      console.error('删除地址失败:', err);
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '地址删除失败，请重试',
-        theme: 'error',
-        duration: 2000,
-      });
-    });
+      },
+    );
   },
   editAddressHandle({ detail }) {
     this.waitForNewAddress();

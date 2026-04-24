@@ -1,38 +1,36 @@
-import { config } from '../../config/index';
+import { requestBackend } from '../../config/index';
 
-/** 获取购物车mock数据 */
-function mockFetchCartGroupData(params) {
-  const { genCartGroupData } = require('../../model/cart');
-
-  return new Promise((resolve)=> { resolve(genCartGroupData(params))});
-}
-
-/** 调用云函数获取购物车数据 */
-function fetchCartFromCloud(params) {
-  return new Promise((resolve, reject) => {
-    wx.cloud.callFunction({
-      name: 'fetchCart',
-      data: {
-        params: params
-      },
-      success: (res) => {
-        console.log('云函数调用成功:', res);
-        if (res.result && res.result.success) {
-          resolve(res.result.data);
-        } else {
-          console.error('云函数返回错误:', res.result);
-          reject(new Error(res.result?.message || '获取购物车数据失败'));
-        }
-      },
-      fail: (error) => {
-        console.error('云函数调用失败:', error);
-        reject(error);
-      }
-    });
+/** 获取购物车数据 */
+export function fetchCartGroupData() {
+  return requestBackend({ path: '/api/cart/list' }).then((res) => {
+    if (res.data.code === 0) {
+      return { data: res.data.data };
+    }
+    throw new Error(res.data.message || '获取购物车失败');
   });
 }
 
-/** 获取购物车数据 */
-export function fetchCartGroupData(params) {
-  return fetchCartFromCloud(params);
+/** 加入购物车 */
+export function addToCart(data) {
+  return requestBackend({ path: '/api/cart/add', method: 'POST', data });
+}
+
+/** 更新购物车数量 */
+export function updateCartQuantity(data) {
+  return requestBackend({ path: '/api/cart/update', method: 'POST', data });
+}
+
+/** 切换选中状态 */
+export function updateCartSelect(data) {
+  return requestBackend({ path: '/api/cart/select', method: 'POST', data });
+}
+
+/** 删除购物车商品 */
+export function deleteCartItem(data) {
+  return requestBackend({ path: '/api/cart/delete', method: 'POST', data });
+}
+
+/** 清空失效商品（本地只需刷新列表） */
+export function clearInvalidGoods() {
+  return Promise.resolve();
 }

@@ -3,6 +3,48 @@ export const config = {
   useMock: true,
 };
 
+/**
+ * 后端接口环境配置
+ * useLocal = true  → 调本地 http://localhost:3000（开发调试）
+ * useLocal = false� 调云托管 callContainer（生产环境）
+ */
+export const backendConfig = {
+  useLocal: true,
+  localBase: 'http://localhost:3000',
+  cloud: {
+    env: 'prod-d4gu9yrbb28b39fbf',
+    serviceName: 'express-ir28',
+  },
+};
+
+/**
+ * 统一请求后端接口的工具方法
+ * 本地模式用 wx.request，线上用 wx.cloud.callContainer
+ */
+export function requestBackend({ path, method = 'GET', data = {} }) {
+  return new Promise((resolve, reject) => {
+    if (backendConfig.useLocal) {
+      wx.request({
+        url: `${backendConfig.localBase}${path}`,
+        method,
+        data,
+        success: (res) => resolve(res),
+        fail: (err) => reject(err),
+      });
+    } else {
+      wx.cloud.callContainer({
+        config: { env: backendConfig.cloud.env },
+        path,
+        method,
+        header: { 'X-WX-SERVICE': backendConfig.cloud.serviceName },
+        data,
+        success: (res) => resolve(res),
+        fail: (err) => reject(err),
+      });
+    }
+  });
+}
+
 export const cdnBase =
   'https://we-retail-static-1300977798.cos.ap-guangzhou.myqcloud.com/retail-mp';
 

@@ -1,37 +1,10 @@
 import Toast from 'tdesign-miniprogram/toast/index';
+import { requestBackend } from '../../config/index';
 
 Page({
   data: {
     pageLoading: true,
-    products: [
-      {
-        id: 1,
-        spuId: 'spu_probiotic_01',
-        title: '清畅益生菌粉（成人款）',
-        brief: '含300亿活性乳酸菌，呵护肠道微生态平衡，每天一袋，轻松享受清爽好肠道。',
-        price: '168',
-        thumb: 'https://cdn-we-retail.ym.tencent.com/miniapp/template/retail/goods/nz-09a.png',
-        badge: '人气爆款',
-      },
-      {
-        id: 2,
-        spuId: 'spu_probiotic_02',
-        title: '儿童果味益生菌咀嚼片',
-        brief: '专为儿童设计，酸甜果味易接受，6种优选菌株协同守护宝宝娇嫩肠胃。',
-        price: '128',
-        thumb: 'https://cdn-we-retail.ym.tencent.com/miniapp/template/retail/goods/nz-08a.png',
-        badge: '妈妈之选',
-      },
-      {
-        id: 3,
-        spuId: 'spu_probiotic_03',
-        title: '女性私护益生菌胶囊',
-        brief: '甄选鼠李糖乳杆菌等专利菌株，由内而外护女性健康，科学守护私密平衡。',
-        price: '198',
-        thumb: 'https://cdn-we-retail.ym.tencent.com/miniapp/template/retail/goods/nz-10a.png',
-        badge: '',
-      },
-    ],
+    products: [],
   },
 
   onShow() {
@@ -47,11 +20,27 @@ Page({
   },
 
   init() {
-    // 模拟加载
-    setTimeout(() => {
+    this.fetchProducts();
+  },
+
+  // 从后端获取商品列表（自动识别本地/云托管）
+  fetchProducts() {
+    this.setData({ pageLoading: true });
+    requestBackend({ path: '/api/products' }).then((res) => {
+      if (res.data.code === 0) {
+        this.setData({ products: res.data.data, pageLoading: false });
+      } else {
+        console.error('获取商品失败:', res.data.message);
+        Toast({ context: this, selector: '#t-toast', message: '加载商品失败' });
+        this.setData({ pageLoading: false });
+      }
+      wx.stopPullDownRefresh();
+    }).catch((err) => {
+      console.error('请求失败:', err);
+      Toast({ context: this, selector: '#t-toast', message: '网络错误，请重试' });
       this.setData({ pageLoading: false });
       wx.stopPullDownRefresh();
-    }, 400);
+    });
   },
 
   // 跳转到商品详情
