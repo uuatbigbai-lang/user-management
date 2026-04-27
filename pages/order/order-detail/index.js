@@ -113,7 +113,9 @@ Page({
       order.invoiceVO = order.invoiceVO || {};
       order.trajectoryVos = order.trajectoryVos || [];
       order.buttonVOs = order.buttonVOs || [];
-      order.orderStatusRemark = '已' + order.orderStatusRemark.split('').slice(1).join('');
+      order.orderStatusRemark = order.orderStatusRemark
+        ? '已' + order.orderStatusRemark.split('').slice(1).join('')
+        : '';
       this.orderNo = order.orderNo;
       const _order = {
         id: order.orderId,

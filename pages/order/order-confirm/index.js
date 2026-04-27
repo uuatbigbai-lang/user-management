@@ -381,6 +381,19 @@ Page({
     const { settleDetailData, userAddressReq, invoiceData, storeInfoList, submitCouponList } = this.data;
     const { goodsRequestList } = this;
 
+    // 校验收货地址
+    const address = settleDetailData.userAddress || userAddressReq;
+    if (!address || !address.name) {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '请先选择收货地址',
+        duration: 2000,
+        icon: '',
+      });
+      return;
+    }
+
     if (this.payLock) return;
     this.payLock = true;
 
@@ -410,7 +423,7 @@ Page({
 
         // 跳转支付结果页（本地开发模拟支付成功）
         wx.redirectTo({
-          url: `/pages/order/pay-result/index?totalPaid=${params.totalAmount}&orderNo=${orderData.orderNo}`,
+          url: `/pages/order/pay-result/index?totalPaid=${params.totalAmount}&orderID=${orderData.orderId}`,
         });
       },
       (err) => {
