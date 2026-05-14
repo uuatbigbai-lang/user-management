@@ -40,7 +40,7 @@
         <view class="goods-tag">
           <t-button open-type="share" t-class="shareBtn" variant="text">
             <view class="btn-icon">
-              <t-icon name="share" size="40rpx" color="#5aaa6e" />
+              <t-icon name="share" size="40rpx" color="#2f7d43" />
               <view class="share-text">分享</view>
               <view class="share-text" style="font-size: 9px;">领积分</view>
             </view>

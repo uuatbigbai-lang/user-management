@@ -17,7 +17,10 @@
       <view class="brand-tag">· 纯净生活 ·</view>
       <view class="hero-title-row">
         <view class="logo">🌱</view>
-        <view class="hero-title">立康林</view>
+        <view class="hero-title-stack">
+          <view class="hero-title">立康林</view>
+          <view class="hero-title hero-title-en">RecoverGreen微生态管家</view>
+        </view>
       </view>
       <view class="hero-subtitle">源自自然的肠道守护力量</view>
       <view class="hero-desc">我们专注益生菌领域超过10年，甄选全球优质菌株，以科学配方守护每一位家人的肠道健康。</view>

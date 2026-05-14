@@ -1,7 +1,7 @@
 import Dialog from 'tdesign-miniprogram/dialog/index';
 import Toast from 'tdesign-miniprogram/toast/index';
 
-import { dispatchCommitPay } from '../../../services/order/orderConfirm';
+import { confirmOrderPaid, dispatchCommitPay } from '../../../services/order/orderConfirm';
 
 // 真实的提交支付
 export const commitPay = (params) => {
@@ -25,11 +25,11 @@ export const commitPay = (params) => {
   });
 };
 
-export const paySuccess = (payOrderInfo) => {
+export const paySuccess = (payOrderInfo, context) => {
   const { payAmt, tradeNo, groupId, promotionId } = payOrderInfo;
   // 支付成功
   Toast({
-    context: this,
+    context,
     selector: '#t-toast',
     message: '支付成功',
     duration: 2000,
@@ -38,6 +38,7 @@ export const paySuccess = (payOrderInfo) => {
 
   const params = {
     totalPaid: payAmt,
+    orderID: payOrderInfo.orderId,
     orderNo: tradeNo,
   };
   if (groupId) {
@@ -49,11 +50,23 @@ export const paySuccess = (payOrderInfo) => {
   const paramsStr = Object.keys(params)
     .map((k) => `${k}=${params[k]}`)
     .join('&');
-  // 跳转支付结果页面
-  wx.redirectTo({ url: `/pages/order/pay-result/index?${paramsStr}` });
+
+  const redirectToPayResult = () => {
+    wx.redirectTo({ url: `/pages/order/pay-result/index?${paramsStr}` });
+  };
+
+  confirmOrderPaid({
+    orderId: payOrderInfo.orderId,
+    orderNo: tradeNo,
+    transactionId: payOrderInfo.transactionId,
+  })
+    .catch((err) => {
+      console.warn('同步支付状态失败:', err);
+    })
+    .finally(redirectToPayResult);
 };
 
-export const payFail = (payOrderInfo, resultMsg) => {
+export const payFail = (payOrderInfo, resultMsg, context) => {
   if (resultMsg === 'requestPayment:fail cancel') {
     if (payOrderInfo.dialogOnCancel) {
       //结算页，取消付款，dialog提示
@@ -68,7 +81,7 @@ export const payFail = (payOrderInfo, resultMsg) => {
     } else {
       //订单列表页，订单详情页，取消付款，toast提示
       Toast({
-        context: this,
+        context,
         selector: '#t-toast',
         message: '支付取消',
         duration: 2000,
@@ -77,7 +90,7 @@ export const payFail = (payOrderInfo, resultMsg) => {
     }
   } else {
     Toast({
-      context: this,
+      context,
       selector: '#t-toast',
       message: `支付失败：${resultMsg}`,
       duration: 2000,
@@ -91,9 +104,9 @@ export const payFail = (payOrderInfo, resultMsg) => {
 
 // 微信支付方式
 export const wechatPayOrder = (payOrderInfo) => {
-  const payInfo = JSON.parse(payOrderInfo.payInfo);
+  const payInfo = typeof payOrderInfo.payInfo === 'string' ? JSON.parse(payOrderInfo.payInfo) : payOrderInfo.payInfo;
   const { timeStamp, nonceStr, signType, paySign } = payInfo;
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     // // demo 中直接走支付成功
     // paySuccess(payOrderInfo);
     // resolve();
@@ -104,11 +117,12 @@ export const wechatPayOrder = (payOrderInfo) => {
       signType,
       paySign,
       success: function () {
-        paySuccess(payOrderInfo);
+        paySuccess(payOrderInfo, payOrderInfo.context);
         resolve();
       },
       fail: function (err) {
-        payFail(payOrderInfo, err.errMsg);
+        payFail(payOrderInfo, err.errMsg, payOrderInfo.context);
+        reject(err);
       },
     });
   });

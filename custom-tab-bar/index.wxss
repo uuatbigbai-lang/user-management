@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+t-tab-bar {
+  --td-tab-bar-bg-color: #f7fbf7;
+  --td-tab-bar-active-color: #2f7d43;
+  --td-tab-bar-color: #5d6d60;
+}
+
 .custom-tab-bar-wrapper .text {
   font-size: 20rpx;
 }

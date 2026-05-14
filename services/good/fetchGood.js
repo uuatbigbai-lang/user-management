@@ -1,4 +1,5 @@
 import { requestBackend } from '../../config/index';
+import { resolveProductImageUrls } from '../../utils/cloudImage';
 
 /** 获取商品详情 - Mock数据 */
 function mockFetchGood(ID = 0) {
@@ -19,9 +20,10 @@ const safeJSON = (val, fallback) => {
 /** 获取商品详情 - 从后端获取（自动识别本地/云托管） */
 function fetchFromBackend(spuId) {
   return requestBackend({ path: `/api/products/${spuId}` }).then((res) => {
+    console.log('[goodsDetail] /api/products/:spuId 原始返回:', res);
     if (res.data.code === 0 && res.data.data) {
       const d = res.data.data;
-      return{
+      const detail = {
         spuId: d.spuId,
         title: d.title,
         primaryImage: d.primaryImage || d.thumb,
@@ -38,6 +40,10 @@ function fetchFromBackend(spuId) {
         desc: safeJSON(d.desc, []),
         available: d.spuStockQuantity || 0,
       };
+      return resolveProductImageUrls(detail).then((resolvedDetail) => {
+        console.log('[goodsDetail] 即将给页面使用的详情数据:', resolvedDetail);
+        return resolvedDetail;
+      });
     }
     throw new Error(res.data.message || '获取商品详情失败');
   });

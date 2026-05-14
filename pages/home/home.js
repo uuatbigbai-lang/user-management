@@ -1,5 +1,6 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { requestBackend } from '../../config/index';
+import { resolveProductsImageUrls } from '../../utils/cloudImage';
 
 Page({
   data: {
@@ -26,9 +27,12 @@ Page({
   // 从后端获取商品列表（自动识别本地/云托管）
   fetchProducts() {
     this.setData({ pageLoading: true });
-    requestBackend({ path: '/api/products' }).then((res) => {
+    requestBackend({ path: '/api/products' }).then(async (res) => {
+      console.log('[home] /api/products 原始返回:', res);
       if (res.data.code === 0) {
-        this.setData({ products: res.data.data, pageLoading: false });
+        const products = await resolveProductsImageUrls(res.data.data);
+        console.log('[home] 即将 setData 的 products:', products);
+        this.setData({ products, pageLoading: false });
       } else {
         console.error('获取商品失败:', res.data.message);
         Toast({ context: this, selector: '#t-toast', message: '加载商品失败' });

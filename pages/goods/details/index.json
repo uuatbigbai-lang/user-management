@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "商品详情",
-  "navigationBarBackgroundColor": "#e8f5e9",
-  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#2f7d43",
+  "navigationBarTextStyle": "white",
   "usingComponents": {
     "t-image": "/components/webp-image/index",
     "t-tag": "tdesign-miniprogram/tag/tag",

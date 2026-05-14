@@ -186,11 +186,15 @@ Page({
         newAddress.address = `${newAddress.provinceName}${newAddress.cityName}${newAddress.districtName}${newAddress.detailAddress}`;
         newAddress.tag = newAddress.addressTag;
 
-        if (!newAddress.addressId) {
-          newAddress.id = `${addressList.length}`;
-          newAddress.addressId = `${addressList.length}`;
+        const existsIndex = addressList.findIndex(
+          (address) => String(address.addressId || address.id) === String(newAddress.addressId || newAddress.id),
+        );
 
-          if (newAddress.isDefault === 1) {
+        if (existsIndex < 0) {
+          newAddress.id = newAddress.id || newAddress.addressId || `${addressList.length}`;
+          newAddress.addressId = newAddress.addressId || `${addressList.length}`;
+
+          if (newAddress.isDefault === 1 || newAddress.isDefault === true) {
             addressList = addressList.map((address) => {
               address.isDefault = 0;
 
@@ -203,8 +207,11 @@ Page({
           addressList.push(newAddress);
         } else {
           addressList = addressList.map((address) => {
-            if (address.addressId === newAddress.addressId) {
+            if (String(address.addressId || address.id) === String(newAddress.addressId || newAddress.id)) {
               return newAddress;
+            }
+            if (newAddress.isDefault === 1 || newAddress.isDefault === true) {
+              address.isDefault = 0;
             }
             return address;
           });
@@ -223,6 +230,12 @@ Page({
         this.setData({
           addressList: addressList,
         });
+
+        if (this.selectMode) {
+          this.hasSelect = true;
+          resolveAddress(newAddress);
+          wx.navigateBack({ delta: 1 });
+        }
       })
       .catch((e) => {
         if (e.message !== 'cancel') {

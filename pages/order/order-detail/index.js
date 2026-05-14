@@ -20,7 +20,7 @@ Page({
   },
 
   onLoad(query) {
-    this.orderID = query.orderID;
+    this.orderID = query.orderID || query.orderNo || query.id;
     console.log('this.query', query)
     this.init();
     this.navbar = this.selectComponent('#navbar');

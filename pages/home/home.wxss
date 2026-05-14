@@ -38,7 +38,7 @@ page {
   left: -40rpx;
   right: -40rpx;
   bottom: -40rpx;
-  background: linear-gradient(160deg, #e8f5e9 0%, #c8e6c9 30%, #a5d6a7 60%, #e8f5e9 100%);
+  background: linear-gradient(160deg, #d7efd9 0%, #a8d8ad 30%, #78bf82 60%, #d7efd9 100%);
   border-radius: 0 0 60rpx 60rpx;
   z-index: 0;
 }
@@ -150,6 +150,12 @@ page {
   margin-bottom: 12rpx;
 }
 
+.hero-title-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
 .logo {
   width: 64rpx;
   height: 64rpx;
@@ -164,10 +170,15 @@ page {
 }
 
 .hero-title {
-  font-size: 56rpx;
+  font-size: 45rpx;
   font-weight: 700;
   color: var(--text-main);
   letter-spacing: 4rpx;
+}
+
+.hero-title-en {
+  font-size: 45rpx;
+  letter-spacing: 1rpx;
 }
 
 .brand-tag {

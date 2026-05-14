@@ -1,5 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
-import { fetchSettleDetail } from '../../../services/order/orderConfirm';
+import { confirmOrderPaid, fetchSettleDetail } from '../../../services/order/orderConfirm';
 import { commitPay, wechatPayOrder } from './pay';
 import { getAddressPromise } from '../../../services/address/list';
 import { requestBackend } from '../../../config/index';
@@ -376,7 +376,7 @@ Page({
       this.handleOptionsParams({ goodsRequestList });
     }
   },
-  // 提交订单（简化版：创建订单 → 直接跳转支付结果页，本地开发跳过真实支付）
+  // 提交订单：创建订单后，生产环境调起微信支付；未配置支付参数时保留本地模拟成功。
   submitOrder() {
     const { settleDetailData, userAddressReq, invoiceData, storeInfoList, submitCouponList } = this.data;
     const { goodsRequestList } = this;
@@ -413,7 +413,6 @@ Page({
 
     wx.showLoading({ title: '提交订单中', mask: true });
 
-    // 直接调用后端创建订单（commitPay 内部调 /api/order/create）
     commitPay(params).then(
       (res) => {
         wx.hideLoading();
@@ -421,10 +420,24 @@ Page({
         const orderData = res.result.data;
         console.log('订单创建成功:', orderData);
 
-        // 跳转支付结果页（本地开发模拟支付成功）
-        wx.redirectTo({
-          url: `/pages/order/pay-result/index?totalPaid=${params.totalAmount}&orderID=${orderData.orderId}`,
-        });
+        if (orderData.payInfo) {
+          this.handlePay(orderData, settleDetailData);
+          return;
+        }
+
+        // 本地开发或后端未配置微信商户参数时，模拟支付成功并同步订单状态。
+        confirmOrderPaid({
+          orderId: orderData.orderId,
+          orderNo: orderData.orderNo,
+        })
+          .catch((err) => {
+            console.warn('同步支付状态失败:', err);
+          })
+          .finally(() => {
+            wx.redirectTo({
+              url: `/pages/order/pay-result/index?totalPaid=${params.totalAmount}&orderID=${orderData.orderId}`,
+            });
+          });
       },
       (err) => {
         wx.hideLoading();
@@ -443,20 +456,22 @@ Page({
 
   // 处理支付
   handlePay(data, settleDetailData) {
-    const { channel, payInfo, tradeNo, interactId, transactionId } = data;
+    const { channel, payInfo, tradeNo, orderNo, orderId, paymentAmount, interactId, transactionId } = data;
     const { totalAmount, totalPayAmount } = settleDetailData;
     const payOrderInfo = {
       payInfo: payInfo,
-      orderId: tradeNo,
+      orderId: orderId,
       orderAmt: totalAmount,
-      payAmt: totalPayAmount,
+      payAmt: paymentAmount || totalPayAmount,
       interactId: interactId,
-      tradeNo: tradeNo,
+      tradeNo: tradeNo || orderNo,
       transactionId: transactionId,
+      context: this,
+      dialogOnCancel: true,
     };
 
     if (channel === 'wechat') {
-      wechatPayOrder(payOrderInfo);
+      wechatPayOrder(payOrderInfo).catch(() => {});
     }
   },
 
