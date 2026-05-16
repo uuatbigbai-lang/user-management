@@ -46,8 +46,16 @@
           <view class="sample-item__value">{{item.sampleNo}}</view>
         </view>
         <view class="sample-item__row">
+          <view class="sample-item__label">检测项目</view>
+          <view class="sample-item__value">{{item.title}}</view>
+        </view>
+        <view class="sample-item__row">
           <view class="sample-item__label">姓名</view>
           <view class="sample-item__value">{{item.name}}</view>
+        </view>
+        <view class="sample-item__row">
+          <view class="sample-item__label">状态</view>
+          <view class="sample-item__value">{{item.status}}</view>
         </view>
       </view>
       <view class="sample-load-more" wx:if="{{loadingMore}}">

@@ -1,3 +1,5 @@
+import { fetchSamples } from '../../services/sample/index';
+
 Page({
   data: {
     activeTab: 0,
@@ -18,7 +20,10 @@ Page({
   },
 
   onShow() {
-    this.getTabBar().init();
+    const tabBar = this.getTabBar && this.getTabBar();
+    if (tabBar && tabBar.init) {
+      tabBar.init();
+    }
   },
 
   onLoad() {
@@ -133,31 +138,19 @@ Page({
     try {
       const typeMap = ['', 'gut', 'vaginal', 'inflammation'];
       const type = typeMap[this.data.activeTab] || '';
-      const res = await wx.cloud.callFunction({
-        name: 'getSimpleList',
-        data: {
-          action: 'list',
-          page: nextPage,
-          pageSize: this.data.pageSize,
-          type,
-        },
+      const result = await fetchSamples({
+        page: nextPage,
+        pageSize: this.data.pageSize,
+        type,
       });
-      const result = res?.result || {};
-      if (result.code === 0) {
-        const newList = result.data || [];
-        const merged = reset ? newList : this.data.list.concat(newList);
-        const hasMore = merged.length < (result.total || 0);
-        this.setData({
-          list: merged,
-          page: nextPage + 1,
-          hasMore,
-        });
-      } else {
-        wx.showToast({
-          title: result.message || '加载失败',
-          icon: 'none',
-        });
-      }
+      const newList = result.data || [];
+      const merged = reset ? newList : this.data.list.concat(newList);
+      const hasMore = merged.length < (result.total || 0);
+      this.setData({
+        list: merged,
+        page: nextPage + 1,
+        hasMore,
+      });
     } catch (error) {
       wx.showToast({
         title: '加载失败，请稍后重试',

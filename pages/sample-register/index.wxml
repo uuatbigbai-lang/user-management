@@ -102,6 +102,130 @@
         data-key="weight"
       />
     </view>
+
+    <block wx:if="{{type === 'gut'}}">
+      <view class="form-divider"></view>
+      <view class="section-title">肠道菌群检测信息</view>
+      <view class="form-item">
+        <view class="form-title">日常排便频率<text class="required">*</text></view>
+        <t-input
+          class="form-input"
+          placeholder="如每日1次、两日1次"
+          value="{{form.bowelFrequency}}"
+          bind:change="onInputChange"
+          data-key="bowelFrequency"
+        />
+      </view>
+      <view class="form-item">
+        <view class="form-title">近期大便性状<text class="required">*</text></view>
+        <t-input
+          class="form-input"
+          placeholder="如成形、偏稀、便秘"
+          value="{{form.stoolShape}}"
+          bind:change="onInputChange"
+          data-key="stoolShape"
+        />
+      </view>
+      <view class="form-item">
+        <view class="form-title">近期肠胃症状<text class="required">*</text></view>
+        <t-textarea
+          class="form-textarea"
+          placeholder="如腹胀、腹痛、腹泻、便秘等，没有请填无"
+          value="{{form.digestiveSymptoms}}"
+          bind:change="onInputChange"
+          data-key="digestiveSymptoms"
+        />
+      </view>
+    </block>
+
+    <block wx:elif="{{type === 'vaginal'}}">
+      <view class="form-divider"></view>
+      <view class="section-title">阴道菌群检测信息</view>
+      <view class="form-item">
+        <view class="form-title">当前月经状态<text class="required">*</text></view>
+        <t-input
+          class="form-input"
+          placeholder="如经期前、经期后、绝经、孕期"
+          value="{{form.menstrualStatus}}"
+          bind:change="onInputChange"
+          data-key="menstrualStatus"
+        />
+      </view>
+      <view class="form-item">
+        <view class="form-title">是否怀孕<text class="required">*</text></view>
+        <t-radio-group
+          value="{{form.pregnant}}"
+          bind:change="onInputChange"
+          data-key="pregnant"
+          class="radio-group"
+        >
+          <t-radio
+            wx:for="{{yesNoOptions}}"
+            wx:key="value"
+            value="{{item.value}}"
+            label="{{item.label}}"
+          />
+        </t-radio-group>
+      </view>
+      <view class="form-item">
+        <view class="form-title">近期是否使用阴道用药或抗生素<text class="required">*</text></view>
+        <t-radio-group
+          value="{{form.vaginalMedication}}"
+          bind:change="onInputChange"
+          data-key="vaginalMedication"
+          class="radio-group"
+        >
+          <t-radio
+            wx:for="{{yesNoOptions}}"
+            wx:key="value"
+            value="{{item.value}}"
+            label="{{item.label}}"
+          />
+        </t-radio-group>
+      </view>
+      <view class="form-item">
+        <view class="form-title">近期相关症状<text class="required">*</text></view>
+        <t-textarea
+          class="form-textarea"
+          placeholder="如瘙痒、异味、分泌物异常等，没有请填无"
+          value="{{form.vaginalSymptoms}}"
+          bind:change="onInputChange"
+          data-key="vaginalSymptoms"
+        />
+      </view>
+    </block>
+
+    <block wx:elif="{{type === 'inflammation'}}">
+      <view class="form-divider"></view>
+      <view class="section-title">肠道炎症检测信息</view>
+      <view class="form-item">
+        <view class="form-title">近期肠道不适情况<text class="required">*</text></view>
+        <t-textarea
+          class="form-textarea"
+          placeholder="如腹泻、便血、腹痛、发热等，没有请填无"
+          value="{{form.inflammationSymptoms}}"
+          bind:change="onInputChange"
+          data-key="inflammationSymptoms"
+        />
+      </view>
+      <view class="form-item">
+        <view class="form-title">近期是否使用消炎药或肠道相关药物<text class="required">*</text></view>
+        <t-radio-group
+          value="{{form.inflammationMedication}}"
+          bind:change="onInputChange"
+          data-key="inflammationMedication"
+          class="radio-group"
+        >
+          <t-radio
+            wx:for="{{yesNoOptions}}"
+            wx:key="value"
+            value="{{item.value}}"
+            label="{{item.label}}"
+          />
+        </t-radio-group>
+      </view>
+    </block>
+
     <view class="form-item" wx:if="{{showAntibiotics}}">
       <view class="form-title">
         两周内是否使用过抗生素、止泻药或者导泻药等影响肠道菌群的药物？若是用过，会影响检测结果的精准性，建议超过两周后再来检测。
@@ -155,7 +279,7 @@
       loading="{{submitting}}"
       bind:tap="onSubmit"
     >
-      保存
+      上传信息
     </t-button>
   </view>
 </view>
