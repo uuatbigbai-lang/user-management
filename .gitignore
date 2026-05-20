@@ -4,3 +4,8 @@ node_modules/*
 cloudfunctions/*
 .DS_Store
 miniprogram_npm
+private.*.key
+scripts/upload.key
+*.pem
+certs/
+backend/certs/

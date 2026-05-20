@@ -16,6 +16,8 @@ Page({
     listLoading: 0,
     pullDownRefreshing: false,
     emptyImg: 'https://tdesign.gtimg.com/miniprogram/template/retail/order/empty-order-list.png',
+    emptyTitle: '还没有订单',
+    emptyDesc: '选一份喜欢的商品，第一笔订单会出现在这里',
     backRefresh: false,
     status: -1,
   },
@@ -167,7 +169,11 @@ Page({
       size: this.page.size,
       num: 1,
     };
-    this.setData({ curTab: status, orderList: [] });
+    this.setData({
+      curTab: status,
+      orderList: [],
+      ...this.getEmptyState(status),
+    });
 
     return Promise.all([this.getOrderList(status, true), this.getOrdersCount()]);
   },
@@ -181,5 +187,37 @@ Page({
     wx.navigateTo({
       url: `/pages/order/order-detail/index?orderID=${order.id}`,
     });
+  },
+
+  getEmptyState(status) {
+    const emptyMap = {
+      [OrderStatus.PENDING_PAYMENT]: {
+        emptyTitle: '没有待付款订单',
+        emptyDesc: '下单后未完成支付的订单会显示在这里',
+      },
+      [OrderStatus.PENDING_DELIVERY]: {
+        emptyTitle: '没有待发货订单',
+        emptyDesc: '已支付、等待发货的订单会显示在这里',
+      },
+      [OrderStatus.PENDING_RECEIPT]: {
+        emptyTitle: '没有待收货订单',
+        emptyDesc: '商家发货后，你可以在这里查看物流进度',
+      },
+      [OrderStatus.COMPLETE]: {
+        emptyTitle: '没有已完成订单',
+        emptyDesc: '完成收货后的订单会显示在这里',
+      },
+    };
+
+    return (
+      emptyMap[status] || {
+        emptyTitle: '还没有订单',
+        emptyDesc: '选一份喜欢的商品，第一笔订单会出现在这里',
+      }
+    );
+  },
+
+  onEmptyAction() {
+    wx.switchTab({ url: '/pages/home/home' });
   },
 });

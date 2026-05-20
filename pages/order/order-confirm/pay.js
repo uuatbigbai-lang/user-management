@@ -74,10 +74,15 @@ export const payFail = (payOrderInfo, resultMsg, context) => {
         title: '是否放弃付款',
         content: '商品可能很快就会被抢空哦，是否放弃付款？',
         confirmBtn: '放弃',
-        cancelBtn: '继续付款',
-      }).then(() => {
-        wx.redirectTo({ url: '/pages/order/order-list/index' });
-      });
+        cancelBtn: {
+          content: '继续付款',
+          theme: 'primary',
+        },
+      })
+        .then(() => {
+          wx.redirectTo({ url: '/pages/order/order-list/index' });
+        })
+        .catch(() => {});
     } else {
       //订单列表页，订单详情页，取消付款，toast提示
       Toast({
@@ -122,6 +127,10 @@ export const wechatPayOrder = (payOrderInfo) => {
       },
       fail: function (err) {
         payFail(payOrderInfo, err.errMsg, payOrderInfo.context);
+        if (err.errMsg === 'requestPayment:fail cancel') {
+          resolve();
+          return;
+        }
         reject(err);
       },
     });

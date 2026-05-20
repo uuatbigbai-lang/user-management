@@ -30,6 +30,13 @@
     bindrefresh="onPullDownRefresh_"
     t-class-indicator="t-class-indicator"
   >
+    <view wx:if="{{!pullDownRefreshing && !orderList.length && listLoading === 2}}" class="empty-state">
+      <image class="empty-state__image" src="{{emptyImg}}" mode="aspectFit" />
+      <view class="empty-state__title">{{emptyTitle}}</view>
+      <view class="empty-state__desc">{{emptyDesc}}</view>
+      <button class="empty-state__button" bindtap="onEmptyAction">去逛逛</button>
+    </view>
+
     <order-card
       wx:for="{{orderList}}"
       wx:key="id"
@@ -69,7 +76,7 @@
     </order-card>
     <!-- 列表加载中/已全部加载 -->
     <load-more
-      wx:if="{{!pullDownRefreshing}}"
+      wx:if="{{!pullDownRefreshing && orderList.length > 0}}"
       list-is-empty="{{!orderList.length}}"
       status="{{listLoading}}"
       bindretry="onReTryLoad"

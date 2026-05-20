@@ -14,6 +14,7 @@ Component({
         if (this.properties?.goodsIndex !== null) {
           const goods = order.goodsList[Number(this.properties.goodsIndex)];
           this.setData({
+            order,
             buttons: {
               left: [],
               right: (goods.buttons || []).filter((b) => b.type == OrderButtonTypes.APPLY_REFUND),
@@ -56,6 +57,7 @@ Component({
           buttonsLeft = buttonsRight.splice(deleteBtnIndex, 1);
         }
         this.setData({
+          order,
           buttons: {
             left: buttonsLeft,
             right: buttonsRight,
@@ -150,12 +152,7 @@ Component({
     },
 
     onPay() {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '你点击了去支付',
-        icon: 'check-circle',
-      });
+      this.triggerEvent('pay', { order: this.data.order });
     },
 
     onBuyAgain() {

@@ -6,11 +6,12 @@ export const config = {
 /**
  * 后端接口环境配置
  * useLocal = true  → 调本地 http://localhost:3000（开发调试）
- * useLocal = false� 调云托管 callContainer（生产环境）
+ * useLocal = false -> 调云托管 callContainer（生产环境）
  */
 export const backendConfig = {
   useLocal: true,
   localBase: 'http://localhost:3000',
+  publicBase: 'https://express-ir28-250440-4-1425492866.sh.run.tcloudbase.com',
   cloud: {
     env: 'prod-d4gu9yrbb28b39fbf',
     serviceName: 'express-ir28',

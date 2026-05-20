@@ -16,7 +16,10 @@
     <view class="hero-content">
       <view class="brand-tag">· 纯净生活 ·</view>
       <view class="hero-title-row">
-        <view class="logo">🌱</view>
+        <view class="logo">
+          <image wx:if="{{homeAssets.logo.src}}" class="logo-img" src="{{homeAssets.logo.src}}" mode="aspectFit" />
+          <text wx:else>{{homeAssets.logo.text}}</text>
+        </view>
         <view class="hero-title-stack">
           <view class="hero-title">立康林</view>
           <view class="hero-title hero-title-en">RecoverGreen微生态管家</view>
@@ -36,17 +39,26 @@
     </view>
     <view class="philosophy-cards">
       <view class="phi-card">
-        <view class="phi-icon">🌿</view>
+        <view class="phi-icon">
+          <image wx:if="{{homeAssets.philosophyNatural.src}}" class="phi-icon-img" src="{{homeAssets.philosophyNatural.src}}" mode="aspectFit" />
+          <text wx:else>{{homeAssets.philosophyNatural.text}}</text>
+        </view>
         <text class="phi-label">天然菌株</text>
         <text class="phi-desc">精选自然环境中的优质活性菌</text>
       </view>
       <view class="phi-card">
-        <view class="phi-icon">🔬</view>
+        <view class="phi-icon">
+          <image wx:if="{{homeAssets.philosophyScience.src}}" class="phi-icon-img" src="{{homeAssets.philosophyScience.src}}" mode="aspectFit" />
+          <text wx:else>{{homeAssets.philosophyScience.text}}</text>
+        </view>
         <text class="phi-label">科学配方</text>
         <text class="phi-desc">联合国内外微生态专家研发</text>
       </view>
       <view class="phi-card">
-        <view class="phi-icon">💚</view>
+        <view class="phi-icon">
+          <image wx:if="{{homeAssets.philosophyQuality.src}}" class="phi-icon-img" src="{{homeAssets.philosophyQuality.src}}" mode="aspectFit" />
+          <text wx:else>{{homeAssets.philosophyQuality.text}}</text>
+        </view>
         <text class="phi-label">品质保障</text>
         <text class="phi-desc">GMP认证工厂全程质控生产</text>
       </view>
@@ -59,7 +71,10 @@
       <view class="nutrition-card-bg"></view>
       <view class="nutrition-card-content">
         <view class="nutrition-top-row">
-          <view class="nutrition-icon">📖</view>
+          <view class="nutrition-icon">
+            <image wx:if="{{homeAssets.nutritionEntry.src}}" class="nutrition-icon-img" src="{{homeAssets.nutritionEntry.src}}" mode="aspectFit" />
+            <text wx:else>{{homeAssets.nutritionEntry.text}}</text>
+          </view>
           <view class="nutrition-info">
             <text class="nutrition-name">营养学堂</text>
             <text class="nutrition-tip">肠道科普 · 益生菌知识 · 饮食指南</text>

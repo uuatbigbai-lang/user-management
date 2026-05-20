@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --cache --fix --ext .js",
     "check": "node config/eslintCheck.js",
+    "upload:mp": "node scripts/upload-miniprogram.js --key scripts/upload.key --version 1.0.0 --desc \"first release\"",
     "prepare": "husky install",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
@@ -41,6 +42,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^8.0.3",
     "lint-staged": "^10.0.8",
+    "miniprogram-ci": "^2.1.13",
     "prettier": "^2.1.2"
   }
 }

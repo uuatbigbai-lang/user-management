@@ -1,5 +1,18 @@
 import { config, requestBackend } from '../../config/index';
 
+function getWxLoginCode() {
+  return new Promise((resolve) => {
+    if (!wx.login) {
+      resolve('');
+      return;
+    }
+    wx.login({
+      success: (res) => resolve(res.code || ''),
+      fail: () => resolve(''),
+    });
+  });
+}
+
 /** 获取订单详情mock数据 */
 function mockFetchOrderDetail(params) {
   const { delay } = require('../_utils/delay');
@@ -48,5 +61,26 @@ export function fetchBusinessTime(params) {
         businessTime: [],
       },
     });
+  });
+}
+
+/** 继续支付已有待付款订单 */
+export async function dispatchOrderPay(params) {
+  const authorizationCode = params.authorizationCode || (await getWxLoginCode());
+
+  return requestBackend({
+    path: '/api/order/pay',
+    method: 'POST',
+    data: {
+      orderId: params.orderId,
+      orderNo: params.orderNo,
+      authorizationCode,
+    },
+  }).then((res) => {
+    const result = res.data || res;
+    if (result.code === 0) {
+      return { data: result.data };
+    }
+    throw new Error(result.message || '发起支付失败');
   });
 }

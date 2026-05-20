@@ -1,8 +1,10 @@
 import { formatTime } from '../../../utils/util';
 import { OrderStatus, LogisticsIconMap } from '../config';
-import { fetchBusinessTime, fetchOrderDetail } from '../../../services/order/orderDetail';
+import { dispatchOrderPay, fetchBusinessTime, fetchOrderDetail } from '../../../services/order/orderDetail';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { getAddressPromise } from '../../../services/address/list';
+import { confirmOrderPaid } from '../../../services/order/orderConfirm';
+import { wechatPayOrder } from '../order-confirm/pay';
 
 Page({
   data: {
@@ -15,6 +17,9 @@ Page({
     backRefresh: false, // 用于接收其他页面back时的状态
     formatCreateTime: '', //格式化订单创建时间
     logisticsNodes: [],
+    showContactService: false,
+    payLoading: false,
+    pullDownRefreshing: false,
     /** 订单评论状态 */
     orderHasCommented: true,
   },
@@ -24,7 +29,7 @@ Page({
     console.log('this.query', query)
     this.init();
     this.navbar = this.selectComponent('#navbar');
-    this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
+    this.pullDownRefresh = this.selectComponent('#t-pull-down-refresh');
   },
 
   onShow() {
@@ -88,9 +93,28 @@ Page({
   },
 
   // 页面刷新，展示下拉刷新
+  onPullDownRefreshChange(e) {
+    this.setData({ pullDownRefreshing: !!(e && e.detail && e.detail.value) });
+  },
+
   onPullDownRefresh_(e) {
-    const { callback } = e.detail;
-    return this.getDetail().then(() => callback && callback());
+    const callback = e && e.detail && e.detail.callback;
+    this.setData({ pullDownRefreshing: true });
+    return this.getDetail()
+      .catch((err) => {
+        console.error('刷新订单详情失败:', err);
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: '刷新失败，请稍后重试',
+          duration: 1500,
+          icon: '',
+        });
+      })
+      .finally(() => {
+        this.setData({ pullDownRefreshing: false });
+        callback && callback();
+      });
   },
 
   getDetail() {
@@ -163,6 +187,7 @@ Page({
         invoiceDesc: order.invoiceDesc || '',
         invoiceType: (order.invoiceVO && order.invoiceVO.invoiceType === 5) ? '电子普通发票' : '不开发票', //是否开票 0-不开 5-电子发票
         logisticsNodes: this.flattenNodes(order.trajectoryVos || []),
+        showContactService: order.orderStatus !== OrderStatus.PENDING_PAYMENT,
       });
     });
   },
@@ -323,6 +348,69 @@ Page({
     wx.navigateTo({
       url: `/pages/order/delivery-detail/index?data=${encodeURIComponent(JSON.stringify(logisticsData))}`,
     });
+  },
+
+  onOrderPay() {
+    const { order, payLoading } = this.data;
+    if (payLoading) return;
+    if (!order || order.orderStatus !== OrderStatus.PENDING_PAYMENT) {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '当前订单状态不可支付',
+        duration: 1500,
+        icon: '',
+      });
+      return;
+    }
+
+    this.setData({ payLoading: true });
+    wx.showLoading({ title: '发起支付中', mask: true });
+
+    dispatchOrderPay({
+      orderId: order.orderId,
+      orderNo: order.orderNo,
+    })
+      .then(({ data }) => {
+        wx.hideLoading();
+        if (data.payInfo) {
+          return wechatPayOrder({
+            payInfo: data.payInfo,
+            orderId: data.orderId,
+            orderAmt: data.totalAmount || order.totalAmount,
+            payAmt: data.paymentAmount || order.paymentAmount,
+            tradeNo: data.tradeNo || data.orderNo,
+            orderNo: data.orderNo,
+            transactionId: data.transactionId,
+            context: this,
+            dialogOnCancel: false,
+          });
+        }
+
+        return confirmOrderPaid({
+          orderId: data.orderId,
+          orderNo: data.orderNo,
+        }).then(() => {
+          wx.redirectTo({
+            url: `/pages/order/pay-result/index?totalPaid=${data.paymentAmount || order.paymentAmount}&orderID=${data.orderId}`,
+          });
+        });
+      })
+      .catch((err) => {
+        wx.hideLoading();
+        if (err && err.errMsg === 'requestPayment:fail cancel') return;
+        console.error('继续支付失败:', err);
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: (err && err.message) || '发起支付失败，请稍后重试',
+          duration: 2000,
+          icon: '',
+        });
+      })
+      .finally(() => {
+        this.setData({ payLoading: false });
+      });
   },
 
   /** 跳转订单评价 */

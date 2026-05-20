@@ -1,4 +1,10 @@
-<t-pull-down-refresh id="t-pull-down-refresh" bindrefresh="onPullDownRefresh_" t-class-indicator="t-class-indicator">
+<t-pull-down-refresh
+  id="t-pull-down-refresh"
+  value="{{pullDownRefreshing}}"
+  bindchange="onPullDownRefreshChange"
+  bindrefresh="onPullDownRefresh_"
+  t-class-indicator="t-class-indicator"
+>
   <!-- 页面内容 -->
   <view class="order-detail">
     <view class="header">
@@ -144,16 +150,23 @@
           <text class="order-no normal-color">{{order.remark || '-'}}</text>
         </view>
       </view>
-      <view class="border-bottom border-bottom-margin" />
-      <!-- <view class="pay-service" wx:if="{{storeDetail && storeDetail.storeTel}}" catch:tap="clickService">
+      <view class="border-bottom border-bottom-margin" wx:if="{{showContactService}}" />
+      <button
+        wx:if="{{showContactService}}"
+        class="pay-service contact-service-button"
+        open-type="contact"
+        show-message-card="{{true}}"
+        send-message-title="订单咨询：{{order.orderNo}}"
+        send-message-path="/pages/order/order-detail/index?orderID={{_order.id}}"
+      >
         <t-icon name="service" size="40rpx" />
         <text decode="{{true}}">&nbsp;联系客服</text>
-      </view> -->
+      </button>
     </view>
   </view>
-  <!-- <view wx:if="{{_order.buttons.length > 0}}" class="bottom-bar">
-    <order-button-bar order="{{_order}}" bindrefresh="onRefresh" isBtnMax />
-  </view> -->
+  <view wx:if="{{_order.buttons.length > 0}}" class="bottom-bar">
+    <order-button-bar order="{{_order}}" bindrefresh="onRefresh" bindpay="onOrderPay" isBtnMax />
+  </view>
 </t-pull-down-refresh>
 <t-toast id="t-toast" />
 <t-dialog id="t-dialog" />
