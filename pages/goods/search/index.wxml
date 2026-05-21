@@ -1,22 +1,26 @@
 <view class="search-page">
-  <t-search
-    t-class-input-container="t-class__input-container"
-    t-class-input="t-search__input"
-    value="{{searchValue}}"
-    leftIcon=""
-    placeholder="iPhone12pro"
-    bind:submit="handleSubmit"
-    focus
-  >
-    <t-icon slot="left-icon" prefix="wr" name="search" size="40rpx" color="#bbb" />
-  </t-search>
-  <view class="search-wrap">
+  <view class="search-hero">
+    <t-search
+      t-class="search-control"
+      t-class-input-container="t-class__input-container"
+      t-class-input="t-search__input"
+      value="{{searchValue}}"
+      leftIcon=""
+      placeholder="搜索商品/服务"
+      bind:change="handleInput"
+      bind:submit="handleSubmit"
+      focus
+    >
+      <t-icon slot="left-icon" prefix="wr" name="search" size="40rpx" color="#7f9287" />
+    </t-search>
+  </view>
+  <view class="search-wrap" wx:if="{{!hasSearched}}">
     <view class="history-wrap">
       <view class="search-header">
         <text class="search-title">历史搜索</text>
         <text class="search-clear" bind:tap="handleClearHistory">清除</text>
       </view>
-      <view class="search-content">
+      <view class="search-content" wx:if="{{historyWords.length}}">
         <view
           class="search-item"
           hover-class="hover-history-item"
@@ -29,6 +33,7 @@
           {{item}}
         </view>
       </view>
+      <view class="search-empty" wx:else>暂无历史搜索</view>
     </view>
     <view class="popular-wrap">
       <view class="search-header">
@@ -39,11 +44,36 @@
           class="search-item"
           hover-class="hover-history-item"
           wx:for="{{popularWords}}"
-          bind:tap="handleHistoryTap"
+          bind:tap="handlePopularTap"
           data-index="{{index}}"
           wx:key="*this"
         >
           {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="loading-wrap" wx:elif="{{loading}}">
+    <t-loading theme="circular" size="40rpx" text="搜索中..." inherit-color />
+  </view>
+  <view class="result-empty" wx:elif="{{goodsList.length === 0}}">
+    <t-empty t-class="empty-tips" size="220rpx" description="暂无相关商品" />
+  </view>
+  <view class="search-result-list" wx:else>
+    <view class="search-result-card" wx:for="{{goodsList}}" wx:key="spuId" data-id="{{item.spuId}}" bind:tap="goDetail">
+      <image class="search-result-thumb" src="{{item.thumb}}" mode="aspectFill" />
+      <view class="search-result-info">
+        <view class="search-result-title-row">
+          <text class="search-result-title">{{item.title}}</text>
+          <text class="search-result-badge" wx:if="{{item.badge}}">{{item.badge}}</text>
+        </view>
+        <text class="search-result-brief">{{item.brief}}</text>
+        <view class="search-result-bottom">
+          <view class="search-result-price">
+            <text class="search-result-symbol">¥</text>
+            <text class="search-result-price-num">{{item.price}}</text>
+          </view>
+          <text class="search-result-action">查看详情</text>
         </view>
       </view>
     </view>
@@ -58,4 +88,5 @@
     t-class-confirm="dialog__button-confirm"
     t-class-cancel="dialog__button-cancel"
   />
+  <t-toast id="t-toast" />
 </view>

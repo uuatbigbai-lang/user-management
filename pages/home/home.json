@@ -3,6 +3,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "t-loading": "tdesign-miniprogram/loading/loading",
-    "t-toast": "tdesign-miniprogram/toast/toast"
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "t-swiper": "tdesign-miniprogram/swiper/swiper"
   }
 }

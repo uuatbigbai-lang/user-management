@@ -10,7 +10,7 @@ export const config = {
  */
 export const backendConfig = {
   useLocal: true,
-  localBase: 'http://localhost:3000',
+  localBase: 'http://127.0.0.1:3000',
   publicBase: 'https://express-ir28-250440-4-1425492866.sh.run.tcloudbase.com',
   cloud: {
     env: 'prod-d4gu9yrbb28b39fbf',

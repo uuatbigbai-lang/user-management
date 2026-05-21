@@ -1,0 +1,270 @@
+page {
+  background: #f7faf6;
+}
+
+page view {
+  box-sizing: border-box;
+}
+
+.products-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7faf6;
+}
+
+.top-panel {
+  padding: 28rpx 30rpx 22rpx;
+  background: #f7faf6;
+  box-shadow: 0 8rpx 26rpx rgba(58, 112, 70, 0.06);
+  z-index: 2;
+}
+
+.search-bar {
+  height: 76rpx;
+  padding: 0 28rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  box-shadow: 0 10rpx 28rpx rgba(58, 112, 70, 0.1);
+}
+
+.search-bar:active {
+  opacity: 0.9;
+}
+
+.search-icon {
+  position: relative;
+  width: 28rpx;
+  height: 28rpx;
+  border: 4rpx solid #93a198;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.search-icon::after {
+  content: '';
+  position: absolute;
+  width: 14rpx;
+  height: 4rpx;
+  right: -11rpx;
+  bottom: -5rpx;
+  border-radius: 4rpx;
+  background: #93a198;
+  transform: rotate(45deg);
+}
+
+.search-placeholder {
+  color: #9aa6a0;
+  font-size: 26rpx;
+  line-height: 1;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+
+.filter-pill {
+  min-width: 174rpx;
+  height: 64rpx;
+  padding: 0 34rpx;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #31533d;
+  font-size: 26rpx;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1rpx solid rgba(90, 170, 110, 0.18);
+  box-shadow: 0 6rpx 18rpx rgba(58, 112, 70, 0.06);
+}
+
+.filter-pill--active {
+  color: #ffffff;
+  border-color: #2f8a4c;
+  background: linear-gradient(135deg, #5aaa6e, #2f8a4c);
+}
+
+.product-scroll {
+  flex: 1;
+  min-height: 0;
+}
+
+.loading-wrap {
+  height: 52vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8ba092;
+}
+
+.product-content {
+  padding: 26rpx 30rpx 64rpx;
+}
+
+.category-section {
+  padding-top: 8rpx;
+  margin-bottom: 42rpx;
+}
+
+.category-intro {
+  display: flex;
+  gap: 24rpx;
+  min-height: 210rpx;
+  margin-bottom: 22rpx;
+  padding: 22rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(67, 113, 77, 0.08);
+}
+
+.category-img {
+  width: 200rpx;
+  height: 166rpx;
+  border-radius: 18rpx;
+  background: #edf5ee;
+  flex-shrink: 0;
+}
+
+.category-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-kicker {
+  color: #7f9287;
+  font-size: 19rpx;
+  line-height: 1.2;
+  letter-spacing: 1rpx;
+  text-transform: uppercase;
+}
+
+.category-title {
+  margin-top: 8rpx;
+  color: #24362b;
+  font-size: 34rpx;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.category-desc {
+  margin-top: 12rpx;
+  color: #6f8175;
+  font-size: 23rpx;
+  line-height: 1.45;
+}
+
+.product-card {
+  display: flex;
+  gap: 22rpx;
+  min-height: 196rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  background: #ffffff;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(67, 113, 77, 0.08);
+}
+
+.product-card:active {
+  opacity: 0.9;
+}
+
+.product-thumb {
+  width: 156rpx;
+  height: 156rpx;
+  border-radius: 16rpx;
+  background: #edf5ee;
+  flex-shrink: 0;
+}
+
+.product-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  min-width: 0;
+}
+
+.product-title {
+  flex: 1;
+  color: #26352b;
+  font-size: 30rpx;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-badge {
+  flex-shrink: 0;
+  max-width: 128rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 999rpx;
+  color: #3d8b4f;
+  background: #e8f5e9;
+  font-size: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-brief {
+  margin-top: 10rpx;
+  color: #7c8d80;
+  font-size: 23rpx;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.product-price {
+  display: flex;
+  align-items: baseline;
+  color: #2f8a4c;
+}
+
+.price-symbol {
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.price-num {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.detail-link {
+  color: #5aaa6e;
+  font-size: 22rpx;
+  white-space: nowrap;
+}
+
+.empty-tips {
+  padding: 20rpx 0 34rpx;
+}

@@ -3,6 +3,9 @@
   "usingComponents": {
     "t-search": "tdesign-miniprogram/search/search",
     "t-icon": "tdesign-miniprogram/icon/icon",
-    "t-dialog": "tdesign-miniprogram/dialog/dialog"
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-toast": "tdesign-miniprogram/toast/toast"
   }
 }

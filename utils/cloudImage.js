@@ -29,6 +29,32 @@ export const resolveCloudFileUrls = (fileIDs = []) => {
   });
 };
 
+export const resolveCloudFileLocalPaths = (fileIDs = []) => {
+  const cloudFileIDs = unique(fileIDs);
+  console.log('[cloudImage] 待下载 fileID:', cloudFileIDs);
+  if (!cloudFileIDs.length) return Promise.resolve({});
+
+  if (!wx.cloud || !wx.cloud.downloadFile) {
+    console.error('[cloudImage] wx.cloud.downloadFile 不可用，请检查 wx.cloud.init 是否执行');
+    return Promise.resolve({});
+  }
+
+  return Promise.all(cloudFileIDs.map((fileID) => (
+    wx.cloud.downloadFile({ fileID }).then((res) => ({
+      fileID,
+      tempFilePath: res.tempFilePath,
+    })).catch((err) => {
+      console.error('[cloudImage] 云存储图片下载失败:', fileID, err);
+      return { fileID, tempFilePath: '' };
+    })
+  ))).then((fileList) => fileList.reduce((urlMap, item) => {
+    if (item.fileID && item.tempFilePath) {
+      urlMap[item.fileID] = item.tempFilePath;
+    }
+    return urlMap;
+  }, {}));
+};
+
 const mapUrl = (url, urlMap) => {
   if (!isCloudFileId(url)) return url;
   if (urlMap[url]) return urlMap[url];

@@ -1,0 +1,97 @@
+<view class="products-page">
+  <view class="top-panel">
+    <view class="search-bar" bind:tap="navToSearch">
+      <view class="search-icon"></view>
+      <text class="search-placeholder">搜索商品/服务</text>
+    </view>
+    <view class="filter-row">
+      <view
+        class="filter-pill {{activeCategory === 'probiotic' ? 'filter-pill--active' : ''}}"
+        data-target="probiotic"
+        bind:tap="handleFilterTap"
+      >
+        益生菌
+      </view>
+      <view
+        class="filter-pill {{activeCategory === 'testkit' ? 'filter-pill--active' : ''}}"
+        data-target="testkit"
+        bind:tap="handleFilterTap"
+      >
+        检测盒
+      </view>
+    </view>
+  </view>
+
+  <scroll-view
+    class="product-scroll"
+    scroll-y
+    scroll-with-animation
+    scroll-into-view="{{scrollIntoView}}"
+    bindscroll="handleScroll"
+  >
+    <view class="loading-wrap" wx:if="{{loading}}">
+      <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+    </view>
+
+    <view class="product-content" wx:else>
+      <view id="section-testkit" class="category-section">
+        <view class="category-intro">
+          <image class="category-img" src="{{categoryIntro.testkit.image}}" mode="aspectFill" />
+          <view class="category-copy">
+            <text class="category-kicker">Gut Microbiome Test</text>
+            <text class="category-title">检测盒</text>
+            <text class="category-desc">适合需要了解肠道状态、制定个性化营养方案的用户。按流程采样寄回后，可结合报告获得更清晰的健康参考。</text>
+          </view>
+        </view>
+        <view class="product-card" wx:for="{{testkitProducts}}" wx:key="spuId" data-id="{{item.spuId}}" bind:tap="goDetail">
+          <image class="product-thumb" src="{{item.thumb}}" mode="aspectFill" />
+          <view class="product-info">
+            <view class="product-title-row">
+              <text class="product-title">{{item.title}}</text>
+              <text class="product-badge" wx:if="{{item.badge}}">{{item.badge}}</text>
+            </view>
+            <text class="product-brief">{{item.brief}}</text>
+            <view class="product-bottom">
+              <view class="product-price">
+                <text class="price-symbol">¥</text>
+                <text class="price-num">{{item.price}}</text>
+              </view>
+              <text class="detail-link">查看详情</text>
+            </view>
+          </view>
+        </view>
+        <t-empty wx:if="{{!testkitProducts.length}}" t-class="empty-tips" size="180rpx" description="暂无检测盒商品" />
+      </view>
+
+      <view id="section-probiotic" class="category-section">
+        <view class="category-intro">
+          <image class="category-img" src="{{categoryIntro.probiotic.image}}" mode="aspectFill" />
+          <view class="category-copy">
+            <text class="category-kicker">Daily Probiotics</text>
+            <text class="category-title">益生菌</text>
+            <text class="category-desc">围绕日常肠道管理、营养补充和家庭护理设计，适合持续调理微生态平衡的人群。</text>
+          </view>
+        </view>
+        <view class="product-card" wx:for="{{probioticProducts}}" wx:key="spuId" data-id="{{item.spuId}}" bind:tap="goDetail">
+          <image class="product-thumb" src="{{item.thumb}}" mode="aspectFill" />
+          <view class="product-info">
+            <view class="product-title-row">
+              <text class="product-title">{{item.title}}</text>
+              <text class="product-badge" wx:if="{{item.badge}}">{{item.badge}}</text>
+            </view>
+            <text class="product-brief">{{item.brief}}</text>
+            <view class="product-bottom">
+              <view class="product-price">
+                <text class="price-symbol">¥</text>
+                <text class="price-num">{{item.price}}</text>
+              </view>
+              <text class="detail-link">查看详情</text>
+            </view>
+          </view>
+        </view>
+        <t-empty wx:if="{{!probioticProducts.length}}" t-class="empty-tips" size="180rpx" description="暂无益生菌商品" />
+      </view>
+    </view>
+  </scroll-view>
+  <t-toast id="t-toast" />
+</view>
