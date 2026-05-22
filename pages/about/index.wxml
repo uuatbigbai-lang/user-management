@@ -8,8 +8,8 @@
     <view class="hero-deco hero-deco-3"></view>
     <view class="hero-content">
       <view class="hero-tag">ABOUT US</view>
-      <view class="hero-title">益生元研究所</view>
-      <view class="hero-sub">用科学守护每一个人的肠道微生态</view>
+      <view class="hero-title">立康林</view>
+      <view class="hero-sub">你的肠道健康守护专家</view>
     </view>
   </view>
 
@@ -21,8 +21,8 @@
       <view class="sec-line"></view>
     </view>
     <view class="card intro-card">
-      <text class="card-text">益生元研究所是一家深耕肠道微生态领域的创新型健康企业。我们集「检测 + 干预」于一体，拥有自主研发的高标准微生物实验室和科研团队，致力于通过精准检测了解每个人独特的肠道菌群状态，再以科学配方的益生菌产品提供个性化的健康解决方案。</text>
-      <text class="card-text" style="margin-top: 16rpx;">从菌株筛选、配方研发、生产质控到售后服务，我们坚持全链路自主可控，只为让每一位用户享受到安全、有效、值得信赖的产品与服务。</text>
+      <text class="card-text">立康林由科茵智慧医药与蓝点荟大健康管理公司联合孵化，定位为国内「检测 + 干预」闭环肠道微生态健康管理平台。我们相信，真正有效的肠道管理不应停留在“随便吃吃试试”，而应先通过检测读懂自身菌群状态，再制定更有依据的干预方案。</text>
+      <text class="card-text" style="margin-top: 16rpx;">围绕肠道菌群检测、报告解读、益生菌产品和会员健康管理，立康林希望为用户建立长期可追踪的肠道健康档案，让每一次选择都有数据依据。</text>
     </view>
   </view>
 
@@ -34,14 +34,14 @@
       <view class="sec-line"></view>
     </view>
 
-    <!-- 业务1: 益生菌产品 -->
+    <!-- 业务1: 益生菌干预 -->
     <view class="biz-card">
       <view class="biz-icon-wrap biz-icon--green">
         <text class="biz-icon-text">🌿</text>
       </view>
       <view class="biz-body">
-        <text class="biz-name">益生菌系列产品</text>
-        <text class="biz-desc">覆盖成人肠道调理、儿童肠胃守护、女性私密护理等多场景。所有产品均选用全球优质专利菌株，经科学复配，确保活性菌数量达标，真正做到"活着到达肠道"。</text>
+        <text class="biz-name">精准益生菌干预</text>
+        <text class="biz-desc">围绕肠道健康管理、情绪健康管理、女性健康管理等方向布局产品矩阵，以专利菌株、活性菌与益生元复配，匹配不同人群的微生态管理需求。</text>
       </view>
     </view>
 
@@ -52,48 +52,48 @@
       </view>
       <view class="biz-body">
         <text class="biz-name">肠道菌群检测</text>
-        <text class="biz-desc">通过高通量基因测序技术，全面解析您肠道内数百种菌群的组成与比例。检测完成后将出具详细的菌群分析报告，帮您了解自身肠道微生态的真实状况。</text>
+        <text class="biz-desc">依托 16S rRNA 测序与靶向测序能力，识别肠道菌群结构与丰度。检测完成后生成可视化报告，帮助用户从数据层面了解自己的肠道状态。</text>
       </view>
     </view>
 
-    <!-- 业务3: 肠道炎症检测 -->
+    <!-- 业务3: 健康管理 -->
     <view class="biz-card">
       <view class="biz-icon-wrap biz-icon--orange">
         <text class="biz-icon-text">🩺</text>
       </view>
       <view class="biz-body">
-        <text class="biz-name">肠道炎症检测</text>
-        <text class="biz-desc">采用专业级炎症标志物检测试剂，灵敏、快速地评估肠道炎症水平。适合慢性腹泻、肠易激等人群进行早期筛查，为后续调理提供科学依据。</text>
+        <text class="biz-name">报告解读与健康管理</text>
+        <text class="biz-desc">通过小程序承接检测入口、报告查询、AI+人工解读和个性化推荐，让用户从“知道问题”进入“持续干预”的长期健康管理旅程。</text>
       </view>
     </view>
   </view>
 
-  <!-- 实验室 -->
+  <!-- 科研与数据 -->
   <view class="section">
     <view class="sec-header">
       <view class="sec-line"></view>
-      <text class="sec-title">高标准实验室</text>
+      <text class="sec-title">科研与数据支撑</text>
       <view class="sec-line"></view>
     </view>
     <view class="card lab-card">
       <view class="lab-badges">
-        <view class="lab-badge">GMP认证</view>
-        <view class="lab-badge">ISO15189</view>
-        <view class="lab-badge">CNAS认可</view>
+        <view class="lab-badge">BSL-2实验室</view>
+        <view class="lab-badge">200万+样本</view>
+        <view class="lab-badge">IMicAP平台</view>
       </view>
-      <text class="card-text">我们的微生物实验室严格按照国家二级生物安全实验室标准建设，配备高通量测序仪、全自动核酸提取仪等顶尖设备。实验室已通过多项国际国内资质认证，确保每一份检测数据准确可溯源。</text>
+      <text class="card-text">立康林检测技术由杭州谷禾信息技术有限公司提供支撑，基于病原微生物 BSL-2 实验室多年积累的中国人群肠道菌群数据，为个性化干预推荐提供底层依据。IMicAP 智能微生物应用平台也将支持小程序端报告解读与干预建议。</text>
       <view class="lab-highlights">
         <view class="lab-hl-item">
-          <text class="lab-hl-num">3-5天</text>
-          <text class="lab-hl-label">出具报告</text>
+          <text class="lab-hl-num">16S</text>
+          <text class="lab-hl-label">测序检测</text>
         </view>
         <view class="lab-hl-item">
-          <text class="lab-hl-num">200+</text>
-          <text class="lab-hl-label">检测菌种</text>
+          <text class="lab-hl-num">200万+</text>
+          <text class="lab-hl-label">菌群样本</text>
         </view>
         <view class="lab-hl-item">
-          <text class="lab-hl-num">99.9%</text>
-          <text class="lab-hl-label">数据准确率</text>
+          <text class="lab-hl-num">AI+人工</text>
+          <text class="lab-hl-label">报告解读</text>
         </view>
       </view>
     </view>
@@ -110,16 +110,16 @@
       <view class="flow-item">
         <view class="flow-num">01</view>
         <view class="flow-body">
-          <text class="flow-name">在线下单</text>
-      <text class="flow-desc">选择检测项目，下单后我们将寄送采样包到家</text>
+          <text class="flow-name">购买检测盒</text>
+          <text class="flow-desc">在小程序选择肠道菌群检测项目，按流程领取或寄送采样包</text>
         </view>
       </view>
       <view class="flow-connector"></view>
       <view class="flow-item">
         <view class="flow-num">02</view>
         <view class="flow-body">
-          <text class="flow-name">居家采样</text>
-          <text class="flow-desc">按照视频指引轻松完成采样，寄回实验室</text>
+          <text class="flow-name">完成采样绑定</text>
+          <text class="flow-desc">按指引采样并绑定小程序，寄回后进入实验室检测流程</text>
         </view>
       </view>
       <view class="flow-connector"></view>
@@ -127,7 +127,7 @@
         <view class="flow-num">03</view>
         <view class="flow-body">
           <text class="flow-name">专业检测</text>
-          <text class="flow-desc">实验室接收样本后 3-5 个工作日完成全部检测</text>
+          <text class="flow-desc">通过测序技术分析菌群结构、丰度及关键健康参考指标</text>
         </view>
       </view>
       <view class="flow-connector"></view>
@@ -135,15 +135,15 @@
         <view class="flow-num">04</view>
         <view class="flow-body">
           <text class="flow-name">报告解读</text>
-          <text class="flow-desc">出具详细检测报告，并由健康顾问一对一解读</text>
+          <text class="flow-desc">在小程序查看可视化报告，并结合 AI+人工服务读懂结果</text>
         </view>
       </view>
       <view class="flow-connector"></view>
       <view class="flow-item">
         <view class="flow-num">05</view>
         <view class="flow-body">
-          <text class="flow-name">精准推荐</text>
-          <text class="flow-desc">根据您的检测结果，推荐最适合的益生菌调理方案</text>
+          <text class="flow-name">个性化干预</text>
+          <text class="flow-desc">根据检测结果和个人状态，匹配畅、安等益生菌健康管理方案</text>
         </view>
       </view>
     </view>
@@ -152,20 +152,20 @@
   <!-- 底部 CTA -->
   <view class="section cta-section">
     <view class="cta-card">
-      <text class="cta-title">开启您的肠道健康之旅</text>
-      <text class="cta-desc">了解自己，才能更好地守护自己</text>
+      <text class="cta-title">先读懂，再干预</text>
+      <text class="cta-desc">从一份肠道健康报告开始，建立自己的长期健康标准</text>
       <view class="cta-btns">
         <view class="cta-btn cta-btn--primary" bind:tap="goHome">
-          <text>选购产品</text>
+          <text>查看方案</text>
         </view>
         <view class="cta-btn cta-btn--outline" bind:tap="goSample">
-          <text>查看报告</text>
+          <text>报告入口</text>
         </view>
       </view>
     </view>
   </view>
 
   <view class="footer">
-    <text class="footer-text">益生元研究所 © 用科学守护健康</text>
+    <text class="footer-text">立康林 © 先读懂，再干预</text>
   </view>
 </view>

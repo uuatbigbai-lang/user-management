@@ -11,7 +11,6 @@
     <view class="user-center-card__header">
       <t-avatar image="{{userInfo.avatarUrl || defaultAvatarUrl}}" class="user-center-card__header__avatar" />
       <view class="user-center-card__header__name">{{userInfo.nickName || '微信用户'}}</view>
-      <image class="user-center-card__level" src="{{userInfo.level || 'https://i.postimg.cc/SRn0L444/level-1.png'}}" />
       <!-- 需要授权用户信息，通过slot添加弹窗 -->
       <view class="user-center-card__header__transparent" wx:if="{{isNeedGetUserInfo}}">
         <slot name="getUserInfo" />

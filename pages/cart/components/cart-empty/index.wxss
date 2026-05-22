@@ -28,7 +28,7 @@
   line-height: 76rpx;
   border: none;
   color: #ffffff;
-  background: linear-gradient(135deg, #5aaa6e 0%, #3d8b4f 100%);
+  background: linear-gradient(135deg, #5aaa6e 0%, #198f3d 100%);
   font-size: 28rpx;
   font-weight: 500;
   letter-spacing: 2rpx;

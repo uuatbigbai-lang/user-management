@@ -2,7 +2,7 @@
   <view class="top-panel">
     <view class="search-bar" bind:tap="navToSearch">
       <view class="search-icon"></view>
-      <text class="search-placeholder">搜索商品/服务</text>
+      <text class="search-placeholder">搜索检测/益生菌方案</text>
     </view>
     <view class="filter-row">
       <view
@@ -39,8 +39,8 @@
           <image class="category-img" src="{{categoryIntro.testkit.image}}" mode="aspectFill" />
           <view class="category-copy">
             <text class="category-kicker">Gut Microbiome Test</text>
-            <text class="category-title">检测盒</text>
-            <text class="category-desc">适合需要了解肠道状态、制定个性化营养方案的用户。按流程采样寄回后，可结合报告获得更清晰的健康参考。</text>
+            <text class="category-title">先读懂自己的肠道</text>
+            <text class="category-desc">肠道菌群检测采用 16S rRNA 测序，帮助评估菌群结构、肠道微生态平衡及相关健康风险。购买检测盒、完成采样并绑定小程序后，可查看报告并获得后续干预建议。</text>
           </view>
         </view>
         <view class="product-card" wx:for="{{testkitProducts}}" wx:key="spuId" data-id="{{item.spuId}}" bind:tap="goDetail">
@@ -67,9 +67,9 @@
         <view class="category-intro">
           <image class="category-img" src="{{categoryIntro.probiotic.image}}" mode="aspectFill" />
           <view class="category-copy">
-            <text class="category-kicker">Daily Probiotics</text>
-            <text class="category-title">益生菌</text>
-            <text class="category-desc">围绕日常肠道管理、营养补充和家庭护理设计，适合持续调理微生态平衡的人群。</text>
+            <text class="category-kicker">Precision Probiotics</text>
+            <text class="category-title">再进行精准干预</text>
+            <text class="category-desc">立康林益生菌方案围绕肠道健康、情绪睡眠、女性健康等场景设计，结合专利菌株、活性菌与益生元复配。建议根据检测报告与个人状态选择更匹配的干预产品。</text>
           </view>
         </view>
         <view class="product-card" wx:for="{{probioticProducts}}" wx:key="spuId" data-id="{{item.spuId}}" bind:tap="goDetail">

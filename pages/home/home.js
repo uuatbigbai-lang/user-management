@@ -3,6 +3,8 @@ import { requestBackend } from '../../config/index';
 import { addToCart } from '../../services/cart/cart';
 import { resolveCloudFileLocalPaths, resolveCloudFileUrls, resolveProductsImageUrls } from '../../utils/cloudImage';
 
+const app = getApp();
+
 const HOME_ASSET_DEFAULTS = {
   logo: { text: '🌱', src: '' },
   icon1: { text: '🌿', src: '' },
@@ -20,10 +22,10 @@ Page({
     bannerProducts: [],
     bannerNavigation: { type: 'dots-bar' },
     featureLinks: [
-      { label: '肠道检测', assetKey: 'icon1', url: '/pages/sample-register/index?title=肠道菌群检测', openType: 'navigate' },
-      { label: '报告截图', assetKey: 'icon2', url: '/pages/sample/index', openType: 'switchTab' },
-      { label: '益生菌方案', assetKey: 'icon3', url: '/pages/llm/llm', openType: 'navigate' },
-      { label: '科普知识', assetKey: 'icon4', action: 'nutrition' },
+      { label: '菌群检测', assetKey: 'icon1', url: '/pages/products/index?category=testkit', openType: 'navigate' },
+      { label: '报告样例', assetKey: 'icon2', url: '/pages/report-preview/index', openType: 'navigate' },
+      { label: '精准干预', assetKey: 'icon3', url: '/pages/products/index?category=probiotic', openType: 'navigate' },
+      { label: '健康课堂', assetKey: 'icon4', action: 'nutrition' },
     ],
     homeAssets: HOME_ASSET_DEFAULTS,
     statusBarHeight: 0,
@@ -181,6 +183,16 @@ Page({
         stockQuantity: product.spuStockQuantity || 999,
       });
       wx.hideLoading();
+      if (result.data.code === 0) {
+        const nextCount = (app.getCartBadgeCount ? app.getCartBadgeCount() : 0) + 1;
+        if (app.setCartBadgeCount) {
+          app.setCartBadgeCount(nextCount);
+        }
+        const tabBar = this.getTabBar && this.getTabBar();
+        if (tabBar && tabBar.init) {
+          tabBar.init();
+        }
+      }
       Toast({
         context: this,
         selector: '#t-toast',

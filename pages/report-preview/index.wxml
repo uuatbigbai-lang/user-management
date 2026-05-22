@@ -1,0 +1,210 @@
+<view class="report-preview-page">
+  <view class="hero">
+    <view class="hero-copy">
+      <text class="hero-kicker">Gut Microbiome Report</text>
+      <text class="hero-title">先看见肠道数据，再选择干预方案</text>
+      <text class="hero-desc">立康林肠道菌群检测把一次居家采样，转化为可读、可追踪、可行动的健康报告。你不需要盲目试益生菌，先读懂自己的肠道，再做更有依据的选择。</text>
+      <view class="hero-actions">
+        <view class="primary-btn" bind:tap="goProducts">购买检测盒</view>
+        <view class="ghost-btn" bind:tap="goSample">报告查询</view>
+      </view>
+    </view>
+    <view class="hero-visual">
+      <view class="image-placeholder">检测报告封面图占位</view>
+      <view class="hero-report-card">
+        <text class="report-card-title">示例报告</text>
+        <text class="report-card-main">菌群平衡指数 82 分</text>
+        <text class="report-card-sub">肠道预测年龄 · 肠型 · 风险提示 · 干预建议</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">为什么先做检测</text>
+      <text class="section-desc">同样是益生菌，不同人的肠道状态、饮食习惯、菌群结构并不一样。检测的价值，是把“我感觉不舒服”变成“我知道哪里需要管理”。</text>
+    </view>
+    <view class="value-grid">
+      <view class="value-card">
+        <view class="icon-placeholder">图标</view>
+        <text class="value-title">减少盲目尝试</text>
+        <text class="value-desc">先了解菌群结构和关键指标，再判断是否需要补充、补什么、怎么持续管理。</text>
+      </view>
+      <view class="value-card">
+        <view class="icon-placeholder">图标</view>
+        <text class="value-title">报告可视化</text>
+        <text class="value-desc">把复杂的菌群数据转化成指标、趋势和提示，普通用户也能快速抓住重点。</text>
+      </view>
+      <view class="value-card">
+        <view class="icon-placeholder">图标</view>
+        <text class="value-title">形成健康档案</text>
+        <text class="value-desc">检测结果可作为后续复购、复测和干预调整的基础，让肠道管理更长期。</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">实验室与数据背书</text>
+      <text class="section-desc">立康林检测技术由杭州谷禾信息技术有限公司提供支撑，依托病原微生物 BSL-2 实验室与中国人群肠道菌群数据积累，为个性化建议提供依据。</text>
+    </view>
+    <view class="lab-panel">
+      <view class="lab-image image-placeholder">实验室实景图占位</view>
+      <view class="lab-copy">
+        <text class="lab-title">从样本到报告，每一步都为“可解释”服务</text>
+        <text class="lab-desc">样本进入实验流程后，通过 16S rRNA 测序识别菌群结构与丰度，再结合 IMicAP 智能微生物应用平台能力，生成更适合小程序阅读和健康管理的报告内容。</text>
+      </view>
+    </view>
+    <view class="lab-stats">
+      <view class="lab-stat" wx:for="{{labHighlights}}" wx:key="label">
+        <text class="lab-stat-value">{{item.value}}</text>
+        <text class="lab-stat-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <text class="section-title">你购买的不只是一支检测盒</text>
+      <text class="section-desc">检测盒是入口，报告是答案，干预建议才是下一步行动。立康林把三者连接成完整的肠道健康管理体验。</text>
+    </view>
+    <view class="product-list">
+      <view class="product-card" wx:for="{{productCards}}" wx:key="title">
+        <view class="product-tag">{{item.tag}}</view>
+        <view class="product-image image-placeholder">产品图占位</view>
+        <view class="product-copy">
+          <text class="product-title">{{item.title}}</text>
+          <text class="product-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section report-section">
+    <view class="section-head">
+      <text class="section-title">报告会告诉你什么</text>
+      <text class="section-desc">以下为报告预览页展示的核心模块，实际报告会根据样本检测结果生成个性化内容。</text>
+    </view>
+    <view class="report-preview">
+      <view class="report-phone image-placeholder">
+        <text>小程序报告截图占位</text>
+      </view>
+      <view class="report-points">
+        <view class="report-point">
+          <text class="point-title">当前肠道状态</text>
+          <text class="point-desc">综合呈现菌群平衡、多样性、肠型与预测年龄。</text>
+        </view>
+        <view class="report-point">
+          <text class="point-title">重点风险提示</text>
+          <text class="point-desc">聚焦结直肠、情绪睡眠、肠道屏障等方向的健康参考。</text>
+        </view>
+        <view class="report-point">
+          <text class="point-title">干预建议</text>
+          <text class="point-desc">结合饮食、生活方式与益生菌方案，给出更明确的下一步。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view id="chart-section" class="section chart-section {{chartAnimated ? 'chart-section--active' : ''}}">
+    <view class="section-head">
+      <text class="section-title">动态报告图表</text>
+      <text class="section-desc">当你打开报告时，关键数据会以更直观的图表呈现：菌群平衡、有益菌占比、风险提示和干预方向，一眼就能抓住重点。</text>
+    </view>
+    <view class="chart-grid">
+      <view class="score-chart">
+        <view class="score-ring" style="background: conic-gradient(var(--green-primary) 0deg, var(--green-mid) {{scoreDeg}}deg, #e9f2e8 {{scoreDeg}}deg, #e9f2e8 360deg);">
+          <view class="score-core">
+            <text class="score-value">{{scoreValue}}</text>
+            <text class="score-label">菌群平衡</text>
+          </view>
+        </view>
+        <view class="score-copy">
+          <text class="score-title">综合评分</text>
+          <text class="score-desc">将有益菌、多样性、潜在风险和短链脂肪酸潜力合并为一个直观评分。</text>
+        </view>
+      </view>
+
+      <view class="bar-chart">
+        <view class="chart-title-row">
+          <text class="chart-title">重点菌群占比</text>
+          <text class="chart-note">示例数据</text>
+        </view>
+        <view class="bar-row" wx:for="{{chartBars}}" wx:key="name">
+          <view class="bar-meta">
+            <text class="bar-name">{{item.name}}</text>
+            <text class="bar-status">{{item.status}}</text>
+          </view>
+          <view class="bar-track">
+            <view class="bar-fill" style="width: {{item.displayValue}}%; background: {{item.color}};"></view>
+          </view>
+          <text class="bar-value">{{item.displayValue}}%</text>
+        </view>
+      </view>
+
+      <view class="trend-chart">
+        <view class="chart-title-row">
+          <text class="chart-title">从检测到干预</text>
+          <text class="chart-note">流程预览</text>
+        </view>
+        <view class="trend-canvas">
+          <view class="trend-line"></view>
+          <view
+            class="trend-node"
+            wx:for="{{trendNodes}}"
+            wx:key="label"
+            style="left: {{item.left}}%; top: {{item.top}}%;"
+          >
+            <view class="trend-dot"></view>
+            <text class="trend-value">{{item.value}}</text>
+            <text class="trend-label">{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="radar-card">
+        <view class="chart-title-row">
+          <text class="chart-title">能力维度</text>
+          <text class="chart-note">四项概览</text>
+        </view>
+        <view class="radar-list">
+          <view class="radar-item" wx:for="{{radarItems}}" wx:key="name">
+            <text class="radar-name">{{item.name}}</text>
+            <view class="radar-track">
+              <view class="radar-fill" style="width: {{item.displayValue}}%;"></view>
+            </view>
+            <text class="radar-value">{{item.displayValue}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section metrics-section">
+    <view class="section-head">
+      <text class="section-title">关键指标预览</text>
+      <text class="section-desc">先用几个核心指标建立全局判断，再进入详细解读。以下数值为示例展示，不代表个人检测结果。</text>
+    </view>
+    <view class="metric-list">
+      <view class="metric-card" wx:for="{{metrics}}" wx:key="name">
+        <view class="metric-top">
+          <text class="metric-name">{{item.name}}</text>
+          <view class="metric-value-wrap">
+            <text class="metric-value">{{item.value}}</text>
+            <text class="metric-unit">{{item.unit}}</text>
+          </view>
+        </view>
+        <view class="metric-progress" wx:if="{{item.name === '菌群平衡指数'}}">
+          <view class="metric-progress-fill metric-progress-fill--balance"></view>
+        </view>
+        <text class="metric-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-cta">
+    <text class="bottom-title">与其盲目补充，不如先读懂。</text>
+    <text class="bottom-desc">从一份肠道菌群检测报告开始，建立自己的肠道健康标准。</text>
+    <view class="bottom-btn" bind:tap="goProducts">立即购买检测盒</view>
+  </view>
+</view>

@@ -122,7 +122,7 @@ page {
 .banner {
   position: relative;
   z-index: 1;
-  height: 30vh;
+  height: 25vh;
   margin: 28rpx 40rpx 0;
   border-radius: 28rpx;
   overflow: hidden;
@@ -131,7 +131,7 @@ page {
 }
 
 .banner-swiper {
-  height: 30vh !important;
+  height: 25vh !important;
   border-radius: 28rpx !important;
   overflow: hidden !important;
   --td-swiper-radius: 28rpx;
@@ -325,35 +325,20 @@ page {
 }
 
 .cart-btn {
-  min-width: 104rpx;
+  width: 56rpx;
   height: 52rpx;
-  padding: 0 18rpx;
-  border-radius: 28rpx;
+  padding: 0;
+  border-radius: 50%;
   background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6rpx;
+  flex-shrink: 0;
   box-shadow: 0 8rpx 18rpx rgba(90, 170, 110, 0.18);
 }
 
 .cart-btn:active {
   transform: scale(0.96);
-}
-
-.cart-btn-icon {
-  color: #fff;
-  font-size: 28rpx;
-  font-weight: 600;
-  line-height: 1;
-  margin-top: -2rpx;
-}
-
-.cart-btn-text {
-  color: #fff;
-  font-size: 22rpx;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
 /* ========== 占位图 ========== */

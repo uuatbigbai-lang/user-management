@@ -7,6 +7,8 @@ import {
   deleteCartItem,
 } from '../../services/cart/cart';
 
+const app = getApp();
+
 Page({
   data: {
     cartGroupData: null,
@@ -62,6 +64,13 @@ Page({
         return goods;
       });
       cartGroupData.isNotEmpty = !isEmpty;
+      if (app.setCartBadgeCount) {
+        app.setCartBadgeCount(cartGroupData.selectedGoodsCount || 0);
+      }
+      const tabBar = this.getTabBar && this.getTabBar();
+      if (tabBar && tabBar.init) {
+        tabBar.init();
+      }
       this.setData({ cartGroupData });
     });
   },

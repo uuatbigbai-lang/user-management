@@ -3,17 +3,18 @@ page {
 }
 
 .content-wrapper {
-  margin-top: 340rpx;
+  margin-top: 400rpx;
   position: relative;
   padding: 0 30rpx;
 }
 
 /* 推广有礼入口 */
 .promo-entry {
+  box-shadow: 4px 4px 6px 0px rgb(171, 171, 171);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  background: white;
   border-radius: 20rpx;
   padding: 28rpx 30rpx;
   margin-bottom: 16rpx;

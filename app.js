@@ -9,6 +9,8 @@ App({
     isLoggedIn: false,
     from: 'pending', // 'pending', 'someone\'s openID', 'null'
     menuData: [],
+    loginPromise: null,
+    cartBadgeCount: 0,
   },
   onLaunch: function () {
     if (!wx.cloud) {
@@ -22,22 +24,7 @@ App({
     }
 
 
-    let counter = 0;
-    const a = setInterval(() => {
-      console.log(this.globalData.from);
-      if (counter > 9) {
-        clearInterval(a);
-      }
-      const from = this.globalData.from;
-      if (from !== 'pending') {
-        clearInterval(a);
-        this.silentLogin();
-      } else {
-        counter++;
-      }
-    }, 1000);
-
-
+    this.silentLogin();
   },
   onShow: function () {
     updateManager();
@@ -45,9 +32,16 @@ App({
 
   // 静默登录方法
   silentLogin: function () {
+    if (this.globalData.loginPromise) {
+      return this.globalData.loginPromise;
+    }
+
     console.log('开始静默登录...');
-    const p = this.globalData.from !== 'null' ? { from: this.globalData.from } : {};
-    fetchUserCenter(p).then(res => {
+    const clearLoginPromise = () => {
+      this.globalData.loginPromise = null;
+    };
+
+    this.globalData.loginPromise = fetchUserCenter().then(res => {
       console.log('静默登录成功:', res);
       if (res.msg) {
         wx.showModal({ title: res.msg });
@@ -59,13 +53,19 @@ App({
       // 触发登录成功事件，其他页面可以监听
       wx.setStorageSync('userInfo', res.userInfo);
       wx.setStorageSync('isLoggedIn', true);
+      clearLoginPromise();
+      return res;
 
     }).catch(err => {
       console.error('静默登录失败:', err);
       this.globalData.isLoggedIn = false;
       wx.removeStorageSync('userInfo');
       wx.removeStorageSync('isLoggedIn');
+      clearLoginPromise();
+      throw err;
     });
+
+    return this.globalData.loginPromise;
   },
 
   // 获取用户信息的便捷方法
@@ -76,5 +76,13 @@ App({
   // 检查登录状态的便捷方法
   isUserLoggedIn: function () {
     return this.globalData.isLoggedIn;
+  },
+
+  getCartBadgeCount: function () {
+    return this.globalData.cartBadgeCount || 0;
+  },
+
+  setCartBadgeCount: function (count) {
+    this.globalData.cartBadgeCount = Math.max(0, Number(count) || 0);
   },
 });

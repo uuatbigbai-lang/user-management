@@ -28,7 +28,7 @@ const getDefaultData = () => ({
   menuData,
   orderTagInfos,
   customerServiceInfo: {},
-  currAuthStep: 1,
+  currAuthStep: 2,
   showKefu: true,
   versionNo: '',
 });
@@ -52,6 +52,54 @@ Page({
     this.fetUseriInfoHandle();
   },
 
+  applyUserCenterData(userInfo) {
+    const mockCountsData = [
+      { type: 'qrcode', num: '邀请好友' },
+      { type: 'revenue', num: '0.00' },
+      { type: 'coupon', num: '0' },
+      { type: 'point', num: '0' }
+    ];
+
+    const mockOrderInfo = [
+      { orderNum: 0 },
+      { orderNum: 0 },
+      { orderNum: 0 },
+      { orderNum: 0 },
+      { orderNum: 0 }
+    ];
+
+    const mockCustomerServiceInfo = {
+      servicePhone: '400-123-4567'
+    };
+
+    const firstMenuGroup = Array.isArray(menuData?.[0]) ? menuData[0] : [];
+    firstMenuGroup.forEach((v) => {
+      mockCountsData.forEach((counts) => {
+        if (counts.type === v.type) {
+          // eslint-disable-next-line no-param-reassign
+          if (v.type === 'revenue') {
+            v.tit = `¥${counts.num}`
+          } else {
+            v.tit = counts.num;
+          }
+        }
+      });
+    });
+
+    const info = orderTagInfos.map((v, index) => ({
+      ...v,
+      ...mockOrderInfo[index],
+    }));
+
+    this.setData({
+      userInfo,
+      menuData,
+      orderTagInfos: info,
+      customerServiceInfo: mockCustomerServiceInfo,
+      currAuthStep: 2,
+    });
+  },
+
   fetUseriInfoHandle() {
     // 直接使用全局变量中的用户信息
     const globalUserInfo = app.getUserInfo();
@@ -59,67 +107,39 @@ Page({
     
     if (isLoggedIn && globalUserInfo) {
       console.log('使用全局登录态中的用户信息');
-      
-      // 模拟其他数据，实际项目中可能需要从其他接口获取
-      const mockCountsData = [
-        { type: 'qrcode', num: '邀请好友' },
-        { type: 'revenue', num: '0.00' },
-        { type: 'coupon', num: '0' },
-        { type: 'point', num: '0' }
-      ];
-      
-      const mockOrderInfo = [
-        { orderNum: 0 },
-        { orderNum: 0 },
-        { orderNum: 0 },
-        { orderNum: 0 },
-        { orderNum: 0 }
-      ];
-      
-      const mockCustomerServiceInfo = {
-        servicePhone: '400-123-4567'
-      };
-
-      // 处理菜单数据
-      // eslint-disable-next-line no-unused-expressions
-      menuData?.[0].forEach((v) => {
-        mockCountsData.forEach((counts) => {
-          if (counts.type === v.type) {
-            // eslint-disable-next-line no-param-reassign
-            if (v.type === 'revenue') {
-              v.tit = `¥${counts.num}`
-            } else {
-              v.tit = counts.num;
-            }
-          }
-        });
-      });
-      
-      const info = orderTagInfos.map((v, index) => ({
-        ...v,
-        ...mockOrderInfo[index],
-      }));
-      
-      this.setData({
-        userInfo: globalUserInfo,
-        menuData,
-        orderTagInfos: info,
-        customerServiceInfo: mockCustomerServiceInfo,
-        currAuthStep: 2,
-      });
+      this.applyUserCenterData(globalUserInfo);
+      wx.stopPullDownRefresh();
     } else {
-      console.log('用户未登录，显示登录提示');
+      console.log('等待自动登录结果');
       this.setData({
         userInfo: {
           avatarUrl: '',
-          nickName: '未登录',
+          nickName: '正在登录...',
           phoneNumber: '',
         },
-        currAuthStep: 1,
+        currAuthStep: 2,
+      });
+
+      const stopRefresh = () => wx.stopPullDownRefresh();
+      app.silentLogin().then(() => {
+        const latestUserInfo = app.getUserInfo();
+        if (app.isUserLoggedIn() && latestUserInfo) {
+          this.applyUserCenterData(latestUserInfo);
+        }
+        stopRefresh();
+      }).catch((err) => {
+        console.error('自动登录失败:', err);
+        this.setData({
+          userInfo: {
+            avatarUrl: '',
+            nickName: '请稍后重试',
+            phoneNumber: '',
+          },
+          currAuthStep: 2,
+        });
+        stopRefresh();
       });
     }
-    
-    wx.stopPullDownRefresh();
   },
 
   onClickCell({

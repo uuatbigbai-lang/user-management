@@ -41,7 +41,7 @@
 }
 
 .sample-actions .t-button {
-  --td-button-primary-bg-color: #5aaa6e;
+  --td-button-primary-bg-color: #198f3d;
   --td-button-primary-border-color: #5aaa6e;
   --td-button-primary-active-bg-color: #3d8b4f;
   --td-button-primary-active-border-color: #3d8b4f;

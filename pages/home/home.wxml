@@ -12,10 +12,10 @@
   </view>
   <view class="search-bar" bind:tap="navToSearch">
     <view class="search-icon"></view>
-    <text class="search-placeholder">搜索商品/服务</text>
+    <text class="search-placeholder">检测/益生菌方案</text>
   </view>
   <view class="banner" wx:if="{{bannerList.length}}">
-    <t-swiper t-class="banner-swiper" height="30vh" autoplay loop interval="4000" duration="500" navigation="{{bannerNavigation}}" list="{{bannerList}}" bind:click="onBannerTap" />
+    <t-swiper t-class="banner-swiper" height="25vh" autoplay loop interval="4000" duration="500" navigation="{{bannerNavigation}}" list="{{bannerList}}" bind:click="onBannerTap" />
   </view>
   <!-- 功能区入口 -->
   <view class="fuction_link">
@@ -59,8 +59,7 @@
               <text class="price-num">{{item.price}}</text>
             </view>
             <view class="cart-btn" data-index="{{index}}" catchtap="handleAddCart">
-              <text class="cart-btn-icon">+</text>
-              <text class="cart-btn-text">加车</text>
+              <t-icon prefix="wr" name="cart" size="32rpx" color="#ffffff" />
             </view>
           </view>
         </view>
@@ -72,23 +71,23 @@
     <view class="about-card">
       <view class="about-top">
         <text class="about-label">ABOUT US</text>
-        <text class="about-title">关于益生元研究所</text>
+        <text class="about-title">关于立康林</text>
       </view>
       <text class="about-desc">
-        我们是一家专注于肠道微生态健康的创新企业。团队汇聚微生物学、营养学等多领域专家，致力于将前沿科研成果转化为人人可及的健康产品。从菌株筛选到产品出厂，每一步都经过严格把控。
+        立康林定位为「检测 + 干预」闭环肠道微生态健康管理平台。我们希望每一次益生菌干预都不再是随便试试，而是从肠道菌群检测、报告解读到个性化方案推荐，帮你建立自己的肠道健康标准。
       </text>
       <view class="about-stats">
         <view class="stat-item">
-          <text class="stat-num">10+</text>
-          <text class="stat-label">年研发经验</text>
+          <text class="stat-num">200万+</text>
+          <text class="stat-label">菌群样本数据</text>
         </view>
         <view class="stat-item">
-          <text class="stat-num">50+</text>
-          <text class="stat-label">专利菌株</text>
+          <text class="stat-num">16S</text>
+          <text class="stat-label">测序检测</text>
         </view>
         <view class="stat-item">
-          <text class="stat-num">100万+</text>
-          <text class="stat-label">用户信赖</text>
+          <text class="stat-num">IMicAP</text>
+          <text class="stat-label">智能平台支持</text>
         </view>
       </view>
       <view class="about-enter" bind:tap="navToAbout">
@@ -102,7 +101,7 @@
   </view>
   <!-- 底部 -->
   <view class="footer">
-    <text class="footer-text">益生元研究所 © 守护您的肠道健康</text>
+    <text class="footer-text">立康林 © 你的肠道健康守护专家</text>
   </view>
 </view>
 <!-- Loading -->

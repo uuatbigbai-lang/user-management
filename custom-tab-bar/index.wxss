@@ -4,6 +4,32 @@
   align-items: center;
 }
 
+.custom-tab-bar-icon-wrap {
+  position: relative;
+  width: 56rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-tab-bar-badge {
+  position: absolute;
+  right: -18rpx;
+  top: -8rpx;
+  min-width: 28rpx;
+  height: 28rpx;
+  padding: 0 7rpx;
+  border-radius: 999rpx;
+  background: #e34d59;
+  color: #ffffff;
+  font-size: 18rpx;
+  font-weight: 600;
+  line-height: 28rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
 t-tab-bar {
   --td-tab-bar-bg-color: #f7fbf7;
   --td-tab-bar-active-color: #2f7d43;
