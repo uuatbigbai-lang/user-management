@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { config, requestBackend } from '../../../config/index';
 import { mockIp, mockReqId } from '../../../utils/mock';
 
 export const resp = {
@@ -1253,6 +1254,18 @@ export const resp = {
 };
 
 export function getRightsList({ parameter: { afterServiceStatus, pageNum } }) {
+  if (!config.useMock) {
+    const pageSize = 10;
+    const statusQuery = afterServiceStatus !== undefined ? `&afterServiceStatus=${afterServiceStatus}` : '';
+    return requestBackend({
+      path: `/api/after-sale/list?pageNum=${pageNum || 1}&pageSize=${pageSize}${statusQuery}`,
+    }).then((res) => {
+      const result = res.data || {};
+      if (result.code !== 0) throw new Error(result.message || '获取售后列表失败');
+      return { data: result.data };
+    });
+  }
+
   const _resq = JSON.parse(JSON.stringify(resp));
   if (pageNum > 3) _resq.data.dataList = [];
   if (afterServiceStatus > -1) {

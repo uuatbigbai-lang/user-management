@@ -16,6 +16,7 @@
     "t-swiper": "tdesign-miniprogram/swiper/swiper",
     "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
     "wr-after-service-button-bar": "../components/after-service-button-bar/index",
-    "t-image": "/components/webp-image/index"
+    "t-image": "/components/webp-image/index",
+    "sales-return": "plugin://logisticsPlugin/sales-return"
   }
 }

@@ -144,6 +144,7 @@ Page({
         spuId: res.data.spuId,
         skuId: res.data.skuId,
         specs: ((res.data.goodsInfo && res.data.goodsInfo.specInfo) || []).map((s) => s.specValue),
+        price: res.data.paidAmountEach,
         paidAmountEach: res.data.paidAmountEach,
         boughtQuantity: res.data.boughtQuantity,
       };
@@ -371,7 +372,7 @@ Page({
             spuId: this.query.spuId,
           },
         ],
-        refundMemo: this.data.serviceFrom.remark.current,
+        refundMemo: this.data.serviceFrom.remark,
       };
       this.setData({ submitting: true });
       // 发起申请售后请求
@@ -412,18 +413,18 @@ Page({
   handleSuccess(e) {
     const { files } = e.detail;
     this.setData({
-      'sessionFrom.rightsImageUrls': files,
+      'serviceFrom.rightsImageUrls': files,
     });
   },
 
   handleRemove(e) {
     const { index } = e.detail;
     const {
-      sessionFrom: { rightsImageUrls },
+      serviceFrom: { rightsImageUrls },
     } = this.data;
     rightsImageUrls.splice(index, 1);
     this.setData({
-      'sessionFrom.rightsImageUrls': rightsImageUrls,
+      'serviceFrom.rightsImageUrls': rightsImageUrls,
     });
   },
 

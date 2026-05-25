@@ -26,7 +26,8 @@ export const commitPay = (params) => {
 };
 
 export const paySuccess = (payOrderInfo, context) => {
-  const { payAmt, tradeNo, groupId, promotionId } = payOrderInfo;
+  const { payAmt, tradeNo, outTradeNo, out_trade_no, groupId, promotionId } = payOrderInfo;
+  const goodsOrderNo = outTradeNo || out_trade_no || tradeNo || payOrderInfo.orderNo;
   // 支付成功
   Toast({
     context,
@@ -39,7 +40,8 @@ export const paySuccess = (payOrderInfo, context) => {
   const params = {
     totalPaid: payAmt,
     orderID: payOrderInfo.orderId,
-    orderNo: tradeNo,
+    orderNo: goodsOrderNo,
+    id: goodsOrderNo,
   };
   if (groupId) {
     params.groupId = groupId;
@@ -57,7 +59,7 @@ export const paySuccess = (payOrderInfo, context) => {
 
   confirmOrderPaid({
     orderId: payOrderInfo.orderId,
-    orderNo: tradeNo,
+    orderNo: goodsOrderNo,
     transactionId: payOrderInfo.transactionId,
   })
     .catch((err) => {

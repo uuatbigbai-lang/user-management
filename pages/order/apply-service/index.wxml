@@ -122,7 +122,7 @@
     <view class="service-from-group__grid">
       <t-upload
         media-type="{{['image','video']}}"
-        files="{{sessionFrom.rightsImageUrls}}"
+        files="{{serviceFrom.rightsImageUrls}}"
         bind:remove="handleRemove"
         bind:success="handleSuccess"
         bind:complete="handleComplete"

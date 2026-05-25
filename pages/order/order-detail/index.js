@@ -6,6 +6,13 @@ import { getAddressPromise } from '../../../services/address/list';
 import { confirmOrderPaid } from '../../../services/order/orderConfirm';
 import { wechatPayOrder } from '../order-confirm/pay';
 
+let logisticsPlugin;
+try {
+  logisticsPlugin = requirePlugin('logisticsPlugin');
+} catch (e) {
+  logisticsPlugin = null;
+}
+
 Page({
   data: {
     pageLoading: true,
@@ -20,16 +27,42 @@ Page({
     showContactService: false,
     payLoading: false,
     pullDownRefreshing: false,
+    showWechatLogisticsEntry: false,
+    wechatLogistics: {
+      waybillToken: '',
+      logisticsNo: '',
+      company: '',
+      statusText: '',
+    },
+    showSampleProgress: false,
+    sampleProgress: {
+      currentIndex: -1,
+      currentText: '',
+      steps: [],
+    },
     /** 订单评论状态 */
     orderHasCommented: true,
   },
 
   onLoad(query) {
-    this.orderID = query.orderID || query.orderNo || query.id;
-    console.log('this.query', query)
+    this.query = query || {};
+    this.orderID = this.resolveOrderIdentity(this.query);
+    console.log('this.query', query);
     this.init();
     this.navbar = this.selectComponent('#navbar');
     this.pullDownRefresh = this.selectComponent('#t-pull-down-refresh');
+  },
+
+  resolveOrderIdentity(query = {}) {
+    const raw =
+      query.id ||
+      query.out_trade_no ||
+      query.outTradeNo ||
+      query.orderNo ||
+      query.orderID ||
+      query.orderId ||
+      '';
+    return decodeURIComponent(String(raw || '')).trim();
   },
 
   onShow() {
@@ -118,10 +151,15 @@ Page({
   },
 
   getDetail() {
+    if (!this.orderID) {
+      this.handleError();
+      return Promise.reject(new Error('缺少订单参数'));
+    }
+
     const params = {
       parameter: this.orderID,
     };
-    console.log('about to pass parameter', params)
+    console.log('about to pass parameter', params);
     return fetchOrderDetail(params).then((res) => {
       const order = res.data;
       
@@ -137,9 +175,8 @@ Page({
       order.invoiceVO = order.invoiceVO || {};
       order.trajectoryVos = order.trajectoryVos || [];
       order.buttonVOs = order.buttonVOs || [];
-      order.orderStatusRemark = order.orderStatusRemark
-        ? '已' + order.orderStatusRemark.split('').slice(1).join('')
-        : '';
+      order.orderStatusRemark =
+        order.orderStatus === OrderStatus.PENDING_PAYMENT ? order.orderStatusRemark || '' : '';
       this.orderNo = order.orderNo;
       const _order = {
         id: order.orderId,
@@ -174,6 +211,9 @@ Page({
         groupInfoVo: order.groupInfoVo || {},
       };
       
+      const wechatLogistics = this.buildWechatLogistics(order);
+      const sampleProgress = this.buildSampleProgress(order);
+
       this.setData({
         order,
         _order,
@@ -188,8 +228,100 @@ Page({
         invoiceType: (order.invoiceVO && order.invoiceVO.invoiceType === 5) ? '电子普通发票' : '不开发票', //是否开票 0-不开 5-电子发票
         logisticsNodes: this.flattenNodes(order.trajectoryVos || []),
         showContactService: order.orderStatus !== OrderStatus.PENDING_PAYMENT,
+        showWechatLogisticsEntry: this.shouldShowWechatLogisticsEntry(order, wechatLogistics),
+        wechatLogistics,
+        showSampleProgress: sampleProgress.show,
+        sampleProgress,
       });
     });
+  },
+
+  buildWechatLogistics(order) {
+    const logistics = order.logisticsVO || {};
+    const waybillToken =
+      order.waybillToken ||
+      order.waybill_token ||
+      logistics.waybillToken ||
+      logistics.waybill_token ||
+      '';
+
+    return {
+      waybillToken,
+      logisticsNo: logistics.logisticsNo || '',
+      company: logistics.logisticsCompanyName || '',
+      statusText: waybillToken ? '可查看微信物流详情' : '暂无微信物流查询凭证',
+    };
+  },
+
+  shouldShowWechatLogisticsEntry(order, wechatLogistics) {
+    if (wechatLogistics.waybillToken) return true;
+    return [OrderStatus.PENDING_RECEIPT, OrderStatus.COMPLETE].includes(order.orderStatus);
+  },
+
+  isSampleOrder(order) {
+    const goodsList = order.orderItemVOs || [];
+    return goodsList.some((goods = {}) => {
+      const text = [
+        goods.goodsName,
+        goods.spuId,
+        goods.skuId,
+        goods.tagText,
+        goods.outCode,
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      return /检测|样本|菌群|testkit|sample/.test(text);
+    });
+  },
+
+  normalizeSampleStatus(order) {
+    const raw = String(
+      order.sampleStatus ||
+        order.sample_status ||
+        order.sampleStatusName ||
+        order.sample_status_name ||
+        '',
+    )
+      .trim()
+      .toLowerCase();
+
+    if (/检测完成|completed|complete|done|report|报告/.test(raw)) return 2;
+    if (/样本检测中|检测中|testing|processing|analysis/.test(raw)) return 1;
+    if (/回寄中|寄回|returning|returned|sample_return/.test(raw)) return 0;
+
+    if (order.orderStatus === OrderStatus.COMPLETE) return 0;
+    return -1;
+  },
+
+  buildSampleProgress(order) {
+    const show = this.isSampleOrder(order) && order.orderStatus !== OrderStatus.PENDING_PAYMENT;
+    const currentIndex = show ? this.normalizeSampleStatus(order) : -1;
+    const steps = [
+      {
+        title: '回寄中',
+        desc: '等待客户回寄样本',
+      },
+      {
+        title: '样本检测中',
+        desc: '实验室检测分析中',
+      },
+      {
+        title: '检测完成',
+        desc: '报告生成后可查看',
+      },
+    ].map((step, index) => ({
+      ...step,
+      active: index === currentIndex,
+      done: currentIndex >= index,
+    }));
+
+    return {
+      show,
+      currentIndex,
+      currentText: currentIndex >= 0 ? steps[currentIndex].title : '待客户收货后开始',
+      steps,
+    };
   },
 
   // 展开物流节点
@@ -348,6 +480,34 @@ Page({
     wx.navigateTo({
       url: `/pages/order/delivery-detail/index?data=${encodeURIComponent(JSON.stringify(logisticsData))}`,
     });
+  },
+
+  onWechatLogisticsTap() {
+    const { waybillToken } = this.data.wechatLogistics || {};
+
+    if (!waybillToken) {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '暂无微信物流查询凭证',
+        duration: 1500,
+        icon: '',
+      });
+      return;
+    }
+
+    if (!logisticsPlugin || typeof logisticsPlugin.openWaybillTracking !== 'function') {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '请使用预览或真机打开微信物流查询',
+        duration: 2000,
+        icon: '',
+      });
+      return;
+    }
+
+    logisticsPlugin.openWaybillTracking({ waybillToken });
   },
 
   onOrderPay() {

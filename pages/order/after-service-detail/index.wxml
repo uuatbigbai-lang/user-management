@@ -61,6 +61,18 @@
           </view>
         </view>
       </view>
+      <!-- 微信官方退货组件 -->
+      <view class="service-section sales-return-section" wx:if="{{service.returnId}}">
+        <t-cell-group>
+          <t-cell align="center" title="微信退货服务" bordered="{{false}}">
+            <t-icon prefix="wr" color="#333333" name="deliver" size="40rpx" slot="left-icon" />
+            <sales-return slot="note" returnId="{{service.returnId}}">
+              <button slot="refund" class="sales-return-btn">立即退货</button>
+              <button slot="refund_detail" class="sales-return-btn sales-return-btn--outline">退货详情</button>
+            </sales-return>
+          </t-cell>
+        </t-cell-group>
+      </view>
       <!-- 收货地址 -->
       <view class="service-section goods-refund-address" wx:if="{{service.receiverName}}">
         <t-cell-group>
@@ -76,7 +88,7 @@
             <view slot="description">
               <view> {{service.receiverAddress}} </view>
               <view>收货人：{{service.receiverName}}</view>
-              <view>收货人手机：{{service.receiverName}}</view>
+              <view>收货人手机：{{service.receiverPhone}}</view>
             </view>
           </t-cell>
         </t-cell-group>

@@ -21,18 +21,6 @@
         "useIsolateContext": true,
         "ignoreDevUnusedFiles": false
     },
-    "condition": {
-        "miniprogram": {
-            "list": [
-                {
-                    "name": "pages/usercenter/index",
-                    "pathName": "pages/usercenter/index",
-                    "query": "",
-                    "scene": null,
-                    "launchMode": "default"
-                }
-            ]
-        }
-    },
+    "condition": {},
     "libVersion": "3.15.2"
 }

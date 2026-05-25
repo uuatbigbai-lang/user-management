@@ -456,15 +456,30 @@ Page({
 
   // 处理支付
   handlePay(data, settleDetailData) {
-    const { channel, payInfo, tradeNo, orderNo, orderId, paymentAmount, interactId, transactionId } = data;
+    const {
+      channel,
+      payInfo,
+      tradeNo,
+      outTradeNo,
+      out_trade_no,
+      orderNo,
+      orderId,
+      paymentAmount,
+      interactId,
+      transactionId,
+    } = data;
     const { totalAmount, totalPayAmount } = settleDetailData;
+    const goodsOrderNo = outTradeNo || out_trade_no || tradeNo || orderNo;
     const payOrderInfo = {
       payInfo: payInfo,
       orderId: orderId,
       orderAmt: totalAmount,
       payAmt: paymentAmount || totalPayAmount,
       interactId: interactId,
-      tradeNo: tradeNo || orderNo,
+      tradeNo: goodsOrderNo,
+      orderNo: goodsOrderNo,
+      outTradeNo: goodsOrderNo,
+      out_trade_no: goodsOrderNo,
       transactionId: transactionId,
       context: this,
       dialogOnCancel: true,

@@ -1,4 +1,4 @@
-import { config } from '../../config/index';
+import { config, requestBackend } from '../../config/index';
 
 /** 获取售后单mock数据 */
 function mockFetchRightsPreview(params) {
@@ -14,8 +14,13 @@ export function fetchRightsPreview(params) {
     return mockFetchRightsPreview(params);
   }
 
-  return new Promise((resolve) => {
-    resolve('real api');
+  const { orderNo = '', skuId = '', spuId = '', numOfSku = 1 } = params || {};
+  return requestBackend({
+    path: `/api/after-sale/preview?orderNo=${orderNo}&skuId=${skuId}&spuId=${spuId}&numOfSku=${numOfSku}`,
+  }).then((res) => {
+    const result = res.data || {};
+    if (result.code !== 0) throw new Error(result.message || '获取售后预览失败');
+    return { data: result.data };
   });
 }
 
@@ -45,8 +50,12 @@ export function fetchApplyReasonList(params) {
     return mockFetchApplyReasonList(params);
   }
 
-  return new Promise((resolve) => {
-    resolve('real api');
+  return requestBackend({
+    path: `/api/after-sale/reasons?rightsReasonType=${(params && params.rightsReasonType) || ''}`,
+  }).then((res) => {
+    const result = res.data || {};
+    if (result.code !== 0) throw new Error(result.message || '获取售后原因失败');
+    return { data: result.data };
   });
 }
 
@@ -64,7 +73,13 @@ export function dispatchApplyService(params) {
     return mockDispatchApplyService(params);
   }
 
-  return new Promise((resolve) => {
-    resolve('real api');
+  return requestBackend({
+    path: '/api/after-sale/apply',
+    method: 'POST',
+    data: params,
+  }).then((res) => {
+    const result = res.data || {};
+    if (result.code !== 0) throw new Error(result.message || '申请售后失败');
+    return { data: result.data };
   });
 }

@@ -154,7 +154,7 @@ Page({
       logisticsNo: trackingNo,
       remark,
     };
-    const api = this.isChange ? create : update;
+    const api = this.isChange ? update : create;
     this.setData({ submitting: true });
     api(params)
       .then(() => {

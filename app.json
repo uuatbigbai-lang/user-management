@@ -103,6 +103,12 @@
     "chooseAddress"
   ],
   "lazyCodeLoading": "requiredComponents",
+  "plugins": {
+    "logisticsPlugin": {
+      "version": "2.1.11",
+      "provider": "wx9ad912bf20548d92"
+    }
+  },
   "usingComponents": {},
   "window": {
     "backgroundTextStyle": "light",

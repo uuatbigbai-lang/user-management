@@ -9,7 +9,7 @@ export const config = {
  * useLocal = false -> 调云托管 callContainer（生产环境）
  */
 export const backendConfig = {
-  useLocal: true,
+  useLocal: false,
   localBase: 'http://127.0.0.1:3000',
   publicBase: 'https://express-ir28-250440-4-1425492866.sh.run.tcloudbase.com',
   cloud: {

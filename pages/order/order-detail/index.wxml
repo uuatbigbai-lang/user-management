@@ -47,7 +47,46 @@
         </view>
         <t-icon class="logistics-back" name="arrow_forward" size="36rpx" prefix="wr" />
       </view>
+      <view class="wechat-logistics" wx:if="{{showWechatLogisticsEntry}}" bindtap="onWechatLogisticsTap">
+        <view class="wechat-logistics__icon">
+          <t-icon name="deliver" size="36rpx" prefix="wr" />
+        </view>
+        <view class="wechat-logistics__content">
+          <view class="wechat-logistics__title">微信物流查询</view>
+          <view class="wechat-logistics__desc">
+            <block wx:if="{{wechatLogistics.company || wechatLogistics.logisticsNo}}">
+              {{wechatLogistics.company}}{{wechatLogistics.company && wechatLogistics.logisticsNo ? ' ' : ''}}{{wechatLogistics.logisticsNo}}
+            </block>
+            <block wx:else>{{wechatLogistics.statusText}}</block>
+          </view>
+        </view>
+        <view class="wechat-logistics__status">{{wechatLogistics.statusText}}</view>
+        <t-icon class="logistics-back" name="arrow_forward" size="36rpx" prefix="wr" />
+      </view>
       <view class="border-bottom" wx:if="{{logisticsNodes[0]}}" />
+      <!-- 检测进度 -->
+      <view class="sample-progress" wx:if="{{showSampleProgress}}">
+        <view class="sample-progress__header">
+          <view class="sample-progress__title">检测进度</view>
+          <view class="sample-progress__status">{{sampleProgress.currentText}}</view>
+        </view>
+        <view class="sample-progress__steps">
+          <view
+            wx:for="{{sampleProgress.steps}}"
+            wx:key="title"
+            class="sample-progress__step {{item.done ? 'is-done' : ''}} {{item.active ? 'is-active' : ''}}"
+          >
+            <view class="sample-progress__node">
+              <view class="sample-progress__dot"></view>
+              <view wx:if="{{index < sampleProgress.steps.length - 1}}" class="sample-progress__line"></view>
+            </view>
+            <view class="sample-progress__text">
+              <view class="sample-progress__name">{{item.title}}</view>
+              <view class="sample-progress__desc">{{item.desc}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
       <!-- 收货地址 -->
       <view class="order-logistics">
         <t-icon name="location" size="40rpx" class="logistics-icon" prefix="wr" />

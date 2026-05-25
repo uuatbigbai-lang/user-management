@@ -27,7 +27,7 @@ export function fetchOrderDetail(params) {
     return mockFetchOrderDetail(params);
   }
 
-  const orderID = params.parameter;
+  const orderID = encodeURIComponent(params.parameter);
   return requestBackend({
     path: `/api/order/detail/${orderID}`,
     method: 'GET',

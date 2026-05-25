@@ -90,6 +90,7 @@ Page({
         logisticsCompanyName: serviceRaw.logisticsVO.logisticsCompanyName, // 退货物流公司
         logisticsCompanyCode: serviceRaw.logisticsVO.logisticsCompanyCode, // 退货物流公司
         remark: serviceRaw.logisticsVO.remark, // 退货备注
+        returnId: serviceRaw.returnId || serviceRaw.rights.returnId || serviceRaw.logisticsVO.returnId || '',
         receiverName: serviceRaw.logisticsVO.receiverName, // 收货人
         receiverPhone: serviceRaw.logisticsVO.receiverPhone, // 收货人电话
         receiverAddress: this.composeAddress(serviceRaw), // 收货人地址
