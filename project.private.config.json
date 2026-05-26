@@ -27,9 +27,30 @@
                 {
                     "name": "pages/order/order-detail/index",
                     "pathName": "pages/order/order-detail/index",
-                    "query": "orderID=12",
+                    "query": "id=ORD1779791150033s1iu&channel=1",
                     "scene": null,
                     "launchMode": "default"
+                },
+                {
+                    "name": "pages/order/order-detail/index?id=ORD1779791150033s1iu&channel=1",
+                    "pathName": "pages/order/order-detail/index?id=ORD1779791150033s1iu&channel=1",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "pages/order/order-detail/index",
+                    "pathName": "pages/order/order-detail/index",
+                    "query": "orderID=13",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "pages/order/order-detail/index",
+                    "pathName": "pages/order/order-detail/index",
+                    "query": "orderID=12",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

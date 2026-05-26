@@ -79,6 +79,22 @@ export function confirmOrderPaid(params) {
   });
 }
 
+export function confirmOrderReceived(params) {
+  return requestBackend({
+    path: '/api/order/confirm-received',
+    method: 'POST',
+    data: {
+      orderId: params.orderId,
+      orderNo: params.orderNo,
+    },
+  }).then((res) => {
+    if (res.data.code === 0) {
+      return { data: res.data.data };
+    }
+    throw new Error(res.data.message || '确认收货失败');
+  });
+}
+
 /** 开发票 */
 export function dispatchSupplementInvoice() {
   return Promise.resolve();

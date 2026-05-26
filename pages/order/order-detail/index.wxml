@@ -204,7 +204,13 @@
     </view>
   </view>
   <view wx:if="{{_order.buttons.length > 0}}" class="bottom-bar">
-    <order-button-bar order="{{_order}}" bindrefresh="onRefresh" bindpay="onOrderPay" isBtnMax />
+    <order-button-bar
+      order="{{_order}}"
+      bindrefresh="onRefresh"
+      bindpay="onOrderPay"
+      bindconfirmreceived="onConfirmReceived"
+      isBtnMax
+    />
   </view>
 </t-pull-down-refresh>
 <t-toast id="t-toast" />

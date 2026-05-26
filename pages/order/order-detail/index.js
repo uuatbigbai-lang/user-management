@@ -1,9 +1,15 @@
 import { formatTime } from '../../../utils/util';
 import { OrderStatus, LogisticsIconMap } from '../config';
-import { dispatchOrderPay, fetchBusinessTime, fetchOrderDetail } from '../../../services/order/orderDetail';
+import {
+  dispatchOrderPay,
+  fetchBusinessTime,
+  fetchOrderDetail,
+  fetchWechatWaybillToken,
+  syncWechatOrderState,
+} from '../../../services/order/orderDetail';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { getAddressPromise } from '../../../services/address/list';
-import { confirmOrderPaid } from '../../../services/order/orderConfirm';
+import { confirmOrderPaid, confirmOrderReceived } from '../../../services/order/orderConfirm';
 import { wechatPayOrder } from '../order-confirm/pay';
 
 let logisticsPlugin;
@@ -160,8 +166,23 @@ Page({
       parameter: this.orderID,
     };
     console.log('about to pass parameter', params);
-    return fetchOrderDetail(params).then((res) => {
-      const order = res.data;
+    return fetchOrderDetail(params)
+      .then((res) => {
+        const order = res.data;
+        if (order && Number(order.orderStatus) === OrderStatus.PENDING_RECEIPT) {
+          return syncWechatOrderState({
+            orderNo: order.orderNo,
+            orderId: order.orderId,
+          })
+            .then((syncRes) => syncRes.data.order || order)
+            .catch((err) => {
+              console.warn('同步微信订单状态失败:', err);
+              return order;
+            });
+        }
+        return order;
+      })
+      .then((order) => {
       
       // 数据完整性检查
       if (!order) {
@@ -257,7 +278,8 @@ Page({
 
   shouldShowWechatLogisticsEntry(order, wechatLogistics) {
     if (wechatLogistics.waybillToken) return true;
-    return [OrderStatus.PENDING_RECEIPT, OrderStatus.COMPLETE].includes(order.orderStatus);
+    if (wechatLogistics.logisticsNo) return true;
+    return [OrderStatus.PENDING_RECEIPT, OrderStatus.COMPLETE].includes(Number(order.orderStatus));
   },
 
   isSampleOrder(order) {
@@ -484,19 +506,86 @@ Page({
     });
   },
 
+  onConfirmReceived(e) {
+    const order = (e && e.detail && e.detail.order) || this.data.order || {};
+    wx.showLoading({ title: '确认中', mask: true });
+    return confirmOrderReceived({
+      orderId: order.id || order.orderId,
+      orderNo: order.orderNo,
+    })
+      .then(({ data }) => {
+        wx.hideLoading();
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: '已确认收货',
+          duration: 1200,
+          icon: 'check-circle',
+        });
+        return this.getDetail(data);
+      })
+      .catch((err) => {
+        wx.hideLoading();
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: err.message || '确认收货失败',
+          duration: 1800,
+          icon: '',
+        });
+      });
+  },
+
   onWechatLogisticsTap() {
     const { waybillToken } = this.data.wechatLogistics || {};
 
     if (!waybillToken) {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '暂无微信物流查询凭证',
-        duration: 1500,
-        icon: '',
-      });
-      return;
+      const logistics = this.data.order.logisticsVO || {};
+      if (!logistics.logisticsNo) {
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: '暂无物流单号',
+          duration: 1500,
+          icon: '',
+        });
+        return;
+      }
+
+      wx.showLoading({ title: '获取物流凭证中', mask: true });
+      return fetchWechatWaybillToken({
+        orderNo: this.data.order.orderNo,
+        orderId: this.data.order.orderId,
+      })
+        .then(({ data }) => {
+          wx.hideLoading();
+          const nextToken = data.waybillToken || '';
+          if (!nextToken) throw new Error('微信未返回物流查询凭证');
+
+          this.setData({
+            order: data.order || this.data.order,
+            'wechatLogistics.waybillToken': nextToken,
+            'wechatLogistics.statusText': '可查看微信物流详情',
+          });
+          this.openWechatWaybillTracking(nextToken);
+        })
+        .catch((err) => {
+          wx.hideLoading();
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: err.message || '暂无微信物流查询凭证',
+            duration: 2200,
+            icon: '',
+          });
+        });
     }
+
+    this.openWechatWaybillTracking(waybillToken);
+  },
+
+  openWechatWaybillTracking(waybillToken) {
+    if (!waybillToken) return;
 
     if (!logisticsPlugin || typeof logisticsPlugin.openWaybillTracking !== 'function') {
       Toast({
@@ -509,7 +598,41 @@ Page({
       return;
     }
 
-    logisticsPlugin.openWaybillTracking({ waybillToken });
+    Toast({
+      context: this,
+      selector: '#t-toast',
+      message: '正在打开微信物流',
+      duration: 1200,
+      icon: '',
+    });
+
+    try {
+      logisticsPlugin.openWaybillTracking({
+        waybillToken,
+        success: () => {
+          console.log('微信物流查询打开成功');
+        },
+        fail: (err) => {
+          console.error('微信物流查询打开失败:', err);
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: (err && (err.errMsg || err.message)) || '微信物流查询打开失败',
+            duration: 2200,
+            icon: '',
+          });
+        },
+      });
+    } catch (err) {
+      console.error('调用微信物流插件异常:', err);
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: (err && (err.errMsg || err.message)) || '调用微信物流插件失败',
+        duration: 2200,
+        icon: '',
+      });
+    }
   },
 
   onOrderPay() {

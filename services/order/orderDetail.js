@@ -40,6 +40,48 @@ export function fetchOrderDetail(params) {
   });
 }
 
+export function fetchWechatWaybillToken(params) {
+  if (config.useMock) {
+    return Promise.resolve({ code: 'Success', data: { waybillToken: '' } });
+  }
+
+  return requestBackend({
+    path: '/api/order/logistics/waybill-token',
+    method: 'POST',
+    data: {
+      orderNo: params.orderNo,
+      orderId: params.orderId,
+    },
+  }).then((res) => {
+    const result = res.data || res;
+    if (result.code === 0) {
+      return { code: 'Success', data: result.data || {} };
+    }
+    throw new Error(result.message || '获取微信物流凭证失败');
+  });
+}
+
+export function syncWechatOrderState(params) {
+  if (config.useMock) {
+    return Promise.resolve({ code: 'Success', data: {} });
+  }
+
+  return requestBackend({
+    path: '/api/order/wechat/sync',
+    method: 'POST',
+    data: {
+      orderNo: params.orderNo,
+      orderId: params.orderId,
+    },
+  }).then((res) => {
+    const result = res.data || res;
+    if (result.code === 0) {
+      return { code: 'Success', data: result.data || {} };
+    }
+    throw new Error(result.message || '同步微信订单状态失败');
+  });
+}
+
 /** 获取客服mock数据 */
 function mockFetchBusinessTime(params) {
   const { delay } = require('../_utils/delay');

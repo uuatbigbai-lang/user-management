@@ -126,7 +126,7 @@ Component({
       });
     },
 
-    onConfirm() {
+    onConfirm(order) {
       Dialog.confirm({
         title: '确认是否已经收到货？',
         content: '',
@@ -134,12 +134,7 @@ Component({
         cancelBtn: '取消',
       })
         .then(() => {
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: '你确认了确认收货',
-            icon: 'check-circle',
-          });
+          this.triggerEvent('confirmreceived', { order });
         })
         .catch(() => {
           Toast({
