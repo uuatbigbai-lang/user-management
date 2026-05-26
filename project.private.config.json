@@ -21,6 +21,18 @@
         "useIsolateContext": true,
         "ignoreDevUnusedFiles": false
     },
-    "condition": {},
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "pages/order/order-detail/index",
+                    "pathName": "pages/order/order-detail/index",
+                    "query": "orderID=12",
+                    "scene": null,
+                    "launchMode": "default"
+                }
+            ]
+        }
+    },
     "libVersion": "3.15.2"
 }

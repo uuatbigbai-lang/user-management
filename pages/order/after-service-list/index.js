@@ -42,7 +42,7 @@ Page({
     let status = parseInt(query.status);
     status = this.data.tabs.map((t) => t.key).includes(status) ? status : -1;
     this.init(status);
-    this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
+    this.pullDownRefresh = this.selectComponent('#t-pull-down-refresh');
   },
 
   onShow() {
@@ -65,22 +65,20 @@ Page({
   },
 
   onPullDownRefresh_(e) {
-    const { callback } = e.detail;
+    const callback = e && e.detail && e.detail.callback;
     this.setData({
       pullDownRefreshing: true,
     }); // 下拉刷新时不显示load-more
-    this.refreshList(this.data.curTab)
-      .then(() => {
+    return this.refreshList(this.data.curTab)
+      .catch((err) => {
+        console.error('刷新售后列表失败:', err);
+      })
+      .finally(() => {
         this.setData({
           pullDownRefreshing: false,
         });
         callback && callback();
-      })
-      .catch((err) => {
-        this.setData({
-          pullDownRefreshing: false,
-        });
-        Promise.reject(err);
+        wx.stopPullDownRefresh();
       });
   },
 

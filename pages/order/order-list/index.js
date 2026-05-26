@@ -2,6 +2,14 @@ import { OrderStatus } from '../config';
 import { fetchOrders, fetchOrdersCount } from '../../../services/order/orderList';
 import { cosThumb } from '../../../utils/util';
 
+const orderStatusTextMap = {
+  [OrderStatus.PENDING_PAYMENT]: '待付款',
+  [OrderStatus.PENDING_DELIVERY]: '待发货',
+  [OrderStatus.PENDING_RECEIPT]: '待收货',
+  [OrderStatus.COMPLETE]: '已完成',
+  [OrderStatus.PAYMENT_TIMEOUT]: '已取消',
+};
+
 Page({
   data: {
     tabs: [
@@ -32,7 +40,7 @@ Page({
     let status = parseInt(query.status);
     status = this.data.tabs.map((t) => t.key).includes(status) ? status : -1;
     this.init(status);
-    this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
+    this.pullDownRefresh = this.selectComponent('#pull-down-refresh');
   },
 
   onShow() {
@@ -51,17 +59,21 @@ Page({
     this.pullDownRefresh && this.pullDownRefresh.onPageScroll(e);
   },
 
+  onPullDownRefreshChange(e) {
+    this.setData({ pullDownRefreshing: !!(e && e.detail && e.detail.value) });
+  },
+
   onPullDownRefresh_(e) {
-    const { callback } = e.detail;
+    const callback = e && e.detail && e.detail.callback;
     this.setData({ pullDownRefreshing: true });
-    this.refreshList(this.data.curTab)
-      .then(() => {
+    return this.refreshList(this.data.curTab)
+      .catch((err) => {
+        console.error('刷新订单列表失败:', err);
+      })
+      .finally(() => {
         this.setData({ pullDownRefreshing: false });
         callback && callback();
-      })
-      .catch((err) => {
-        this.setData({ pullDownRefreshing: false });
-        Promise.reject(err);
+        wx.stopPullDownRefresh();
       });
   },
 
@@ -94,10 +106,12 @@ Page({
               id: order.orderId,
               orderNo: order.orderNo,
               parentOrderNo: order.parentOrderNo,
+              rightsNo: order.rightsNo,
+              rightsType: order.rightsType,
               storeId: order.storeId,
               storeName: order.storeName,
               status: order.orderStatus,
-              statusDesc: order.orderStatusName,
+              statusDesc: order.orderStatusName || orderStatusTextMap[order.orderStatus] || '未知状态',
               amount: order.paymentAmount || order.totalAmount,
               totalAmount: order.totalAmount,
               logisticsNo: order.logisticsVO ? order.logisticsVO.logisticsNo : null,

@@ -185,12 +185,16 @@ Component({
       wx.navigateTo({ url: `/pages/order/apply-service/index?${paramsStr}` });
     },
 
-    onViewRefund() {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '你点击了查看退款',
-        icon: '',
+    onViewRefund(order) {
+      if (order?.rightsNo) {
+        wx.navigateTo({
+          url: `/pages/order/after-service-detail/index?rightsNo=${order.rightsNo}`,
+        });
+        return;
+      }
+
+      wx.navigateTo({
+        url: '/pages/order/after-service-list/index',
       });
     },
 

@@ -38,8 +38,15 @@ Page({
 
   // 页面刷新，展示下拉刷新
   onPullDownRefresh_(e) {
-    const { callback } = e.detail;
-    return this.getService().then(() => callback && callback());
+    const callback = e && e.detail && e.detail.callback;
+    return this.getService()
+      .catch((err) => {
+        console.error('刷新售后详情失败:', err);
+      })
+      .finally(() => {
+        callback && callback();
+        wx.stopPullDownRefresh();
+      });
   },
 
   init() {

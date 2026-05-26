@@ -182,6 +182,8 @@ Page({
         id: order.orderId,
         orderNo: order.orderNo,
         parentOrderNo: order.parentOrderNo,
+        rightsNo: order.rightsNo,
+        rightsType: order.rightsType,
         storeId: order.storeId,
         storeName: order.storeName,
         status: order.orderStatus,
