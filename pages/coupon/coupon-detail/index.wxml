@@ -1,9 +1,12 @@
-<!-- 优惠券 -->
-<view class="coupon-card-wrap">
-  <coupon-card couponDTO="{{detail}}" />
+<view wx:if="{{errorMessage}}" class="error-wrap">
+  <view class="error-title">优惠券详情展示失败</view>
+  <view class="error-desc">{{errorMessage}}</view>
+  <t-button shape="round" block bindtap="goHomeHandle">去首页逛逛</t-button>
 </view>
-<!-- 说明 -->
-<view class="desc-wrap">
+
+<view wx:else>
+  <!-- 说明 -->
+  <view class="desc-wrap">
   <t-cell-group t-class="desc-group-wrap">
     <t-cell
       wx:if="{{detail && detail.desc}}"
@@ -40,6 +43,9 @@
   </t-cell-group>
   <!-- 查看可用商品 -->
   <view class="button-wrap">
-    <t-button shape="round" block bindtap="navGoodListHandle"> 查看可用商品 </t-button>
+    <t-button wx:if="{{fromShare && !claimed}}" shape="round" block bindtap="claimHandle">领取优惠券</t-button>
+    <t-button wx:elif="{{fromShare && claimed}}" shape="round" block bindtap="goHomeHandle">领取成功，去首页逛逛</t-button>
+    <t-button wx:else shape="round" block bindtap="navGoodListHandle"> 查看可用商品 </t-button>
+  </view>
   </view>
 </view>

@@ -63,7 +63,8 @@
       "pages": [
         "coupon-list/index",
         "coupon-detail/index",
-        "coupon-activity-goods/index"
+        "coupon-activity-goods/index",
+        "coupon-manage/index"
       ]
     },
     {

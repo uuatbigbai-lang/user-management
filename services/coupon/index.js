@@ -1,4 +1,4 @@
-import { config } from '../../config/index';
+import { backendConfig, config, requestBackend } from '../../config/index';
 
 /** 获取优惠券列表 */
 function mockFetchCoupon(status) {
@@ -12,8 +12,11 @@ export function fetchCouponList(status = 'default') {
   if (config.useMock) {
     return mockFetchCoupon(status);
   }
-  return new Promise((resolve) => {
-    resolve('real api');
+  return requestBackend({
+    path: `/api/coupon/list?status=${encodeURIComponent(status)}`,
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data || [];
+    throw new Error(res.data.message || '获取优惠券失败');
   });
 }
 
@@ -59,7 +62,72 @@ export function fetchCouponDetail(id, status = 'default') {
   if (config.useMock) {
     return mockFetchCouponDetail(id, status);
   }
-  return new Promise((resolve) => {
-    resolve('real api');
+  const path = `/api/coupon/detail/${encodeURIComponent(id)}`;
+  return requestBackend({
+    path,
+  }).then((res) => {
+    if (res.data.code === 0) {
+      return { detail: res.data.data, storeInfoList: [] };
+    }
+    const base = backendConfig.useLocal ? backendConfig.localBase : backendConfig.publicBase;
+    throw new Error(`${res.data.message || '获取优惠券详情失败'}（请求：${base}${path}）`);
+  });
+}
+
+export function checkCouponAdmin() {
+  return requestBackend({ path: '/api/coupon/admin/check' }).then((res) => {
+    if (res.data.code === 0) return res.data.data || {};
+    throw new Error(res.data.message || '检查管理员身份失败');
+  });
+}
+
+export function createCoupon(templateType) {
+  return requestBackend({
+    path: '/api/coupon/admin/create',
+    method: 'POST',
+    data: { templateType },
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data;
+    throw new Error(res.data.message || '生成优惠券失败');
+  });
+}
+
+export function fetchCouponTemplates() {
+  return requestBackend({
+    path: '/api/coupon/admin/templates',
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data || [];
+    throw new Error(res.data.message || '获取优惠券模板失败');
+  });
+}
+
+export function fetchAdminCouponList() {
+  return requestBackend({
+    path: '/api/coupon/admin/list',
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data || [];
+    throw new Error(res.data.message || '获取优惠券记录失败');
+  });
+}
+
+export function voidCoupon(couponNo) {
+  return requestBackend({
+    path: '/api/coupon/admin/void',
+    method: 'POST',
+    data: { couponNo },
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data;
+    throw new Error(res.data.message || '作废优惠券失败');
+  });
+}
+
+export function claimCoupon(couponNo) {
+  return requestBackend({
+    path: '/api/coupon/claim',
+    method: 'POST',
+    data: { couponNo },
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data;
+    throw new Error(res.data.message || '领取优惠券失败');
   });
 }

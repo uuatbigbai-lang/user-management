@@ -56,7 +56,7 @@
             购买数量
             <view class="limit-text" wx:if="{{limitBuyInfo}}"> ({{limitBuyInfo}}) </view>
           </view>
-          <t-stepper value="{{buyNum}}" min="{{1}}" max="{{2}}" theme="filled" bind:change="handleBuyNumChange" />
+          <t-stepper value="{{buyNum}}" min="{{limitMinCount}}" max="{{limitMaxCount}}" theme="filled" bind:change="handleBuyNumChange" />
         </view>
       </view>
     </view>

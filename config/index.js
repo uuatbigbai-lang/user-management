@@ -9,7 +9,7 @@ export const config = {
  * useLocal = false -> 调云托管 callContainer（生产环境）
  */
 export const backendConfig = {
-  useLocal: false,
+  useLocal: true,
   localBase: 'http://127.0.0.1:3000',
   publicBase: 'https://express-ir28-250440-4-1425492866.sh.run.tcloudbase.com',
   cloud: {
@@ -25,9 +25,15 @@ export const backendConfig = {
 export function requestBackend({ path, method = 'GET', data = {} }) {
   return new Promise((resolve, reject) => {
     if (backendConfig.useLocal) {
+      const userInfo = wx.getStorageSync('userInfo') || {};
+      const header = {};
+      if (userInfo.openid) {
+        header['x-wx-openid'] = userInfo.openid;
+      }
       wx.request({
         url: `${backendConfig.localBase}${path}`,
         method,
+        header,
         data,
         success: (res) => resolve(res),
         fail: (err) => reject(err),

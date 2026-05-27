@@ -160,24 +160,7 @@ Component({
     },
 
     onApplyRefund(order) {
-      const goods = order.goodsList[this.properties.goodsIndex];
-      const params = {
-        orderNo: order.orderNo,
-        skuId: goods?.skuId ?? '19384938948343',
-        spuId: goods?.spuId ?? '28373847384343',
-        orderStatus: order.status,
-        logisticsNo: order.logisticsNo,
-        price: goods?.price ?? 89,
-        num: goods?.num ?? 89,
-        createTime: order.createTime,
-        orderAmt: order.totalAmount,
-        payAmt: order.amount,
-        canApplyReturn: true,
-      };
-      const paramsStr = Object.keys(params)
-        .map((k) => `${k}=${params[k]}`)
-        .join('&');
-      wx.navigateTo({ url: `/pages/order/apply-service/index?${paramsStr}` });
+      this.triggerEvent('contactservice', { order });
     },
 
     onViewRefund(order) {

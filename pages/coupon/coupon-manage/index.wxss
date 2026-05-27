@@ -1,0 +1,152 @@
+page {
+  background: #f6f8f5;
+}
+
+.page {
+  padding: 32rpx;
+}
+
+.header {
+  margin-bottom: 28rpx;
+}
+
+.title {
+  color: #203326;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.desc {
+  margin-top: 10rpx;
+  color: #667085;
+  font-size: 26rpx;
+  line-height: 38rpx;
+}
+
+.coupon-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 18rpx rgba(90, 170, 110, 0.08);
+}
+
+.coupon-title {
+  color: #203326;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.coupon-desc {
+  margin-top: 8rpx;
+  color: #667085;
+  font-size: 24rpx;
+}
+
+.list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  margin: 42rpx 0 20rpx;
+}
+
+.section-title {
+  color: #203326;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.section-desc {
+  margin-top: 6rpx;
+  color: #667085;
+  font-size: 24rpx;
+}
+
+.empty {
+  padding: 48rpx 24rpx;
+  color: #667085;
+  font-size: 26rpx;
+  text-align: center;
+}
+
+.coupon-record {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 18rpx rgba(90, 170, 110, 0.08);
+}
+
+.record-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-bottom: 14rpx;
+}
+
+.record-title {
+  color: #203326;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.record-status {
+  flex: none;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  background: #eef7f0;
+  color: #2f7d43;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.status-used {
+  background: #f2f4f7;
+  color: #667085;
+}
+
+.status-expired {
+  background: #fff1f3;
+  color: #c01048;
+}
+
+.record-line {
+  color: #667085;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  word-break: break-all;
+}
+
+.record-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 22rpx;
+}
+
+.record-actions button {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 36rpx;
+  font-size: 26rpx;
+}
+
+.record-actions button::after {
+  border: 0;
+}
+
+.record-share {
+  background: #5aaa6e;
+  color: #fff;
+}
+
+.record-void {
+  background: #fff1f3;
+  color: #c01048;
+}

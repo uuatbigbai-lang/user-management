@@ -1,4 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
+import { checkCouponAdmin } from '../../services/coupon/index';
 
 // 获取全局 App 实例
 const app = getApp();
@@ -31,6 +32,7 @@ const getDefaultData = () => ({
   currAuthStep: 2,
   showKefu: true,
   versionNo: '',
+  isCouponAdmin: false,
 });
 
 Page({
@@ -50,6 +52,16 @@ Page({
 
   init() {
     this.fetUseriInfoHandle();
+    this.checkCouponAdminHandle();
+  },
+
+  checkCouponAdminHandle() {
+    const ready = app.isUserLoggedIn() ? Promise.resolve() : app.silentLogin().catch(() => {});
+    ready.then(() => checkCouponAdmin()).then((res) => {
+      this.setData({ isCouponAdmin: !!res.isAdmin });
+    }).catch(() => {
+      this.setData({ isCouponAdmin: false });
+    });
   },
 
   applyUserCenterData(userInfo) {
@@ -209,6 +221,12 @@ Page({
       case 'coupon': {
         wx.navigateTo({
           url: '/pages/coupon/coupon-list/index'
+        });
+        break;
+      }
+      case 'coupon-manage': {
+        wx.navigateTo({
+          url: '/pages/coupon/coupon-manage/index'
         });
         break;
       }

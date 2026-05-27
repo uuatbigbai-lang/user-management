@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "优惠券管理",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button"
+  }
+}

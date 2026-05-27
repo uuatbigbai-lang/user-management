@@ -414,3 +414,67 @@
   --td-button-default-color: #000;
   --td-button-primary-text-color: #fa4126;
 }
+
+.after-sale-contact-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.after-sale-contact-dialog {
+  width: 620rpx;
+  overflow: hidden;
+  border-radius: 16rpx;
+  background: #ffffff;
+}
+
+.after-sale-contact-title {
+  padding: 48rpx 40rpx 16rpx;
+  color: #111111;
+  font-size: 34rpx;
+  line-height: 48rpx;
+  font-weight: 600;
+  text-align: center;
+}
+
+.after-sale-contact-content {
+  padding: 0 40rpx 44rpx;
+  color: #666666;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  text-align: center;
+}
+
+.after-sale-contact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1rpx solid #eeeeee;
+}
+
+.after-sale-contact-actions button {
+  height: 96rpx;
+  margin: 0;
+  border-radius: 0;
+  background: #ffffff;
+  color: #333333;
+  font-size: 32rpx;
+  line-height: 96rpx;
+}
+
+.after-sale-contact-actions button::after {
+  border: 0;
+}
+
+.after-sale-contact-confirm {
+  color: #2f7d43 !important;
+  font-weight: 600;
+  border-left: 1rpx solid #eeeeee !important;
+}

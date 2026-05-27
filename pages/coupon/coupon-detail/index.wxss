@@ -13,6 +13,27 @@ page {
   margin: 50rpx 32rpx 0;
 }
 
+.error-wrap {
+  margin: 48rpx 32rpx;
+  padding: 44rpx 32rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  text-align: center;
+}
+
+.error-title {
+  color: #203326;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.error-desc {
+  margin: 18rpx 0 36rpx;
+  color: #667085;
+  font-size: 26rpx;
+  line-height: 38rpx;
+}
+
 .desc-group-wrap .t-class-cell {
   align-items: flex-start;
 }

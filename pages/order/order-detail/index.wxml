@@ -114,6 +114,7 @@
           class="goods-button-bar"
           order="{{_order}}"
           bindrefresh="onRefresh"
+          bindcontactservice="onContactServiceFromAfterSale"
           goodsIndex="{{gIndex}}"
         />
       </order-goods-card>
@@ -194,8 +195,9 @@
         wx:if="{{showContactService}}"
         class="pay-service contact-service-button"
         open-type="contact"
+        session-from="订单号{{order.orderNo}}"
         show-message-card="{{true}}"
-        send-message-title="订单咨询：{{order.orderNo}}"
+        send-message-title="售后咨询：{{order.orderNo}}"
         send-message-path="/pages/order/order-detail/index?orderID={{_order.id}}"
       >
         <t-icon name="service" size="40rpx" />
@@ -209,9 +211,30 @@
       bindrefresh="onRefresh"
       bindpay="onOrderPay"
       bindconfirmreceived="onConfirmReceived"
+      bindcontactservice="onContactServiceFromAfterSale"
       isBtnMax
     />
   </view>
 </t-pull-down-refresh>
+<view wx:if="{{showAfterSaleContactDialog}}" class="after-sale-contact-mask" catchtouchmove="noop">
+  <view class="after-sale-contact-dialog">
+    <view class="after-sale-contact-title">即将打开客服对话</view>
+    <view class="after-sale-contact-content">客服帮您解决所有售后问题</view>
+    <view class="after-sale-contact-actions">
+      <button class="after-sale-contact-cancel" bindtap="onAfterSaleContactCancel">取消</button>
+      <button
+        class="after-sale-contact-confirm"
+        open-type="contact"
+        session-from="订单号{{order.orderNo}}"
+        show-message-card="{{true}}"
+        send-message-title="售后咨询：{{order.orderNo}}"
+        send-message-path="/pages/order/order-detail/index?orderID={{_order.id}}"
+        bindtap="onAfterSaleContactTap"
+      >
+        确认
+      </button>
+    </view>
+  </view>
+</view>
 <t-toast id="t-toast" />
 <t-dialog id="t-dialog" />

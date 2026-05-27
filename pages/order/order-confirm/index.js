@@ -272,7 +272,12 @@ Page({
         orderCardList.push(orderCard);
       });
 
-    this.setData({ orderCardList, storeInfoList, submitCouponList });
+    this.setData({
+      orderCardList,
+      storeInfoList,
+      submitCouponList,
+      couponList: (data.storeGoodsList && data.storeGoodsList[0] && data.storeGoodsList[0].couponList) || [],
+    });
     return data;
   },
   onGotoAddress() {
@@ -406,6 +411,7 @@ Page({
       invoiceRequest: null,
       storeInfoList,
       couponList: resSubmitCouponList,
+      couponNo: settleDetailData.selectedCoupon && settleDetailData.selectedCoupon.couponNo,
     };
     if (invoiceData && invoiceData.email) {
       params.invoiceRequest = invoiceData;
@@ -510,6 +516,7 @@ Page({
     const { selectedList } = e.detail;
     const tempSubmitCouponList = submitCouponList.map((storeCoupon) => {
       return {
+        storeId: storeCoupon.storeId,
         couponList: storeCoupon.storeId === currentStoreId ? selectedList : storeCoupon.couponList,
       };
     });

@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="header">
+    <view class="title">优惠券管理</view>
+    <view class="desc">选择券种生成一张可领取优惠券，再分享给指定联系人。</view>
+  </view>
+
+  <view class="coupon-type" wx:for="{{couponTypes}}" wx:key="templateType">
+    <view>
+      <view class="coupon-title">{{item.title}}</view>
+      <view class="coupon-desc">{{item.desc}}</view>
+    </view>
+    <t-button size="small" data-type="{{item.templateType}}" bindtap="createHandle">生成</t-button>
+  </view>
+
+  <view class="list-head">
+    <view>
+      <view class="section-title">优惠券记录</view>
+      <view class="section-desc">按生成时间倒序排列</view>
+    </view>
+    <t-button size="small" variant="outline" bindtap="refreshHandle">刷新</t-button>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{!couponList.length}}" class="empty">暂无优惠券记录</view>
+  <block wx:else>
+    <view class="coupon-record" wx:for="{{couponList}}" wx:key="couponNo">
+      <view class="record-main">
+        <view class="record-title-row">
+          <view class="record-title">{{item.title}}</view>
+          <view class="record-status status-{{item.recordStatus}}">{{item.statusText}}</view>
+        </view>
+        <view class="record-line">券号：{{item.couponNo}}</view>
+        <view class="record-line">生成：{{item.createdByOpenid || '-'}}</view>
+        <view class="record-line">领取：{{item.claimedByOpenid || '-'}}</view>
+        <view class="record-line" wx:if="{{item.orderNo}}">核销订单：{{item.orderNo}}</view>
+      </view>
+      <view class="record-actions">
+        <button
+          wx:if="{{item.recordStatus === 'generated'}}"
+          class="record-share"
+          open-type="share"
+          data-coupon-no="{{item.couponNo}}"
+          bindtap="shareHandle"
+        >分享</button>
+        <button
+          wx:if="{{item.canVoid}}"
+          class="record-void"
+          data-coupon-no="{{item.couponNo}}"
+          bindtap="voidHandle"
+        >作废</button>
+      </view>
+    </view>
+  </block>
+</view>

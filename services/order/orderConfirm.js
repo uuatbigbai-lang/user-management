@@ -18,7 +18,10 @@ export function fetchSettleDetail(params) {
   return requestBackend({
     path: '/api/order/settle',
     method: 'POST',
-    data: { goodsRequestList: params.goodsRequestList },
+    data: {
+      goodsRequestList: params.goodsRequestList,
+      couponList: params.couponList || [],
+    },
   }).then((res) => {
     if (res.data.code === 0) {
       return { data: res.data.data };
@@ -50,6 +53,7 @@ export async function dispatchCommitPay(params) {
       userAddress: params.userAddressReq,
       userName: params.userName,
       totalAmount: params.totalAmount,
+      couponNo: params.couponNo || (params.couponList && params.couponList[0] && params.couponList[0].couponNo) || '',
       remark: (params.storeInfoList && params.storeInfoList[0]?.remark) || '',
       authorizationCode,
     },

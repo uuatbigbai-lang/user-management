@@ -1,6 +1,3 @@
-import dayjs from 'dayjs';
-import { couponsData } from './mock';
-
 const emptyCouponImg = `https://tdesign.gtimg.com/miniprogram/template/retail/coupon/ordersure-coupon-newempty.png`;
 
 Component({
@@ -19,41 +16,7 @@ Component({
       value: false,
       observer(couponsShow) {
         if (couponsShow) {
-          const { promotionGoodsList, orderSureCouponList, storeId } = this.data;
-          const products =
-            promotionGoodsList &&
-            promotionGoodsList.map((goods) => {
-              this.storeId = goods.storeId;
-              return {
-                skuId: goods.skuId,
-                spuId: goods.spuId,
-                storeId: goods.storeId,
-                selected: true,
-                quantity: goods.num,
-                prices: {
-                  sale: goods.settlePrice,
-                },
-              };
-            });
-          const selectedCoupons =
-            orderSureCouponList &&
-            orderSureCouponList.map((ele) => {
-              return {
-                promotionId: ele.promotionId,
-                storeId: ele.storeId,
-                couponId: ele.couponId,
-              };
-            });
-          this.setData({
-            products,
-          });
-          this.coupons({
-            products,
-            selectedCoupons,
-            storeId,
-          }).then((res) => {
-            this.initData(res);
-          });
+          this.initData(this.data.orderSureCouponList || []);
         }
       },
     },
@@ -67,80 +30,49 @@ Component({
     promotionGoodsList: [],
   },
   methods: {
-    initData(data = {}) {
-      const { couponResultList = [], reduce = 0 } = data;
-      const selectedList = [];
-      let selectedNum = 0;
-      const couponsList =
-        couponResultList &&
-        couponResultList.map((coupon) => {
-          const { status, couponVO } = coupon;
-          const { couponId, condition = '', endTime = 0, name = '', startTime = 0, value, type } = couponVO;
-          if (status === 1) {
-            selectedNum++;
-            selectedList.push({
-              couponId,
-              promotionId: ruleId,
-              storeId: this.storeId,
-            });
-          }
-          const val = type === 2 ? value / 100 : value / 10;
-          return {
-            key: couponId,
-            title: name,
-            isSelected: false,
-            timeLimit: `${dayjs(+startTime).format('YYYY-MM-DD')}-${dayjs(+endTime).format('YYYY-MM-DD')}`,
-            value: val,
-            status: status === -1 ? 'useless' : 'default',
-            desc: condition,
-            type,
-            tag: '',
-          };
-        });
+    initData(couponList = []) {
+      const couponsList = (couponList || []).map((coupon, index) => ({
+        ...coupon,
+        key: coupon.couponNo || coupon.key || String(index),
+        isSelected: !!coupon.selected,
+        displayType: Number(coupon.type) === 4 ? 1 : coupon.type,
+        displayValue: Number(coupon.type) === 4 ? Number(coupon.discountAmount || 0) : coupon.value,
+        desc: coupon.desc || coupon.statusText || '',
+      }));
+      const selectedList = couponsList.filter((coupon) => coupon.isSelected);
+      const reduce = selectedList.reduce((sum, coupon) => sum + Number(coupon.discountAmount || 0), 0);
       this.setData({
         selectedList,
         couponsList,
         reduce,
-        selectedNum,
+        selectedNum: selectedList.length,
       });
     },
     selectCoupon(e) {
       const { key } = e.currentTarget.dataset;
-      const { couponsList, selectedList } = this.data;
-      couponsList.forEach((coupon) => {
-        if (coupon.key === key) {
-          coupon.isSelected = !coupon.isSelected;
-        }
-      });
-
-      const couponSelected = couponsList.filter((coupon) => coupon.isSelected === true);
+      const targetCoupon = this.data.couponsList.find((coupon) => coupon.key === key);
+      if (!targetCoupon || targetCoupon.status !== 'default') return;
+      const couponsList = this.data.couponsList.map((coupon) => ({
+        ...coupon,
+        isSelected: coupon.key === key,
+      }));
+      const selectedList = couponsList.filter((coupon) => coupon.isSelected);
+      const reduce = selectedList.reduce((sum, coupon) => sum + Number(coupon.discountAmount || 0), 0);
 
       this.setData({
-        selectedList: [...selectedList, ...couponSelected],
-        couponsList: [...couponsList],
+        selectedList,
+        couponsList,
+        reduce,
+        selectedNum: selectedList.length,
       });
 
       this.triggerEvent('sure', {
-        selectedList: [...selectedList, ...couponSelected],
+        selectedList,
       });
     },
     hide() {
       this.setData({
         couponsShow: false,
-      });
-    },
-    coupons(coupon = {}) {
-      return new Promise((resolve, reject) => {
-        if (coupon?.selectedCoupons) {
-          resolve({
-            couponResultList: couponsData.couponResultList,
-            reduce: couponsData.reduce,
-          });
-        }
-        return reject({
-          couponResultList: [],
-          reduce: undefined,
-        });
       });
     },
   },

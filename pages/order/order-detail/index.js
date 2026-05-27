@@ -31,6 +31,7 @@ Page({
     formatCreateTime: '', //格式化订单创建时间
     logisticsNodes: [],
     showContactService: false,
+    showAfterSaleContactDialog: false,
     payLoading: false,
     pullDownRefreshing: false,
     showWechatLogisticsEntry: false,
@@ -534,6 +535,22 @@ Page({
           icon: '',
         });
       });
+  },
+
+  onContactServiceFromAfterSale() {
+    this.setData({ showAfterSaleContactDialog: true });
+  },
+
+  onAfterSaleContactTap() {
+    this.setData({ showAfterSaleContactDialog: false });
+  },
+
+  onAfterSaleContactCancel() {
+    this.setData({ showAfterSaleContactDialog: false });
+  },
+
+  noop() {
+    return false;
   },
 
   onWechatLogisticsTap() {

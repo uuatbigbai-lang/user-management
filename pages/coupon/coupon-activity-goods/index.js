@@ -14,8 +14,17 @@ Page({
   id: '',
 
   onLoad(query) {
-    const id = parseInt(query.id);
+    const id = query.couponNo || query.id;
     this.id = id;
+    if (!id) {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '缺少优惠券编号',
+        icon: '',
+      });
+      return;
+    }
 
     this.getCouponDetail(id);
     this.getGoodsList(id);
@@ -40,7 +49,16 @@ Page({
         } else {
           this.setData({ couponTypeDesc: `减${detail.value / 100}元` });
         }
+      } else if (detail.type === 4) {
+        this.setData({ couponTypeDesc: detail.title || '买二送一' });
       }
+    }).catch((err) => {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: err.message || '优惠券详情加载失败',
+        icon: '',
+      });
     });
   },
 

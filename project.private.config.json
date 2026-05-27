@@ -25,11 +25,18 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "pages/coupon/coupon-detail/index",
+                    "pathName": "pages/coupon/coupon-detail/index",
+                    "query": "couponNo=CP1779862426388D9DS1F",
+                    "scene": null,
+                    "launchMode": "default"
+                },
+                {
                     "name": "pages/order/order-detail/index",
                     "pathName": "pages/order/order-detail/index",
                     "query": "id=ORD1779791150033s1iu&channel=1",
-                    "scene": null,
-                    "launchMode": "default"
+                    "launchMode": "default",
+                    "scene": null
                 },
                 {
                     "name": "pages/order/order-detail/index?id=ORD1779791150033s1iu&channel=1",
