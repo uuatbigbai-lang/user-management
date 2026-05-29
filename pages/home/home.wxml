@@ -3,7 +3,7 @@
   <!-- Hero Banner -->
   <view class="bg" />
   <view class="logo" style="margin-top: calc({{statusBarHeight}}px + 8rpx);">
-    <image wx:if="{{homeAssets.logo.src}}" class="logo-img" src="{{homeAssets.logo.src}}" mode="scaleToFill" bindload="onLogoImageLoad" binderror="onLogoImageError" />
+    <image wx:if="{{homeAssets.logo.src}}" class="logo-img" src="{{homeAssets.logo.src}}" mode="widthFix" bindload="onLogoImageLoad" binderror="onLogoImageError" />
     <text wx:else>{{homeAssets.logo.text}}</text>
     <view class="logo-text">
       <text class="up">立康林</text>

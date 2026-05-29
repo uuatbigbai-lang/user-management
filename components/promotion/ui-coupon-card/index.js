@@ -70,8 +70,8 @@ Component({
   observers: {
     status: function (value) {
       let theme = 'primary';
-      // 已过期或已使用的券 颜色置灰
-      if (value === 'useless' || value === 'disabled') {
+      // 已过期、已使用或当前不可用的券颜色置灰
+      if (value === 'useless' || value === 'disabled' || value === 'unavailable') {
         theme = 'weak';
       }
 

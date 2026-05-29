@@ -46,7 +46,6 @@ page {
 
 .logo-img {
   width: 110rpx;
-  height: 64rpx;
   display: block;
   flex-shrink: 0;
 }

@@ -54,13 +54,13 @@
         <text wx:else>免运费</text>
       </view>
     </view>
-    <view class="pay-item">
+    <!-- <view class="pay-item">
       <text>活动优惠</text>
       <view class="pay-item__right primary font-bold">
         -
         <price fill price="{{settleDetailData.totalPromotionAmount || 0}}" />
       </view>
-    </view>
+    </view> -->
     <view class="pay-item">
       <text>优惠券</text>
       <view
