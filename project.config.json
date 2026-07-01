@@ -3,24 +3,24 @@
   "packOptions": {
     "ignore": [
       {
-        "type": "folder",
-        "value": "backend"
+        "value": "backend",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "scripts"
+        "value": "scripts",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "node_modules"
+        "value": "node_modules",
+        "type": "folder"
       },
       {
-        "type": "file",
-        "value": "package.json"
+        "value": "package.json",
+        "type": "file"
       },
       {
-        "type": "file",
-        "value": "yarn.lock"
+        "value": "yarn.lock",
+        "type": "file"
       }
     ],
     "include": []
@@ -73,7 +73,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "3.15.2",
-  "appid": "wxcafe966536f313fa",
+  "appid": "wx949d9ee08dd6a6b5",
   "projectname": "tdesign-miniprogram-starter-retail",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
