@@ -17,10 +17,10 @@ App({
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
     } else {
       wx.cloud.init({
-        env: "cloud1-d8gcvzv3307e57219",
+        env: "cloud1-1gr581cp70dbd77a",
         traceUser: true,
       })
-      console.log('[app] wx.cloud.init env:', 'cloud1-d8gcvzv3307e57219');
+      console.log('[app] wx.cloud.init env:', 'cloud1-1gr581cp70dbd77a');
     }
 
 
