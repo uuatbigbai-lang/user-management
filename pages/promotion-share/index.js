@@ -131,14 +131,14 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: '立康林 - 好物分享，一起赚佣金',
+      title: '蓝点荟 - 好物分享，一起赚佣金',
       path: `/pages/home/home?inviteCode=${this.data.inviteCode}`,
     };
   },
 
   onShareTimeline() {
     return {
-      title: '立康林 - 分享赚佣金',
+      title: '蓝点荟 - 分享赚佣金',
       query: `inviteCode=${this.data.inviteCode}`,
     };
   },

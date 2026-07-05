@@ -69,7 +69,7 @@
           <view class="category-copy">
             <text class="category-kicker">Precision Probiotics</text>
             <text class="category-title">再进行精准干预</text>
-            <text class="category-desc">立康林益生菌方案围绕肠道健康、情绪睡眠、女性健康等场景设计，结合专利菌株、活性菌与益生元复配。建议根据检测报告与个人状态选择更匹配的干预产品。</text>
+            <text class="category-desc">蓝点荟益生菌方案围绕肠道健康、情绪睡眠、女性健康等场景设计，结合专利菌株、活性菌与益生元复配。建议根据检测报告与个人状态选择更匹配的干预产品。</text>
           </view>
         </view>
         <view class="product-card" wx:for="{{probioticProducts}}" wx:key="spuId" data-id="{{item.spuId}}" bind:tap="goDetail">

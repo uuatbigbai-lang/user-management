@@ -2,6 +2,7 @@
   <view class="goods-head">
     <t-swiper
       wx:if="{{details.images.length > 0}}"
+      imageProps="{{bannerImageProps}}"
       height="750rpx"
       current="{{current}}"
       autoplay="{{autoplay}}"
@@ -42,7 +43,7 @@
             <view class="btn-icon">
               <t-icon name="share" size="40rpx" color="#2f7d43" />
               <view class="share-text">分享</view>
-              <view class="share-text" style="font-size: 9px;">领积分</view>
+              <!-- <view class="share-text" style="font-size: 9px;">领积分</view> -->
             </view>
           </t-button>
         </view>

@@ -6,8 +6,8 @@
     <image wx:if="{{homeAssets.logo.src}}" class="logo-img" src="{{homeAssets.logo.src}}" mode="widthFix" bindload="onLogoImageLoad" binderror="onLogoImageError" />
     <text wx:else>{{homeAssets.logo.text}}</text>
     <view class="logo-text">
-      <text class="up">立康林</text>
-      <text class="down">RecoverGreen微生态管家</text>
+      <text class="up">蓝点荟</text>
+      <text class="down"></text>
     </view>
   </view>
   <view class="search-bar" bind:tap="navToSearch">
@@ -71,10 +71,10 @@
     <view class="about-card">
       <view class="about-top">
         <text class="about-label">ABOUT US</text>
-        <text class="about-title">关于立康林</text>
+        <text class="about-title">关于蓝点荟</text>
       </view>
       <text class="about-desc">
-        立康林定位为「检测 + 干预」闭环肠道微生态健康管理平台。我们希望每一次益生菌干预都不再是随便试试，而是从肠道菌群检测、报告解读到个性化方案推荐，帮你建立自己的肠道健康标准。
+        蓝点荟定位为「检测 + 干预」闭环肠道微生态健康管理平台。我们希望每一次益生菌干预都不再是随便试试，而是从肠道菌群检测、报告解读到个性化方案推荐，帮你建立自己的肠道健康标准。
       </text>
       <view class="about-stats">
         <view class="stat-item">
@@ -101,7 +101,7 @@
   </view>
   <!-- 底部 -->
   <view class="footer">
-    <text class="footer-text">立康林 © 你的肠道健康守护专家</text>
+    <text class="footer-text">蓝点荟 © 你的肠道健康守护专家</text>
   </view>
 </view>
 <!-- Loading -->

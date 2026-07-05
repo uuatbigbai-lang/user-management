@@ -3,7 +3,7 @@
     <view class="hero-copy">
       <text class="hero-kicker">Gut Microbiome Report</text>
       <text class="hero-title">先看见肠道数据，再选择干预方案</text>
-      <text class="hero-desc">立康林肠道菌群检测把一次居家采样，转化为可读、可追踪、可行动的健康报告。你不需要盲目试益生菌，先读懂自己的肠道，再做更有依据的选择。</text>
+      <text class="hero-desc">蓝点荟肠道菌群检测把一次居家采样，转化为可读、可追踪、可行动的健康报告。你不需要盲目试益生菌，先读懂自己的肠道，再做更有依据的选择。</text>
       <view class="hero-actions">
         <view class="primary-btn" bind:tap="goProducts">购买检测盒</view>
         <view class="ghost-btn" bind:tap="goSample">报告查询</view>
@@ -46,7 +46,7 @@
   <view class="section">
     <view class="section-head">
       <text class="section-title">实验室与数据背书</text>
-      <text class="section-desc">立康林检测技术由杭州谷禾信息技术有限公司提供支撑，依托病原微生物 BSL-2 实验室与中国人群肠道菌群数据积累，为个性化建议提供依据。</text>
+      <text class="section-desc">蓝点荟检测技术由杭州谷禾信息技术有限公司提供支撑，依托病原微生物 BSL-2 实验室与中国人群肠道菌群数据积累，为个性化建议提供依据。</text>
     </view>
     <view class="lab-panel">
       <view class="lab-image image-placeholder">实验室实景图占位</view>
@@ -66,7 +66,7 @@
   <view class="section">
     <view class="section-head">
       <text class="section-title">你购买的不只是一支检测盒</text>
-      <text class="section-desc">检测盒是入口，报告是答案，干预建议才是下一步行动。立康林把三者连接成完整的肠道健康管理体验。</text>
+      <text class="section-desc">检测盒是入口，报告是答案，干预建议才是下一步行动。蓝点荟把三者连接成完整的肠道健康管理体验。</text>
     </view>
     <view class="product-list">
       <view class="product-card" wx:for="{{productCards}}" wx:key="title">

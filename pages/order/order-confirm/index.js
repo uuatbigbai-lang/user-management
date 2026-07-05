@@ -245,7 +245,7 @@ Page({
         ele.skuDetailVos.forEach((item, index) => {
           orderCard.goodsList.push({
             id: index,
-            thumb: item.image,
+            thumb: item.thumb || item.image || item.primaryImage || '',
             title: item.goodsName,
             specs: item.skuSpecLst.map((s) => s.specValue), // 规格列表 string[]
             price: item.tagPrice || item.settlePrice || '0', // 优先取限时活动价

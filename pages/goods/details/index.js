@@ -82,6 +82,7 @@ Page({
     list: [],
     spuId: '',
     navigation: { type: 'fraction' },
+    bannerImageProps: { mode: 'aspectFit' },
     current: 0,
     autoplay: true,
     duration: 500,
@@ -230,6 +231,7 @@ Page({
     }
     const selectedSku = selectItem || (skuList && skuList[0]);
     const skuPrice = selectedSku ? (selectedSku.price || details.minSalePrice) : details.minSalePrice;
+    const skuImage = selectedSku ? (selectedSku.skuImage || details.primaryImage) : details.primaryImage;
     const specsStr = selectedAttrStr ? selectedAttrStr.split('，').map((s) => s.trim()).filter(Boolean).join('+') : '';
 
     wx.showLoading({ title: '加车中', mask: true });
@@ -238,7 +240,7 @@ Page({
         spuId: details.spuId,
         skuId: selectedSku ? selectedSku.skuId : '',
         title: details.title,
-        thumb: details.primaryImage,
+        thumb: skuImage,
         price: skuPrice,
         originPrice: details.maxLinePrice || null,
         quantity: buyNum,
@@ -274,6 +276,7 @@ Page({
     // 获取选中 SKU 的真实价格
     const selectedSku = type === 1 ? this.data.skuList[0] : this.data.selectItem;
     const skuPrice = selectedSku ? (selectedSku.price || this.data.details.minSalePrice) : this.data.details.minSalePrice;
+    const skuImage = selectedSku ? (selectedSku.skuImage || this.data.details.primaryImage) : this.data.details.primaryImage;
     const query = {
       quantity: buyNum,
       storeId: '1',
@@ -287,7 +290,7 @@ Page({
         specValue: this.data.selectedAttrStr.split('，')[index + 1],
       })),
       primaryImage: this.data.details.primaryImage,
-      thumb: this.data.details.primaryImage,
+      thumb: skuImage,
       title: this.data.details.title,
     };
     

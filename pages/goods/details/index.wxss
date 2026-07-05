@@ -16,6 +16,29 @@ page {
   height: 750rpx;
 }
 
+.goods-detail-page .goods-head .t-swiper {
+  background: #f8faf5;
+}
+
+.goods-detail-page .goods-head .t-swiper-host {
+  background: #f8faf5;
+}
+
+.goods-detail-page .goods-head .t-swiper__item {
+  align-items: center;
+  justify-content: center;
+  background: #f8faf5;
+}
+
+.goods-detail-page .goods-head .t-swiper__image,
+.goods-detail-page .goods-head .t-swiper__image-host,
+.goods-detail-page .goods-head .t-swiper__image .t-image,
+.goods-detail-page .goods-head .t-swiper__image .t-image__img {
+  width: 100%;
+  height: 100%;
+  background: #f8faf5;
+}
+
 .goods-detail-page .goods-info .goods-price {
   display: flex;
   align-items: baseline;

@@ -8,7 +8,7 @@
     <view class="hero-deco hero-deco-3"></view>
     <view class="hero-content">
       <view class="hero-tag">ABOUT US</view>
-      <view class="hero-title">立康林</view>
+      <view class="hero-title">蓝点荟</view>
       <view class="hero-sub">你的肠道健康守护专家</view>
     </view>
   </view>
@@ -21,8 +21,8 @@
       <view class="sec-line"></view>
     </view>
     <view class="card intro-card">
-      <text class="card-text">立康林由科茵智慧医药与蓝点荟大健康管理公司联合孵化，定位为国内「检测 + 干预」闭环肠道微生态健康管理平台。我们相信，真正有效的肠道管理不应停留在“随便吃吃试试”，而应先通过检测读懂自身菌群状态，再制定更有依据的干预方案。</text>
-      <text class="card-text" style="margin-top: 16rpx;">围绕肠道菌群检测、报告解读、益生菌产品和会员健康管理，立康林希望为用户建立长期可追踪的肠道健康档案，让每一次选择都有数据依据。</text>
+      <text class="card-text">蓝点荟由科茵智慧医药与蓝点荟大健康管理公司联合孵化，定位为国内「检测 + 干预」闭环肠道微生态健康管理平台。我们相信，真正有效的肠道管理不应停留在“随便吃吃试试”，而应先通过检测读懂自身菌群状态，再制定更有依据的干预方案。</text>
+      <text class="card-text" style="margin-top: 16rpx;">围绕肠道菌群检测、报告解读、益生菌产品和会员健康管理，蓝点荟希望为用户建立长期可追踪的肠道健康档案，让每一次选择都有数据依据。</text>
     </view>
   </view>
 
@@ -81,7 +81,7 @@
         <view class="lab-badge">200万+样本</view>
         <view class="lab-badge">IMicAP平台</view>
       </view>
-      <text class="card-text">立康林检测技术由杭州谷禾信息技术有限公司提供支撑，基于病原微生物 BSL-2 实验室多年积累的中国人群肠道菌群数据，为个性化干预推荐提供底层依据。IMicAP 智能微生物应用平台也将支持小程序端报告解读与干预建议。</text>
+      <text class="card-text">蓝点荟检测技术由杭州谷禾信息技术有限公司提供支撑，基于病原微生物 BSL-2 实验室多年积累的中国人群肠道菌群数据，为个性化干预推荐提供底层依据。IMicAP 智能微生物应用平台也将支持小程序端报告解读与干预建议。</text>
       <view class="lab-highlights">
         <view class="lab-hl-item">
           <text class="lab-hl-num">16S</text>
@@ -166,6 +166,6 @@
   </view>
 
   <view class="footer">
-    <text class="footer-text">立康林 © 先读懂，再干预</text>
+    <text class="footer-text">蓝点荟 © 先读懂，再干预</text>
   </view>
 </view>
