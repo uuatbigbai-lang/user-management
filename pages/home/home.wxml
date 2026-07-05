@@ -47,12 +47,12 @@
     <view class="product-list">
       <view class="product-card" wx:for="{{products}}" wx:key="id" data-id="{{item.spuId}}" bind:tap="goDetail">
         <view class="product-img-wrap">
-          <image class="product-img" src="{{item.thumb}}" mode="aspectFill" />
+          <image class="product-img" src="{{item.thumb}}" mode="aspectFit" />
           <view class="product-badge" wx:if="{{item.badge}}">{{item.badge}}</view>
         </view>
         <view class="product-info">
           <text class="product-name">{{item.title}}</text>
-          <text class="product-brief">{{item.brief}}</text>
+          <text wx:if="{{item.brief}}" class="product-brief">{{item.brief}}</text>
           <view class="product-bottom">
             <view class="product-price">
               <text class="price-symbol">¥</text>

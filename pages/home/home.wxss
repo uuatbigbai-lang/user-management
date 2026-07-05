@@ -242,14 +242,20 @@ page {
 .product-img-wrap {
   position: relative;
   width: 100%;
-  height: 260rpx;
+  height: 320rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
   overflow: hidden;
   background: linear-gradient(135deg, #f0f7f1, #e8f5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .product-img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .product-badge {
@@ -265,7 +271,7 @@ page {
 }
 
 .product-info {
-  min-height: 208rpx;
+  min-height: 0;
   padding: 22rpx 20rpx 24rpx;
   display: flex;
   flex-direction: column;
