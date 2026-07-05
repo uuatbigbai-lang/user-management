@@ -3,19 +3,38 @@ export const config = {
   useMock: false,
 };
 
+const backendProfiles = {
+  likanglin: {
+    publicBase: 'https://express-ir28-250440-4-1425492866.sh.run.tcloudbase.com',
+    cloud: {
+      env: 'prod-d4gu9yrbb28b39fbf',
+      serviceName: 'express-ir28',
+    },
+    resourceEnv: 'cloud1-1gr581cp70dbd77a',
+  },
+  landianhui: {
+    publicBase: 'https://express-w75d-194260-7-1382535808.sh.run.tcloudbase.com',
+    cloud: {
+      env: 'prod-9g6y0u3hbace7b1e',
+      serviceName: 'express-w75d',
+    },
+    resourceEnv: 'cloud1-1gr581cp70dbd77a',
+  },
+};
+
+const activeBackendProfile = backendProfiles.landianhui;
+
 /**
  * 后端接口环境配置
  * useLocal = true  → 调本地 http://localhost:3000（开发调试）
  * useLocal = false -> 调云托管 callContainer（生产环境）
  */
 export const backendConfig = {
-  useLocal: false,
+  useLocal: true,
   localBase: 'http://127.0.0.1:3000',
-  publicBase: 'https://express-ir28-250440-4-1425492866.sh.run.tcloudbase.com',
-  cloud: {
-    env: 'prod-d4gu9yrbb28b39fbf',
-    serviceName: 'express-ir28',
-  },
+  publicBase: activeBackendProfile.publicBase,
+  cloud: activeBackendProfile.cloud,
+  resourceEnv: activeBackendProfile.resourceEnv,
 };
 
 /**

@@ -1,4 +1,5 @@
 import updateManager from './common/updateManager';
+import { backendConfig } from './config/index';
 import {
   fetchUserCenter
 } from './services/usercenter/fetchUsercenter.js'
@@ -17,10 +18,10 @@ App({
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
     } else {
       wx.cloud.init({
-        env: "cloud1-1gr581cp70dbd77a",
+        env: backendConfig.resourceEnv,
         traceUser: true,
       })
-      console.log('[app] wx.cloud.init env:', 'cloud1-1gr581cp70dbd77a');
+      console.log('[app] wx.cloud.init env:', backendConfig.resourceEnv);
     }
 
 
