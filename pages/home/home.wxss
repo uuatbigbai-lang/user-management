@@ -45,7 +45,7 @@ page {
 }
 
 .logo-img {
-  width: 110rpx;
+  width: 60rpx;
   display: block;
   flex-shrink: 0;
 }
@@ -407,7 +407,11 @@ page {
   display: block;
   letter-spacing: 2rpx;
 }
-
+.fullLogo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .about-desc {
   font-size: 24rpx;
   color: var(--text-sub);

@@ -28,7 +28,7 @@ function fetchFromBackend(spuId) {
         title: d.title,
         primaryImage: d.primaryImage || d.thumb,
         images: safeJSON(d.images, [d.thumb]),
-        detailBannerHeight: Number(d.detailBannerHeight) || 750,
+        detailBannerHeight: d.detailBannerHeight ? Number(d.detailBannerHeight) : undefined,
         showPriceFrom: d.showPriceFrom !== undefined ? !!d.showPriceFrom : true,
         price: d.price,
         minSalePrice: d.minSalePrice || 0,

@@ -3,7 +3,7 @@
     <t-swiper
       wx:if="{{details.images.length > 0}}"
       imageProps="{{bannerImageProps}}"
-      height="{{details.detailBannerHeight || 750}}"
+      height="{{details.detailBannerHeight}}"
       current="{{current}}"
       autoplay="{{autoplay}}"
       duration="{{duration}}"
@@ -17,11 +17,16 @@
           <price
             wr-class="class-goods-price"
             symbol-class="class-goods-symbol"
-            price="{{minSalePrice}}"
+            price="{{selectSkuSellsPrice || minSalePrice}}"
             type="lighter"
           />
-          <view wx:if="{{details.showPriceFrom}}" class="goods-price-up">起</view>
-          <price wr-class="class-goods-del" price="{{maxLinePrice}}" type="delthrough" />
+          <view wx:if="{{details.showPriceFrom && !selectSkuSellsPrice}}" class="goods-price-up">起</view>
+          <price
+            wx:if="{{selectSkuLinePrice && selectSkuLinePrice > (selectSkuSellsPrice || minSalePrice)}}"
+            wr-class="class-goods-del"
+            price="{{selectSkuLinePrice}}"
+            type="delthrough"
+          />
         </view>
         <view class="sold-num">已售{{soldNum}}</view>
       </view>
@@ -137,8 +142,8 @@
           symbol-class="popup-sku__price-symbol"
         />
         <price
-          wx:if="{{selectSkuSellsPrice === 0 && minSalePrice !== maxSalePrice && !isAllSelectedSku}}"
-          price="{{maxSalePrice}}"
+          wx:if="{{selectSkuLinePrice && selectSkuLinePrice > (selectSkuSellsPrice || minSalePrice)}}"
+          price="{{selectSkuLinePrice}}"
           wr-class="popup-sku__price-del"
           type="delthrough"
         />

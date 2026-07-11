@@ -76,6 +76,7 @@ Page({
     outOperateStatus: false, // 是否外层加入购物车
     operateType: 0,
     selectSkuSellsPrice: 0,
+    selectSkuLinePrice: 0,
     maxLinePrice: 0,
     minSalePrice: 0,
     maxSalePrice: 0,
@@ -139,6 +140,7 @@ Page({
     if (!isAllSelectedSku) {
       this.setData({
         selectSkuSellsPrice: 0,
+        selectSkuLinePrice: 0,
       });
     }
     this.setData({
@@ -169,11 +171,13 @@ Page({
       this.setData({
         selectItem: skuItem,
         selectSkuSellsPrice: skuItem.price || 0,
+        selectSkuLinePrice: skuItem.linePrice || 0,
       });
     } else {
       this.setData({
         selectItem: null,
         selectSkuSellsPrice: 0,
+        selectSkuLinePrice: 0,
       });
     }
     this.setData({
@@ -245,6 +249,7 @@ Page({
       isAllSelectedSku: true,
       selectItem: defaultSku,
       selectSkuSellsPrice: defaultSku.price || 0,
+      selectSkuLinePrice: defaultSku.linePrice || 0,
       specImg: defaultSku.skuImage || primaryImage,
     });
   },
@@ -384,11 +389,14 @@ Page({
       const skuArray = [];
       const { skuList, primaryImage, isPutOnSale, minSalePrice, maxSalePrice, maxLinePrice, soldNum } = details;
       skuList.forEach((item) => {
+        const salePrice = item.priceInfo ? Number((item.priceInfo.find((price) => Number(price.priceType) === 1) || {}).price || 0) : 0;
+        const linePrice = item.priceInfo ? Number((item.priceInfo.find((price) => Number(price.priceType) === 2) || {}).price || 0) : 0;
         skuArray.push({
           skuId: item.skuId,
           quantity: item.stockInfo ? item.stockInfo.stockQuantity : 0,
           specInfo: item.specInfo,
-          price: item.priceInfo ? item.priceInfo[0].price : 0,
+          price: salePrice,
+          linePrice,
           skuImage: item.skuImage || '',
         });
       });

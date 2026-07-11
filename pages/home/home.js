@@ -7,6 +7,7 @@ const app = getApp();
 
 const HOME_ASSET_DEFAULTS = {
   logo: { text: '🌱', src: '' },
+  fullLogo: { text: '', src: '' },
   icon1: { text: '🌿', src: '' },
   icon2: { text: '🔬', src: '' },
   icon3: { text: '💚', src: '' },

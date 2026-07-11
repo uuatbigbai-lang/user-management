@@ -11,6 +11,11 @@ page {
   border-radius: 0 0 24rpx 24rpx;
 }
 
+.goods-detail-page {
+  padding-bottom: 100px;
+  box-sizing: border-box;
+}
+
 .goods-detail-page .swipe-img {
   width: 100%;
   height: 750rpx;
