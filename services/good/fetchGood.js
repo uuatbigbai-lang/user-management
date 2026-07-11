@@ -28,6 +28,8 @@ function fetchFromBackend(spuId) {
         title: d.title,
         primaryImage: d.primaryImage || d.thumb,
         images: safeJSON(d.images, [d.thumb]),
+        detailBannerHeight: Number(d.detailBannerHeight) || 750,
+        showPriceFrom: d.showPriceFrom !== undefined ? !!d.showPriceFrom : true,
         price: d.price,
         minSalePrice: d.minSalePrice || 0,
         maxSalePrice: d.maxSalePrice || 0,

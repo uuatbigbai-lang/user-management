@@ -34,7 +34,7 @@ page view {
 }
 
 .t-class-confirm {
-  color: #fa550f !important;
+  color: #3075B8 !important;
 }
 
 .person-info .order-group__left {

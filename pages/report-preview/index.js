@@ -1,7 +1,7 @@
 const SCORE_TARGET = 82;
 const CHART_BAR_TARGETS = [
-  { name: '双歧杆菌', value: 72, status: '优势菌建议保持', color: '#198f3d' },
-  { name: '乳酸杆菌', value: 58, status: '可继续提升', color: '#5aaa6e' },
+  { name: '双歧杆菌', value: 72, status: '优势菌建议保持', color: '#3075B8' },
+  { name: '乳酸杆菌', value: 58, status: '可继续提升', color: '#3075B8' },
   { name: '丁酸产生菌', value: 46, status: '关注膳食纤维', color: '#8bbf4d' },
   { name: '潜在有害菌', value: 24, status: '建议持续管理', color: '#e9a43a' },
 ];

@@ -58,23 +58,23 @@
 
 .select-service .special-cell .special-cell-note-price-class {
   font-size: 36rpx;
-  color: #fa4126;
+  color: #3075B8;
   font-family: DIN Alternate;
 }
 .select-service .special-cell .special-cell-note-price-decimal {
   font-size: 28rpx;
-  color: #fa4126;
+  color: #3075B8;
   font-family: DIN Alternate;
 }
 .select-service .special-cell .special-cell-note-price-symbol {
-  color: #fa4126;
+  color: #3075B8;
   font-size: 24rpx;
   font-family: DIN Alternate;
 }
 
 .select-service .bottom-bar__btn {
   width: 686rpx;
-  background-color: #fa4126;
+  background-color: #3075B8;
   color: white;
   font-size: 32rpx;
   border-radius: 48rpx;
@@ -178,7 +178,7 @@
   opacity: 0.5;
 }
 .dialog--service-status .options .option.main {
-  color: #fa4126;
+  color: #3075B8;
 }
 .dialog--service-status .cancel {
   color: #333333;
@@ -198,8 +198,8 @@
   transform: translate(-50%, 0);
 }
 .dialog .dialog__button-confirm {
-  color: #fa4126;
-  color: var(--color-primary, #fa4126);
+  color: #3075B8;
+  color: var(--color-primary, #3075B8);
 }
 .select-service .bottom-bar {
   background-color: #fff;
@@ -222,7 +222,7 @@
   font-weight: bold;
   font-size: 36rpx;
   text-align: right;
-  color: #fa4126;
+  color: #3075B8;
 }
 .service-from-group__price {
   display: flex;
@@ -304,5 +304,5 @@
 
 .t-button {
   --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #3075B8;
 }

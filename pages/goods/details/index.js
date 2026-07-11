@@ -217,9 +217,42 @@ Page({
     }
   },
 
+  hasSelectableSku() {
+    const { details = {}, skuArray = [] } = this.data;
+    const specList = Array.isArray(details.specList) ? details.specList : [];
+    const hasSpecValues = specList.some((item) => Array.isArray(item.specValueList) && item.specValueList.length > 0);
+    return hasSpecValues && skuArray.length > 1;
+  },
+
+  getEffectiveSelectedSku({ preferFirstSku = false } = {}) {
+    const { skuArray = [], selectItem } = this.data;
+    if (preferFirstSku) {
+      return selectItem || skuArray[0] || null;
+    }
+    return selectItem || skuArray[0] || null;
+  },
+
+  applySingleSkuDefaults(nextState = {}) {
+    const details = nextState.details || this.data.details;
+    const skuArray = nextState.skuArray || this.data.skuArray;
+    const primaryImage = nextState.primaryImage || this.data.primaryImage;
+    const specList = Array.isArray(details.specList) ? details.specList : [];
+    const hasSelectableSpecs = specList.some((item) => Array.isArray(item.specValueList) && item.specValueList.length > 0);
+    if (hasSelectableSpecs && skuArray.length > 1) return;
+    const defaultSku = skuArray[0] || this.getEffectiveSelectedSku();
+    if (!defaultSku) return;
+    this.setData({
+      isAllSelectedSku: true,
+      selectItem: defaultSku,
+      selectSkuSellsPrice: defaultSku.price || 0,
+      specImg: defaultSku.skuImage || primaryImage,
+    });
+  },
+
   async addCart() {
-    const { isAllSelectedSku, buyNum, selectItem, skuList, details, selectedAttrStr } = this.data;
-    if (!isAllSelectedSku) {
+    const { isAllSelectedSku, buyNum, selectItem, details, selectedAttrStr } = this.data;
+    const shouldForceSkuSelection = this.hasSelectableSku();
+    if (shouldForceSkuSelection && !isAllSelectedSku) {
       Toast({
         context: this,
         selector: '#t-toast',
@@ -229,7 +262,7 @@ Page({
       });
       return;
     }
-    const selectedSku = selectItem || (skuList && skuList[0]);
+    const selectedSku = selectItem || this.getEffectiveSelectedSku();
     const skuPrice = selectedSku ? (selectedSku.price || details.minSalePrice) : details.minSalePrice;
     const skuImage = selectedSku ? (selectedSku.skuImage || details.primaryImage) : details.primaryImage;
     const specsStr = selectedAttrStr ? selectedAttrStr.split('，').map((s) => s.trim()).filter(Boolean).join('+') : '';
@@ -262,7 +295,8 @@ Page({
 
   gotoBuy(type) {
     const { isAllSelectedSku, buyNum } = this.data;
-    if (!isAllSelectedSku) {
+    const shouldForceSkuSelection = this.hasSelectableSku();
+    if (shouldForceSkuSelection && !isAllSelectedSku) {
       Toast({
         context: this,
         selector: '#t-toast',
@@ -274,7 +308,7 @@ Page({
     }
     this.handlePopupHide();
     // 获取选中 SKU 的真实价格
-    const selectedSku = type === 1 ? this.data.skuList[0] : this.data.selectItem;
+    const selectedSku = this.getEffectiveSelectedSku({ preferFirstSku: type === 1 });
     const skuPrice = selectedSku ? (selectedSku.price || this.data.details.minSalePrice) : this.data.details.minSalePrice;
     const skuImage = selectedSku ? (selectedSku.skuImage || this.data.details.primaryImage) : this.data.details.primaryImage;
     const query = {
@@ -285,10 +319,12 @@ Page({
       skuId: selectedSku ? selectedSku.skuId : '',
       available: this.data.details.available,
       price: skuPrice,
-      specInfo: this.data.details.specList?.map((item, index) => ({
-        specTitle: item.title,
-        specValue: this.data.selectedAttrStr.split('，')[index + 1],
-      })),
+      specInfo: this.hasSelectableSku()
+        ? this.data.details.specList?.map((item, index) => ({
+          specTitle: item.title,
+          specValue: this.data.selectedAttrStr.split('，')[index + 1],
+        }))
+        : [],
       primaryImage: this.data.details.primaryImage,
       thumb: skuImage,
       title: this.data.details.title,
@@ -363,7 +399,7 @@ Page({
           label: '满100元减99.9元',
         });
       });
-      this.setData({
+      const nextState = {
         details,
         activityList,
         isStock: details.spuStockQuantity > 0,
@@ -375,7 +411,9 @@ Page({
         primaryImage,
         soldout: isPutOnSale === 0,
         soldNum,
-      });
+      };
+      this.setData(nextState);
+      this.applySingleSkuDefaults(nextState);
     });
   },
 

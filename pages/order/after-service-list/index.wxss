@@ -79,7 +79,7 @@
 
 .page-container .header__right {
   font-size: 24rpx;
-  color: #fa4126;
+  color: #3075B8;
   display: flex;
   align-items: center;
 }
@@ -100,5 +100,5 @@
 
 .t-button {
   --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #3075B8;
 }

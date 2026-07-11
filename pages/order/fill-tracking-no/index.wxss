@@ -70,7 +70,7 @@
 }
 
 .fill-tracking-no__button-bar .btn.confirmBtn {
-  background: #fa4126;
+  background: #3075B8;
   color: #fff;
 }
 
@@ -103,5 +103,5 @@
 
 .t-button {
   --td-button-default-color: #aeb3b7;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #3075B8;
 }

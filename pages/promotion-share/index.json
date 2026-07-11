@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "推广有礼",
-  "navigationBarBackgroundColor": "#5aaa6e",
+  "navigationBarBackgroundColor": "#3075B8",
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"

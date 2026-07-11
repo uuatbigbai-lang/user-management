@@ -65,10 +65,10 @@
   border-radius: 16rpx;
 }
 .city-picker-footer .btn.primary {
-  color: #fa550f;
+  color: #3075B8;
 }
 .city-picker-footer .btn.primary::after {
-  border-color: #fa550f;
+  border-color: #3075B8;
 }
 .picker-column:not(:first-child) {
   margin-left: 40rpx;

@@ -166,7 +166,7 @@
 }
 .service-detail .right {
   font-size: 36rpx;
-  color: #fa550f;
+  color: #3075B8;
   font-weight: bold;
 }
 
@@ -249,7 +249,7 @@
   padding: 0 24rpx;
   border: 0;
   border-radius: 28rpx;
-  background: #2f7d43;
+  background: #3075B8;
   color: #ffffff;
   font-size: 24rpx;
   line-height: 56rpx;
@@ -260,20 +260,20 @@
 }
 
 .sales-return-section .sales-return-btn--outline {
-  border: 2rpx solid #2f7d43;
+  border: 2rpx solid #3075B8;
   background: #ffffff;
-  color: #2f7d43;
+  color: #3075B8;
 }
 
 .service-detail .specs-popup .bottom-btn {
-  color: #fa550f;
+  color: #3075B8;
 }
 .service-detail .specs-popup .bottom-btn::after {
-  color: #fa550f;
+  color: #3075B8;
 }
 
 .dialog .dialog__button-confirm {
-  color: #fa550f;
+  color: #3075B8;
 }
 
 .page-container .order-goods-card > wr-goods-card .wr-goods-card__bottom .price {
@@ -364,7 +364,7 @@
 }
 .page-container .navbar-bg .nav-back,
 .page-container .navbar-bg .page-background {
-  background: linear-gradient(to right, rgba(250, 85, 15, 1) 0%, rgba(250, 85, 15, 0.6) 100%) !important;
+  background: linear-gradient(to right, rgba(48, 117, 184, 1) 0%, rgba(48, 117, 184, 0.72) 100%) !important;
 }
 
 .page-container .navigation-bar__btn {
@@ -378,7 +378,7 @@
 }
 
 .refresh-bar {
-  background: linear-gradient(90deg, #ff6b44 0%, #ed3427 100%) !important;
+  background: linear-gradient(90deg, #3075B8 0%, #245F99 100%) !important;
 }
 
 .page-container .navigation-bar__inner .navigation-bar__left {
@@ -437,7 +437,7 @@
 .service-section-logistics {
   display: flex;
   justify-content: center;
-  color: #fa4126;
+  color: #3075B8;
   align-items: center;
   margin-top: 24rpx;
 }
@@ -463,5 +463,5 @@
 
 .t-button {
   --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #3075B8;
 }

@@ -113,7 +113,7 @@
     </view>
     <view class="chart-grid">
       <view class="score-chart">
-        <view class="score-ring" style="background: conic-gradient(var(--green-primary) 0deg, var(--green-mid) {{scoreDeg}}deg, #e9f2e8 {{scoreDeg}}deg, #e9f2e8 360deg);">
+        <view class="score-ring" style="background: conic-gradient(var(--green-primary) 0deg, var(--green-mid) {{scoreDeg}}deg, #EAF3FB {{scoreDeg}}deg, #EAF3FB 360deg);">
           <view class="score-core">
             <text class="score-value">{{scoreValue}}</text>
             <text class="score-label">菌群平衡</text>

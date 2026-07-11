@@ -14,35 +14,12 @@
     <view class="search-icon"></view>
     <text class="search-placeholder">检测/益生菌方案</text>
   </view>
-  <view class="banner" wx:if="{{bannerList.length}}">
-    <t-swiper t-class="banner-swiper" height="25vh" autoplay loop interval="4000" duration="500" navigation="{{bannerNavigation}}" list="{{bannerList}}" bind:click="onBannerTap" />
-  </view>
-  <!-- 功能区入口 -->
-  <view class="fuction_link">
-    <view
-      class="feature-item"
-      wx:for="{{featureLinks}}"
-      wx:key="label"
-      data-action="{{item.action}}"
-      data-url="{{item.url}}"
-      data-open-type="{{item.openType}}"
-      hover-class="feature-item--pressed"
-      hover-stay-time="120"
-      bind:tap="onFeatureTap"
-    >
-      <image class="feature-icon" src="{{item.iconSrc}}" mode="aspectFit" />
-      <text class="feature-label">{{item.label}}</text>
-    </view>
-  </view>
-  <!-- 占位图 -->
-  <view class="placeholder-section" wx:if="{{homeAssets.nutritionPlaceholder.src}}">
-    <image class="placeholder-img" src="{{homeAssets.nutritionPlaceholder.src}}" mode="widthFix" />
-  </view>
+ 
   <!-- 产品列表 -->
   <view class="products-section">
     <view class="section-header">
-      <text class="section-title">精选推荐</text>
-      <text class="section-jump-link" bind:tap="navToProducts">更多方案 ></text>
+      <text class="section-title" style="color:white">精选推荐</text>
+      <!-- <text class="section-jump-link" bind:tap="navToProducts">更多方案 ></text> -->
     </view>
     <view class="product-list">
       <view class="product-card" wx:for="{{products}}" wx:key="id" data-id="{{item.spuId}}" bind:tap="goDetail">

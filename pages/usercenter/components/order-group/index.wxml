@@ -22,12 +22,12 @@
       bindtap="onClickItem"
     >
       <view class="order-group__item__icon icon-class">
-        <t-badge count="{{item.orderNum}}" max-count="{{99}}" color="#5aaa6e">
+        <t-badge count="{{item.orderNum}}" max-count="{{99}}" color="#3075B8">
           <t-icon
             prefix="{{classPrefix}}"
             name="{{item.iconName}}"
             size="56rpx"
-            customStyle="background-image: -webkit-linear-gradient(90deg, #3d8b4f 0%,#5aaa6e 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"
+            customStyle="background-image: -webkit-linear-gradient(90deg, #245F99 0%,#3075B8 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"
           />
         </t-badge>
       </view>

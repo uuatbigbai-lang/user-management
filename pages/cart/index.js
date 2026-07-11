@@ -153,7 +153,7 @@ Page({
       Dialog.confirm({
         title: '商品库存不足',
         content: `当前商品库存不足，最大可购买数量为${stockQuantity}件`,
-        confirmBtn: { content: '修改为最大可购买数量', variant: 'base', style: 'color: #5aaa6e' },
+        confirmBtn: { content: '修改为最大可购买数量', variant: 'base', style: 'color: #3075B8' },
         cancelBtn: { content: '取消', variant: 'base', style: 'color: #a3b5a6' },
       })
         .then(() => {
@@ -191,7 +191,7 @@ Page({
     } = e.detail;
     Dialog.confirm({
       content: '确认删除该商品吗?',
-      confirmBtn: { content: '确定', variant: 'base', style: 'color: #5aaa6e' },
+      confirmBtn: { content: '确定', variant: 'base', style: 'color: #3075B8' },
       cancelBtn: { content: '取消', variant: 'base', style: 'color: #a3b5a6' },
     }).then(() => {
       deleteCartItem({ spuId, skuId }).then(() => {

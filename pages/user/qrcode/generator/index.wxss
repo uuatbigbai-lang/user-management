@@ -3,7 +3,7 @@
 /* 页面容器 */
 .qrcode-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3075B8 0%, #245F99 100%);
   display: flex;
   flex-direction: column;
 }
@@ -207,7 +207,7 @@
 
 .share-btn {
   background: rgba(255, 255, 255, 0.9);
-  color: #667eea;
+  color: #3075B8;
 }
 
 .share-btn:active {

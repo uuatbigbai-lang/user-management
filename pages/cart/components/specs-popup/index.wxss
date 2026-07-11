@@ -31,13 +31,13 @@
   line-height: 56rpx;
   padding: 0 20rpx;
   border-radius: 28rpx;
-  background-color: #f0f7f1;
+  background-color: #F5FAFF;
   max-width: 100%;
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #3d8b4f;
+  color: #245F99;
   font-weight: 500;
 }
 .specs-popup .section .options .option:not(:last-child) {
@@ -50,7 +50,7 @@
   line-height: 80rpx;
   text-align: center;
   background-color: white;
-  color: #5aaa6e;
+  color: #3075B8;
   font-weight: 500;
   letter-spacing: 2rpx;
 }
@@ -65,7 +65,7 @@
   top: 0;
   width: 200%;
   height: 200%;
-  border: 1px solid #5aaa6e;
+  border: 1px solid #3075B8;
   border-radius: 80rpx;
   transform: scale(0.5);
   transform-origin: left top;

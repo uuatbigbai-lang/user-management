@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "商品详情",
-  "navigationBarBackgroundColor": "#2f7d43",
+  "navigationBarBackgroundColor": "#3075B8",
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "t-image": "/components/webp-image/index",

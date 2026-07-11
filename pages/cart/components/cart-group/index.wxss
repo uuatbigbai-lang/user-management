@@ -2,17 +2,17 @@
   border-radius: 24rpx;
   padding: 0 24rpx;
   /* stepper 数量选择器绿色主题 */
-  --td-stepper-input-bg-color: #f0f7f1;
+  --td-stepper-input-bg-color: #F5FAFF;
   --td-stepper-input-font-color: #2d3a2e;
-  --td-stepper-normal-bg-color: #f0f7f1;
-  --td-stepper-hover-bg-color: #e8f5e9;
+  --td-stepper-normal-bg-color: #F5FAFF;
+  --td-stepper-hover-bg-color: #EAF3FB;
 }
 .cart-group .goods-wrap {
   margin-top: 24rpx;
   background-color: #ffffff;
   border-radius: 24rpx;
   overflow: hidden;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.06);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.06);
 }
 .cart-group .goods-wrap:first-of-type {
   margin-top: 20rpx;
@@ -59,11 +59,11 @@
   width: 112rpx;
   height: 40rpx;
   border-radius: 20rpx;
-  background-color: #e8f5e9;
+  background-color: #EAF3FB;
   line-height: 40rpx;
   text-align: center;
   font-size: 26rpx;
-  color: #5aaa6e;
+  color: #3075B8;
 }
 
 .cart-group .promotion-wrap {
@@ -90,7 +90,7 @@
   display: inline-block;
   padding: 0 8rpx;
   color: #ffffff;
-  background: linear-gradient(135deg, #5aaa6e, #3d8b4f);
+  background: linear-gradient(135deg, #3075B8, #245F99);
   font-size: 20rpx;
   height: 32rpx;
   line-height: 32rpx;
@@ -116,7 +116,7 @@
 .cart-group .promotion-line-wrap .promotion-line {
   width: 684rpx;
   height: 2rpx;
-  background-color: rgba(90, 170, 110, 0.08);
+  background-color: rgba(48, 117, 184, 0.08);
 }
 .cart-group .goods-item-info {
   display: flex;
@@ -133,8 +133,8 @@
   width: 36rpx;
   height: 36rpx;
   border-radius: 20rpx;
-  background: #f0f7f1;
-  border: 2rpx solid #c8d8cb;
+  background: #F5FAFF;
+  border: 2rpx solid #B8D4EF;
 }
 
 .cart-group .goods-item-info .goods-sku-info {
@@ -171,7 +171,7 @@
 .cart-group .shortage-line {
   width: 662rpx;
   height: 2rpx;
-  background-color: rgba(90, 170, 110, 0.08);
+  background-color: rgba(48, 117, 184, 0.08);
   margin: 0 auto;
 }
 .cart-group .shortage-goods-wrap {
@@ -191,14 +191,14 @@
   background-color: #fff;
   border-radius: 24rpx;
   margin-top: 24rpx;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.06);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.06);
 }
 .invalid-goods-wrap .invalid-head {
   display: flex;
   justify-content: space-between;
   padding: 30rpx 20rpx;
   font-size: 24rpx;
-  border-bottom: 2rpx solid rgba(90, 170, 110, 0.06);
+  border-bottom: 2rpx solid rgba(48, 117, 184, 0.06);
 }
 .invalid-goods-wrap .invalid-head .invalid-title {
   color: #2d3a2e;
@@ -206,7 +206,7 @@
   font-weight: 600;
 }
 .invalid-goods-wrap .invalid-head .invalid-clear {
-  color: #5aaa6e;
+  color: #3075B8;
 }
 .invalid-goods-wrap .toggle {
   display: flex;
@@ -214,7 +214,7 @@
   justify-content: center;
   align-items: center;
   font-size: 24rpx;
-  color: #5aaa6e;
+  color: #3075B8;
 }
 .invalid-goods-wrap .toggle .m-r-6 {
   margin-right: 6rpx;
@@ -225,7 +225,7 @@
   height: 0;
   border-left: 10rpx solid transparent;
   border-right: 10rpx solid transparent;
-  border-bottom: 10rpx solid #5aaa6e;
+  border-bottom: 10rpx solid #3075B8;
 }
 .invalid-goods-wrap .toggle .down-icon {
   display: inline-block;
@@ -233,7 +233,7 @@
   height: 0;
   border-left: 10rpx solid transparent;
   border-right: 10rpx solid transparent;
-  border-top: 10rpx solid #5aaa6e;
+  border-top: 10rpx solid #3075B8;
 }
 .action-btn {
   display: flex;
@@ -269,11 +269,11 @@
 .goods-stepper .stepper .stepper__plus {
   width: 44rpx;
   height: 44rpx;
-  background-color: #f0f7f1;
+  background-color: #F5FAFF;
 }
 .goods-stepper .stepper .stepper__minus--hover,
 .goods-stepper .stepper .stepper__plus--hover {
-  background-color: #e8f5e9;
+  background-color: #EAF3FB;
 }
 .goods-stepper .stepper .stepper__minus .wr-icon,
 .goods-stepper .stepper .stepper__plus .wr-icon {
@@ -308,7 +308,7 @@
 .goods-stepper .stepper .stepper__input {
   width: 72rpx;
   height: 44rpx;
-  background-color: #f0f7f1;
+  background-color: #F5FAFF;
   font-size: 24rpx;
   color: #2d3a2e;
   font-weight: 600;

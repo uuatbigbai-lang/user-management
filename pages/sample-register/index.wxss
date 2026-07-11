@@ -15,10 +15,10 @@ page {
 }
 
 .register-header .t-button {
-  --td-button-primary-bg-color: #5aaa6e;
-  --td-button-primary-border-color: #5aaa6e;
-  --td-button-primary-active-bg-color: #3d8b4f;
-  --td-button-primary-active-border-color: #3d8b4f;
+  --td-button-primary-bg-color: #3075B8;
+  --td-button-primary-border-color: #3075B8;
+  --td-button-primary-active-bg-color: #245F99;
+  --td-button-primary-active-border-color: #245F99;
   border-radius: 16rpx;
   font-weight: 600;
   letter-spacing: 2rpx;
@@ -32,7 +32,7 @@ page {
   display: flex;
   flex-direction: column;
   gap: 32rpx;
-  box-shadow: 0 4rpx 24rpx rgba(90, 170, 110, 0.06);
+  box-shadow: 0 4rpx 24rpx rgba(48, 117, 184, 0.06);
 }
 
 /* 单个表单项 */
@@ -50,7 +50,7 @@ page {
 }
 
 .required {
-  color: #5aaa6e;
+  color: #3075B8;
   margin-left: 6rpx;
   font-weight: 600;
 }
@@ -66,7 +66,7 @@ page {
 }
 
 .form-input--focus {
-  border-color: #5aaa6e;
+  border-color: #3075B8;
 }
 
 /* 多行文本 */
@@ -85,9 +85,9 @@ page {
   flex-direction: row;
   gap: 40rpx;
   padding: 8rpx 0;
-  --td-radio-icon-checked-color: #5aaa6e;
-  --td-radio-btn-checked-bg-color: #e8f5e9;
-  --td-radio-btn-checked-color: #5aaa6e;
+  --td-radio-icon-checked-color: #3075B8;
+  --td-radio-btn-checked-bg-color: #EAF3FB;
+  --td-radio-btn-checked-color: #3075B8;
 }
 
 /* 分隔线 */
@@ -112,10 +112,10 @@ page {
 }
 
 .register-actions .t-button {
-  --td-button-primary-bg-color: #5aaa6e;
-  --td-button-primary-border-color: #5aaa6e;
-  --td-button-primary-active-bg-color: #3d8b4f;
-  --td-button-primary-active-border-color: #3d8b4f;
+  --td-button-primary-bg-color: #3075B8;
+  --td-button-primary-border-color: #3075B8;
+  --td-button-primary-active-bg-color: #245F99;
+  --td-button-primary-active-border-color: #245F99;
   border-radius: 44rpx;
   font-size: 32rpx;
   font-weight: 600;
@@ -129,7 +129,7 @@ page {
   font-weight: 600;
   color: #2d5a35;
   padding-bottom: 8rpx;
-  border-bottom: 4rpx solid #5aaa6e;
+  border-bottom: 4rpx solid #3075B8;
   display: inline-block;
   margin-bottom: 8rpx;
 }

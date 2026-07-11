@@ -32,7 +32,7 @@
 			<view>领券中心</view>
 			<t-icon
 			  name="chevron-right"
-			  color="#fa4126"
+			  color="#3075B8"
 			  size="40rpx"
 			  style="line-height: 28rpx;"
 			/>

@@ -21,7 +21,7 @@
     </view>
     <view class="promo-entry__right">
       <view class="promo-entry__badge">赚钱</view>
-      <t-icon name="chevron-right" size="36rpx" color="#5aaa6e" />
+      <t-icon name="chevron-right" size="36rpx" color="#3075B8" />
     </view>
   </view>
 
@@ -33,7 +33,7 @@
       <view class="admin-entry__title">优惠券管理</view>
       <view class="admin-entry__desc">生成并分享9折券、7折券、买二送一券</view>
     </view>
-    <t-icon name="chevron-right" size="36rpx" color="#5aaa6e" />
+    <t-icon name="chevron-right" size="36rpx" color="#3075B8" />
   </view>
   <view wx:for="{{menuData}}" wx:key="item" class="cell-box">
     <t-cell-group>

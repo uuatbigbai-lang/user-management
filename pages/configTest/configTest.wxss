@@ -256,9 +256,9 @@ page {
 }
 
 .test-button {
-  --td-button-primary-bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --td-button-primary-bg-color: linear-gradient(135deg, #3075B8 0%, #245F99 100%);
   --td-button-primary-border-color: transparent;
-  box-shadow: 0 12rpx 24rpx rgba(102, 126, 234, 0.3);
+  box-shadow: 0 12rpx 24rpx rgba(48, 117, 184, 0.3);
 }
 
 .reset-button {
@@ -288,7 +288,7 @@ page {
   justify-content: center;
   width: 48rpx;
   height: 48rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3075B8 0%, #245F99 100%);
   color: #fff;
   border-radius: 50%;
   font-size: 24rpx;

@@ -105,7 +105,7 @@
   margin-right: 20rpx;
   border-radius: 8rpx;
   background-color: #e4f4e8;
-  color: #2f7d43;
+  color: #3075B8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +137,7 @@
 .wechat-logistics__status {
   max-width: 180rpx;
   margin-left: 16rpx;
-  color: #2f7d43;
+  color: #3075B8;
   font-size: 24rpx;
   line-height: 34rpx;
   text-align: right;
@@ -169,7 +169,7 @@
 
 .sample-progress__status {
   max-width: 260rpx;
-  color: #2f7d43;
+  color: #3075B8;
   font-size: 24rpx;
   line-height: 34rpx;
   text-align: right;
@@ -215,7 +215,7 @@
 
 .sample-progress__step.is-done .sample-progress__dot,
 .sample-progress__step.is-done .sample-progress__line {
-  background-color: #2f7d43;
+  background-color: #3075B8;
 }
 
 .sample-progress__step.is-active .sample-progress__dot {
@@ -244,11 +244,11 @@
 }
 
 .sample-progress__step.is-active .sample-progress__name {
-  color: #2f7d43;
+  color: #3075B8;
 }
 
 .order-logistics .edit-text {
-  color: #fa4126;
+  color: #3075B8;
   font-size: 26rpx;
   line-height: 36rpx;
 }
@@ -306,7 +306,7 @@
   font-weight: bold;
 }
 .order-detail .pay-detail .pay-item .primary {
-  color: #fa4126;
+  color: #3075B8;
 }
 .order-detail .pay-detail .pay-item .max-size {
   font-size: 36rpx;
@@ -407,12 +407,12 @@
 }
 
 .add-notes__confirm {
-  color: #fa4126 !important;
+  color: #3075B8 !important;
 }
 
 .t-button {
   --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #3075B8;
 }
 
 .after-sale-contact-mask {
@@ -474,7 +474,7 @@
 }
 
 .after-sale-contact-confirm {
-  color: #2f7d43 !important;
+  color: #3075B8 !important;
   font-weight: 600;
   border-left: 1rpx solid #eeeeee !important;
 }

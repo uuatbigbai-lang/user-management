@@ -3,7 +3,7 @@
     <t-swiper
       wx:if="{{details.images.length > 0}}"
       imageProps="{{bannerImageProps}}"
-      height="750rpx"
+      height="{{details.detailBannerHeight || 750}}"
       current="{{current}}"
       autoplay="{{autoplay}}"
       duration="{{duration}}"
@@ -20,7 +20,7 @@
             price="{{minSalePrice}}"
             type="lighter"
           />
-          <view class="goods-price-up">起</view>
+          <view wx:if="{{details.showPriceFrom}}" class="goods-price-up">起</view>
           <price wr-class="class-goods-del" price="{{maxLinePrice}}" type="delthrough" />
         </view>
         <view class="sold-num">已售{{soldNum}}</view>
@@ -41,7 +41,7 @@
         <view class="goods-tag">
           <t-button open-type="share" t-class="shareBtn" variant="text">
             <view class="btn-icon">
-              <t-icon name="share" size="40rpx" color="#2f7d43" />
+              <t-icon name="share" size="40rpx" color="#3075B8" />
               <view class="share-text">分享</view>
               <!-- <view class="share-text" style="font-size: 9px;">领积分</view> -->
             </view>
@@ -54,7 +54,7 @@
       <view class="label">已选</view>
       <view class="content">
         <view class="{{!selectedAttrStr ? 'tintColor' : ''}}">
-          {{selectedAttrStr ? buyNum : ''}}{{selectedAttrStr || '请选择'}}
+          {{selectedAttrStr ? buyNum : ''}}{{selectedAttrStr || (skuArray.length <= 1 ? '无需选择规格' : '请选择')}}
         </view>
         <t-icon name="chevron-right" size="40rpx" color="#BBBBBB" />
       </view>

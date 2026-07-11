@@ -104,8 +104,8 @@ page view {
   max-width: 128rpx;
   padding: 4rpx 12rpx;
   border-radius: 999rpx;
-  color: #3d8b4f;
-  background: #e8f5e9;
+  color: #245F99;
+  background: #EAF3FB;
   font-size: 20rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -134,7 +134,7 @@ page view {
 .search-result-price {
   display: flex;
   align-items: baseline;
-  color: #2f8a4c;
+  color: #245F99;
 }
 
 .search-result-symbol {
@@ -148,7 +148,7 @@ page view {
 }
 
 .search-result-action {
-  color: #5aaa6e;
+  color: #3075B8;
   font-size: 22rpx;
   white-space: nowrap;
 }

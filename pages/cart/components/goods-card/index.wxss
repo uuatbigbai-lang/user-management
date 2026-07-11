@@ -93,7 +93,7 @@
   display: flex;
   align-self: flex-start;
   flex-direction: row;
-  background: #f0f7f1;
+  background: #F5FAFF;
   border-radius: 8rpx;
   padding: 4rpx 8rpx;
 }
@@ -127,10 +127,10 @@
   margin: 16rpx 0 0 0;
 }
 .wr-goods-card__tag {
-  color: #5aaa6e;
+  color: #3075B8;
   background: transparent;
   font-size: 20rpx;
-  border: 1rpx solid #5aaa6e;
+  border: 1rpx solid #3075B8;
   padding: 0 8rpx;
   height: 30rpx;
   line-height: 30rpx;
@@ -158,7 +158,7 @@
   white-space: nowrap;
   font-weight: bold;
   order: 1;
-  color: #5aaa6e;
+  color: #3075B8;
   font-size: 36rpx;
   margin: 0;
   line-height: 48rpx;
@@ -226,7 +226,7 @@
 }
 .wr-goods-card.vertical .wr-goods-card__price {
   order: 2;
-  color: #5aaa6e;
+  color: #3075B8;
   margin: 20rpx 0 0 0;
 }
 .wr-goods-card.vertical .wr-goods-card__origin-price {
@@ -253,8 +253,8 @@
   width: 80rpx;
   height: 40rpx;
   border-radius: 20rpx;
-  border: 2rpx solid #5aaa6e;
+  border: 2rpx solid #3075B8;
   line-height: 40rpx;
   text-align: center;
-  color: #5aaa6e;
+  color: #3075B8;
 }

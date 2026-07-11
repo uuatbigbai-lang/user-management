@@ -13,14 +13,14 @@
   background: #ffffff;
   border-radius: 24rpx;
   padding: 12rpx 8rpx;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.06);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.06);
 }
 
 .sample-tabs {
   background: #ffffff !important;
   --td-tab-nav-bg-color: transparent;
   --td-tab-border-color: transparent;
-  --td-tab-track-color: #5aaa6e;
+  --td-tab-track-color: #3075B8;
 }
 
 .sample-tabs__item {
@@ -41,20 +41,20 @@
 }
 
 .sample-actions .t-button {
-  --td-button-primary-bg-color: #198f3d;
-  --td-button-primary-border-color: #5aaa6e;
-  --td-button-primary-active-bg-color: #3d8b4f;
-  --td-button-primary-active-border-color: #3d8b4f;
+  --td-button-primary-bg-color: #3075B8;
+  --td-button-primary-border-color: #3075B8;
+  --td-button-primary-active-bg-color: #245F99;
+  --td-button-primary-active-border-color: #245F99;
   --td-button-primary-text-color: #fff;
   --td-button-default-bg-color: #ffffff;
-  --td-button-default-border-color: rgba(90, 170, 110, 0.3);
-  --td-button-default-color: #5aaa6e;
-  --td-button-default-active-bg-color: #f0f7f1;
-  --td-button-default-active-border-color: #5aaa6e;
+  --td-button-default-border-color: rgba(48, 117, 184, 0.3);
+  --td-button-default-color: #3075B8;
+  --td-button-default-active-bg-color: #F5FAFF;
+  --td-button-default-active-border-color: #3075B8;
   --td-button-border-radius: 48rpx;
   border-radius: 48rpx !important;
   overflow: hidden;
-  box-shadow: 0 4rpx 12rpx rgba(90, 170, 110, 0.1);
+  box-shadow: 0 4rpx 12rpx rgba(48, 117, 184, 0.1);
 }
 
 .sample-list {
@@ -71,7 +71,7 @@
   display: flex;
   flex-direction: column;
   gap: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.06);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.06);
   transition: transform 0.2s;
 }
 

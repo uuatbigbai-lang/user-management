@@ -1,6 +1,6 @@
 /* pages/signInSuccess/signInSuccess.wxss */
 page {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3075B8 0%, #245F99 100%);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -255,7 +255,7 @@ page {
   padding: 20rpx;
   background: #f8f9fa;
   border-radius: 16rpx;
-  border-left: 6rpx solid #4CAF50;
+  border-left: 6rpx solid #3075B8;
 }
 
 .info-icon {
@@ -309,12 +309,12 @@ page {
   width: 100%;
   --td-button-default-height: 96rpx;
   --td-button-default-font-size: 32rpx;
-  --td-button-primary-bg-color: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  --td-button-primary-bg-color: linear-gradient(135deg, #3075B8 0%, #245F99 100%);
   --td-button-primary-border-color: transparent;
   --td-button-border-radius: 48rpx;
   font-weight: bold;
   letter-spacing: 2rpx;
-  box-shadow: 0 12rpx 24rpx rgba(76, 175, 80, 0.4);
+  box-shadow: 0 12rpx 24rpx rgba(48, 117, 184, 0.28);
 }
 
 .secondary-buttons {
@@ -416,7 +416,7 @@ page {
 }
 
 .dot.active {
-  background: #4CAF50;
+  background: #3075B8;
   box-shadow: 0 0 16rpx rgba(76, 175, 80, 0.6);
   animation: dot-glow 2s ease-in-out infinite;
 }
@@ -532,7 +532,7 @@ page {
   
   .info-item {
     background: rgba(50, 50, 50, 0.8);
-    border-left-color: #4CAF50;
+    border-left-color: #3075B8;
   }
   
   .info-label,

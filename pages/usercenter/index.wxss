@@ -18,7 +18,7 @@ page {
   border-radius: 20rpx;
   padding: 28rpx 30rpx;
   margin-bottom: 16rpx;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.12);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.12);
 }
 
 .promo-entry__left {
@@ -35,7 +35,7 @@ page {
   align-items: center;
   justify-content: center;
   margin-right: 24rpx;
-  box-shadow: 0 4rpx 12rpx rgba(90, 170, 110, 0.15);
+  box-shadow: 0 4rpx 12rpx rgba(48, 117, 184, 0.15);
 }
 
 .promo-entry__icon {
@@ -51,7 +51,7 @@ page {
 
 .promo-entry__desc {
   font-size: 22rpx;
-  color: #5aaa6e;
+  color: #3075B8;
 }
 
 .promo-entry__right {
@@ -60,7 +60,7 @@ page {
 }
 
 .promo-entry__badge {
-  background: #5aaa6e;
+  background: #3075B8;
   color: #fff;
   font-size: 22rpx;
   padding: 6rpx 18rpx;
@@ -84,7 +84,7 @@ page {
   padding: 28rpx 30rpx;
   background: #fff;
   border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.08);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.08);
 }
 
 .admin-entry__title {
@@ -107,7 +107,7 @@ page {
   border-radius: 20rpx;
   overflow: hidden;
   margin-bottom: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(90, 170, 110, 0.06);
+  box-shadow: 0 4rpx 20rpx rgba(48, 117, 184, 0.06);
 }
 .icon-color {
   color: #a3b5a6;
@@ -183,7 +183,7 @@ page {
   height: 200%;
   transform: scale(0.5);
   transform-origin: left top;
-  border-bottom: 2rpx solid rgba(90, 170, 110, 0.1);
+  border-bottom: 2rpx solid rgba(48, 117, 184, 0.1);
 }
 .popup-content .popup-phone,
 .popup-content .popup-close {
@@ -199,7 +199,7 @@ page {
 }
 .popup-content .popup-phone.online {
   margin-bottom: 20rpx;
-  color: #5aaa6e;
+  color: #3075B8;
 }
 .popup-content .popup-phone.online::after {
   content: none;

@@ -78,6 +78,6 @@
   padding: 18rpx 32rpx 24rpx 80rpx;
 }
 .text-primary .wr-icon {
-  color: #fa550f;
-  color: var(--color-primary, #fa550f);
+  color: #3075B8;
+  color: var(--color-primary, #3075B8);
 }

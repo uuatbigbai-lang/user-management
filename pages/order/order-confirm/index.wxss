@@ -3,9 +3,9 @@
   background: #f8faf5;
   padding: 24rpx 0 calc(env(safe-area-inset-bottom) + 136rpx);
   min-height: 100vh;
-  --green-primary: #5aaa6e;
-  --green-dark: #3d8b4f;
-  --green-light: #e8f5e9;
+  --green-primary: #3075B8;
+  --green-dark: #245F99;
+  --green-light: #EAF3FB;
   --text-main: #2d3a2e;
   --text-sub: #7a8a7c;
 }
@@ -212,7 +212,7 @@
   height: 200%;
   transform: scale(0.5);
   transform-origin: 0 0;
-  border-top: 2rpx solid #e8f5e9;
+  border-top: 2rpx solid #EAF3FB;
 }
 .order-sure .pay-amount .order-num {
   color: var(--text-sub);

@@ -43,12 +43,12 @@
 
 .btn-bar .right .primary {
   --td-button-default-color: #fff;
-  --td-button-default-bg-color: #fa4126;
-  --td-button-default-border-color: #fa4126;
-  --td-button-default-active-bg-color: #fa42269c;
+  --td-button-default-bg-color: #3075B8;
+  --td-button-default-border-color: #3075B8;
+  --td-button-default-active-bg-color: #3075B899;
 }
 
 .t-button {
   --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #3075B8;
 }

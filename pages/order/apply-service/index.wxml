@@ -27,7 +27,7 @@
           class="t-cell__left__icon"
           name="goods_refund"
           size="48rpx"
-          color="#fa4126"
+          color="#3075B8"
         />
       </t-cell>
       <t-cell
@@ -43,7 +43,7 @@
           class="t-cell__left__icon"
           name="goods_return"
           size="48rpx"
-          color="#fa4126"
+          color="#3075B8"
         />
       </t-cell>
       <t-cell wx:else class="non-returnable" title="退货退款" description="该商品不支持退货">
@@ -53,7 +53,7 @@
           class="t-cell__left__icon"
           name="goods_return"
           size="48rpx"
-          color="#fa4126"
+          color="#3075B8"
         />
       </t-cell>
     </t-cell-group>

@@ -32,7 +32,7 @@ page {
   padding: 28rpx;
   background: #fff;
   border-radius: 16rpx;
-  box-shadow: 0 4rpx 18rpx rgba(90, 170, 110, 0.08);
+  box-shadow: 0 4rpx 18rpx rgba(48, 117, 184, 0.08);
 }
 
 .coupon-title {
@@ -79,7 +79,7 @@ page {
   padding: 28rpx;
   background: #fff;
   border-radius: 16rpx;
-  box-shadow: 0 4rpx 18rpx rgba(90, 170, 110, 0.08);
+  box-shadow: 0 4rpx 18rpx rgba(48, 117, 184, 0.08);
 }
 
 .record-title-row {
@@ -101,7 +101,7 @@ page {
   padding: 6rpx 16rpx;
   border-radius: 999rpx;
   background: #eef7f0;
-  color: #2f7d43;
+  color: #3075B8;
   font-size: 22rpx;
   font-weight: 700;
 }
@@ -142,7 +142,7 @@ page {
 }
 
 .record-share {
-  background: #5aaa6e;
+  background: #3075B8;
   color: #fff;
 }
 

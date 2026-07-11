@@ -61,8 +61,8 @@ page .divider-line {
   content: none;
 }
 .form-address .active-btn {
-  color: #fa4126;
-  border: 2rpx solid #fa4126;
+  color: #3075B8;
+  border: 2rpx solid #3075B8;
   background: rgba(255, 95, 21, 0.04);
 }
 .form-address .active-btn::after {
@@ -74,12 +74,12 @@ page .divider-line {
   padding: 64rpx 30rpx 88rpx 30rpx;
 }
 .submit .btn-submit-address {
-  background: #fa4126 !important;
+  background: #3075B8 !important;
   color: #fff !important;
 }
 
 .dialog__button-confirm {
-  color: #fa4126 !important;
+  color: #3075B8 !important;
 }
 
 .form-address .form-content {

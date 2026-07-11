@@ -58,10 +58,10 @@
 }
 .goods-fail .goods-fail-btn .btn.origin,
 .goods-fail .goods-fail-btn .btn.limit {
-  color: #fa550f;
-  color: var(--color-primary, #fa550f);
-  border: 1rpx solid #fa550f;
-  border: 1rpx solid var(--color-primary, #fa550f);
+  color: #3075B8;
+  color: var(--color-primary, #3075B8);
+  border: 1rpx solid #3075B8;
+  border: 1rpx solid var(--color-primary, #3075B8);
 }
 .goods-fail .goods-fail-btn .btn.limit {
   flex-grow: 1;

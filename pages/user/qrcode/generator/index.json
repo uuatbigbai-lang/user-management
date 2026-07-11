@@ -1,8 +1,8 @@
 {
   "navigationBarTitleText": "小程序二维码",
-  "navigationBarBackgroundColor": "#667eea",
+  "navigationBarBackgroundColor": "#3075B8",
   "navigationBarTextStyle": "white",
-  "backgroundColor": "#667eea",
+  "backgroundColor": "#3075B8",
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 50,

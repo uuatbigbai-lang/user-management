@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 480rpx;
-  background: linear-gradient(170deg, #1a913e 0%, #198f3d 40%, #e8f5e9 100%);
+  background: linear-gradient(170deg, #3075B8 0%, #3075B8 40%, #EAF3FB 100%);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 0 24rpx;
@@ -27,7 +27,7 @@
   height: 96rpx;
   border-radius: 48rpx;
   overflow: hidden;
-  box-shadow: 0 4rpx 16rpx rgba(90, 170, 110, 0.2);
+  box-shadow: 0 4rpx 16rpx rgba(48, 117, 184, 0.2);
 }
 
 .user-center-card__header__name {
