@@ -299,8 +299,12 @@ Page({
   },
 
   navToPromotion() {
-    wx.navigateTo({
-      url: '/pages/promotion-share/index',
+    Toast({
+      context: this,
+      selector: '#t-toast',
+      message: '暂未开始，敬请期待',
+      icon: '',
+      duration: 1500,
     });
   },
 
