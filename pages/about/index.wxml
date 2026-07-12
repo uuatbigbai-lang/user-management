@@ -9,7 +9,7 @@
     <view class="hero-content">
       <view class="hero-tag">ABOUT US</view>
       <view class="hero-title">蓝点荟</view>
-      <view class="hero-sub">你的肠道健康守护专家</view>
+      <view class="hero-sub">家庭健康管理专家</view>
     </view>
   </view>
 
@@ -21,8 +21,8 @@
       <view class="sec-line"></view>
     </view>
     <view class="card intro-card">
-      <text class="card-text">蓝点荟由科茵智慧医药与蓝点荟大健康管理公司联合孵化，定位为国内「检测 + 干预」闭环肠道微生态健康管理平台。我们相信，真正有效的肠道管理不应停留在“随便吃吃试试”，而应先通过检测读懂自身菌群状态，再制定更有依据的干预方案。</text>
-      <text class="card-text" style="margin-top: 16rpx;">围绕肠道菌群检测、报告解读、益生菌产品和会员健康管理，蓝点荟希望为用户建立长期可追踪的肠道健康档案，让每一次选择都有数据依据。</text>
+      <text class="card-text">蓝点荟大健康管理（上海）有限公司是国内领先的科技驱动型健康管理整合平台，致力于通过"检测-干预-管理"全流程闭环，为客户提供全生命周期的精准健康管理服务。平台以肠道微生态调控和心血管早筛为核心切入点，整合全球优质健康科技资源，构建覆盖预防、诊断、干预的一站式解决方案。</text>
+      <!-- <text class="card-text" style="margin-top: 16rpx;">围绕肠道菌群检测、报告解读、益生菌产品和会员健康管理，蓝点荟希望为用户建立长期可追踪的肠道健康档案，让每一次选择都有数据依据。</text> -->
     </view>
   </view>
 
@@ -37,135 +37,83 @@
     <!-- 业务1: 益生菌干预 -->
     <view class="biz-card">
       <view class="biz-icon-wrap biz-icon--green">
-        <text class="biz-icon-text">🌿</text>
+        <image wx:if="{{aboutIcons.icon1}}" class="biz-icon-img" src="{{aboutIcons.icon1}}" mode="aspectFit" />
       </view>
       <view class="biz-body">
-        <text class="biz-name">精准益生菌干预</text>
-        <text class="biz-desc">围绕肠道健康管理、情绪健康管理、女性健康管理等方向布局产品矩阵，以专利菌株、活性菌与益生元复配，匹配不同人群的微生态管理需求。</text>
+        <text class="biz-name">微生态健康管理</text>
+        <text class="biz-desc">精选国际认证复合益生菌配方，联合权威医疗机构开展肠道菌群移植（FMT）服务，针对肠脑轴失衡、代谢综合征等提供个性化干预方案。  </text>
       </view>
     </view>
 
     <!-- 业务2: 肠道菌群检测 -->
     <view class="biz-card">
       <view class="biz-icon-wrap biz-icon--blue">
-        <text class="biz-icon-text">🔬</text>
+        <image wx:if="{{aboutIcons.icon2}}" class="biz-icon-img" src="{{aboutIcons.icon2}}" mode="aspectFit" />
       </view>
       <view class="biz-body">
-        <text class="biz-name">肠道菌群检测</text>
-        <text class="biz-desc">依托 16S rRNA 测序与靶向测序能力，识别肠道菌群结构与丰度。检测完成后生成可视化报告，帮助用户从数据层面了解自己的肠道状态。</text>
+        <text class="biz-name">心血管风险管理</text>
+        <text class="biz-desc">整合国际先进sdLDL检测技术，通过捕捉致动脉粥样硬化关键颗粒，实现冠心病风险超前预警。</text>
       </view>
     </view>
 
-    <!-- 业务3: 健康管理 -->
+    <!-- 业务3: 高端健康体检 -->
     <view class="biz-card">
       <view class="biz-icon-wrap biz-icon--orange">
-        <text class="biz-icon-text">🩺</text>
+        <image wx:if="{{aboutIcons.icon3}}" class="biz-icon-img" src="{{aboutIcons.icon3}}" mode="aspectFit" />
       </view>
       <view class="biz-body">
-        <text class="biz-name">报告解读与健康管理</text>
-        <text class="biz-desc">通过小程序承接检测入口、报告查询、AI+人工解读和个性化推荐，让用户从“知道问题”进入“持续干预”的长期健康管理旅程。</text>
+        <text class="biz-name">高端健康体检  </text>
+        <text class="biz-desc"> 联合三甲医院及专业体检中心，提供包含肿瘤早筛、基因检测等在内的定制化体检套餐。</text>
+      </view>
+    </view>
+    <!-- 业务4: 健康管理 -->
+    <view class="biz-card">
+      <view class="biz-icon-wrap biz-icon--orange">
+        <image wx:if="{{aboutIcons.icon4}}" class="biz-icon-img" src="{{aboutIcons.icon4}}" mode="aspectFit" />
+      </view>
+      <view class="biz-body">
+        <text class="biz-name"> 智能健康管理</text>
+        <text class="biz-desc"> 基于AI健康管理系统，动态追踪300+健康指标，生成个性化健康改善方案。</text>
       </view>
     </view>
   </view>
 
-  <!-- 科研与数据 -->
+  <!-- 平台核心优势 -->
   <view class="section">
     <view class="sec-header">
       <view class="sec-line"></view>
-      <text class="sec-title">科研与数据支撑</text>
+      <text class="sec-title">核心优势</text>
       <view class="sec-line"></view>
     </view>
-    <view class="card lab-card">
-      <view class="lab-badges">
-        <view class="lab-badge">BSL-2实验室</view>
-        <view class="lab-badge">200万+样本</view>
-        <view class="lab-badge">IMicAP平台</view>
+    <view class="adv-card">
+      <view class="adv-head">
+        <view class="adv-kicker">ADVANTAGES</view>
+        <text class="adv-title">平台核心优势</text>
       </view>
-      <text class="card-text">蓝点荟检测技术由杭州谷禾信息技术有限公司提供支撑，基于病原微生物 BSL-2 实验室多年积累的中国人群肠道菌群数据，为个性化干预推荐提供底层依据。IMicAP 智能微生物应用平台也将支持小程序端报告解读与干预建议。</text>
-      <view class="lab-highlights">
-        <view class="lab-hl-item">
-          <text class="lab-hl-num">16S</text>
-          <text class="lab-hl-label">测序检测</text>
+      <view class="adv-list">
+        <view class="adv-item">
+          <view class="adv-icon">▶</view>
+          <text class="adv-text">严选全球顶尖健康科技产品与服务</text>
         </view>
-        <view class="lab-hl-item">
-          <text class="lab-hl-num">200万+</text>
-          <text class="lab-hl-label">菌群样本</text>
-        </view>
-        <view class="lab-hl-item">
-          <text class="lab-hl-num">AI+人工</text>
-          <text class="lab-hl-label">报告解读</text>
+        <view class="adv-item">
+          <view class="adv-icon">▶</view>
+          <text class="adv-text">覆盖 <text class="adv-strong">200万+</text> 样本的健康数据库支持</text>
         </view>
       </view>
     </view>
   </view>
 
-  <!-- 服务流程 -->
-  <view class="section">
-    <view class="sec-header">
-      <view class="sec-line"></view>
-      <text class="sec-title">服务流程</text>
-      <view class="sec-line"></view>
-    </view>
-    <view class="flow-list">
-      <view class="flow-item">
-        <view class="flow-num">01</view>
-        <view class="flow-body">
-          <text class="flow-name">购买检测盒</text>
-          <text class="flow-desc">在小程序选择肠道菌群检测项目，按流程领取或寄送采样包</text>
-        </view>
-      </view>
-      <view class="flow-connector"></view>
-      <view class="flow-item">
-        <view class="flow-num">02</view>
-        <view class="flow-body">
-          <text class="flow-name">完成采样绑定</text>
-          <text class="flow-desc">按指引采样并绑定小程序，寄回后进入实验室检测流程</text>
-        </view>
-      </view>
-      <view class="flow-connector"></view>
-      <view class="flow-item">
-        <view class="flow-num">03</view>
-        <view class="flow-body">
-          <text class="flow-name">专业检测</text>
-          <text class="flow-desc">通过测序技术分析菌群结构、丰度及关键健康参考指标</text>
-        </view>
-      </view>
-      <view class="flow-connector"></view>
-      <view class="flow-item">
-        <view class="flow-num">04</view>
-        <view class="flow-body">
-          <text class="flow-name">报告解读</text>
-          <text class="flow-desc">在小程序查看可视化报告，并结合 AI+人工服务读懂结果</text>
-        </view>
-      </view>
-      <view class="flow-connector"></view>
-      <view class="flow-item">
-        <view class="flow-num">05</view>
-        <view class="flow-body">
-          <text class="flow-name">个性化干预</text>
-          <text class="flow-desc">根据检测结果和个人状态，匹配畅、安等益生菌健康管理方案</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 底部 CTA -->
+  <!-- 品牌引言 -->
   <view class="section cta-section">
-    <view class="cta-card">
-      <text class="cta-title">先读懂，再干预</text>
-      <text class="cta-desc">从一份肠道健康报告开始，建立自己的长期健康标准</text>
-      <view class="cta-btns">
-        <view class="cta-btn cta-btn--primary" bind:tap="goHome">
-          <text>查看方案</text>
-        </view>
-        <view class="cta-btn cta-btn--outline" bind:tap="goSample">
-          <text>报告入口</text>
-        </view>
-      </view>
+    <view class="quote-card">
+      <view class="quote-mark quote-mark--left">“</view>
+      <text class="quote-text">蓝点荟通过整合全球优质健康资源，打造从精准检测到科学干预的完整服务链条，重新定义现代健康管理服务标准。</text>
+      <view class="quote-mark quote-mark--right">”</view>
+      <view class="quote-glow"></view>
     </view>
   </view>
 
   <view class="footer">
-    <text class="footer-text">蓝点荟 © 先读懂，再干预</text>
+    <text class="footer-text">蓝点荟 © 家庭健康管理专家</text>
   </view>
 </view>

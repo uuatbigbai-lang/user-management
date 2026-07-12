@@ -315,7 +315,7 @@ Page({
       envVersion = __wxConfig
     } = versionInfo.miniProgram;
     this.setData({
-      versionNo: envVersion === 'release' ? version : '0.0.1',
+      versionNo: envVersion === 'release' ? version : '1.7.3',
     });
   },
 });

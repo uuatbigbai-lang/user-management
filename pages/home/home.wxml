@@ -49,7 +49,7 @@
   </view>
   <!-- 关于我们 -->
   <view class="about-section">
-    <view class="about-card">
+    <view class="about-card" bind:tap="navToAbout">
       <view class="about-top">
         <text class="about-label">ABOUT US</text>
         <text class="about-title">关于蓝点荟</text>
@@ -72,7 +72,7 @@
           <text class="stat-label">智能平台支持</text>
         </view>
       </view>
-      <view class="about-enter" bind:tap="navToAbout">
+      <view class="about-enter">
         <view class="about-enter-inner">
           <text class="about-enter-text">了解更多</text>
           <view class="about-enter-icon">→</view>
@@ -83,7 +83,7 @@
   </view>
   <!-- 底部 -->
   <view class="footer">
-    <text class="footer-text">蓝点荟 © 你的肠道健康守护专家</text>
+    <text class="footer-text">蓝点荟 © 家庭健康管理专家</text>
   </view>
 </view>
 <!-- Loading -->

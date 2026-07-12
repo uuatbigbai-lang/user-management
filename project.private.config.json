@@ -25,6 +25,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "",
+          "pathName": "pages/about/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "llm",
           "pathName": "pages/llm/llm",
           "query": "",
