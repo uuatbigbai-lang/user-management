@@ -24,16 +24,20 @@
     <view class="product-list">
       <view class="product-card" wx:for="{{products}}" wx:key="id" data-id="{{item.spuId}}" bind:tap="goDetail">
         <view class="product-img-wrap">
-          <image class="product-img" src="{{item.thumb}}" mode="aspectFit" />
+          <image class="product-img" src="{{item.thumb}}" mode="aspectFill" />
           <view class="product-badge" wx:if="{{item.badge}}">{{item.badge}}</view>
         </view>
         <view class="product-info">
-          <text class="product-name">{{item.title}}</text>
+          <view class="product-name-row">
+            <text class="product-name">{{item.title}}</text>
+            <text class="shipping-badge">包邮</text>
+          </view>
           <text wx:if="{{item.brief}}" class="product-brief">{{item.brief}}</text>
           <view class="product-bottom">
             <view class="product-price">
               <text class="price-symbol">¥</text>
               <text class="price-num">{{item.price}}</text>
+              <text wx:if="{{item.originalPrice && item.originalPrice > item.price}}" class="price-origin">¥{{item.originalPrice}}</text>
             </view>
             <view class="cart-btn" data-index="{{index}}" catchtap="handleAddCart">
               <t-icon prefix="wr" name="cart" size="32rpx" color="#ffffff" />
@@ -53,9 +57,7 @@
       <view class="fullLogo">
         <image style="width: 60%" wx:if="{{homeAssets.fullLogo.src}}" class="logo-img" src="{{homeAssets.fullLogo.src}}" mode="widthFix"/>
       </view>
-      <text class="about-desc">
-        蓝点荟定位为「检测 + 干预」闭环肠道微生态健康管理平台。我们希望每一次益生菌干预都不再是随便试试，而是从肠道菌群检测、报告解读到个性化方案推荐，帮你建立自己的肠道健康标准。
-      </text>
+      <text class="about-desc">{{homeAssets.aboutDescription.text}}</text>
       <view class="about-stats">
         <view class="stat-item">
           <text class="stat-num">200万+</text>

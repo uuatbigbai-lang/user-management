@@ -8,6 +8,10 @@ const app = getApp();
 const HOME_ASSET_DEFAULTS = {
   logo: { text: '🌱', src: '' },
   fullLogo: { text: '', src: '' },
+  aboutDescription: {
+    text: '蓝点荟定位为「检测 + 干预」闭环肠道微生态健康管理平台。我们希望每一次益生菌干预都不再是随便试试，而是从肠道菌群检测、报告解读到个性化方案推荐，帮你建立自己的肠道健康标准。',
+    src: '',
+  },
   icon1: { text: '🌿', src: '' },
   icon2: { text: '🔬', src: '' },
   icon3: { text: '💚', src: '' },
@@ -102,6 +106,7 @@ Page({
         const assetUrl = assetMap[key]?.url || '';
         result[key] = {
           ...HOME_ASSET_DEFAULTS[key],
+          text: assetMap[key]?.content || HOME_ASSET_DEFAULTS[key].text || '',
           src: localPathMap[assetUrl] || tempUrlMap[assetUrl] || assetUrl,
         };
         return result;

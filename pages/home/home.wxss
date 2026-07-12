@@ -279,7 +279,14 @@ page {
   flex-direction: column;
 }
 
+.product-name-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10rpx;
+}
+
 .product-name {
+  flex: 1;
   font-size: 26rpx;
   font-weight: 600;
   color: var(--text-main);
@@ -290,6 +297,18 @@ page {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.shipping-badge {
+  flex-shrink: 0;
+  margin-top: 2rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 999rpx;
+  background: var(--green-primary);
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .product-brief {
@@ -315,6 +334,7 @@ page {
 .product-price {
   display: flex;
   align-items: baseline;
+  gap: 8rpx;
 }
 
 .price-symbol {
@@ -329,6 +349,13 @@ page {
   color: var(--green-primary);
   font-weight: 700;
   letter-spacing: 1rpx;
+}
+
+.price-origin {
+  color: var(--text-light);
+  font-size: 22rpx;
+  line-height: 1;
+  text-decoration: line-through;
 }
 
 .cart-btn {
