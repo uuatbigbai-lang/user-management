@@ -144,6 +144,9 @@
           <text>优惠券</text>
           <view class="pay-item__right" catchtap="onOpenCoupons">
             <block wx:if="{{order.couponAmount}}">
+              <text wx:if="{{order.couponSnapshot && order.couponSnapshot.title}}" class="order-no normal-color">
+                {{order.couponSnapshot.title}}
+              </text>
               -
               <price fill decimalSmaller price="{{order.couponAmount}}" />
             </block>

@@ -32,6 +32,12 @@
   font-weight: bold;
   font-family: 'DIN Alternate', cursive;
 }
+.wr-coupon__left--label {
+  font-size: 40rpx;
+  line-height: 56rpx;
+  font-weight: bold;
+  padding: 0 20rpx;
+}
 .wr-coupon__left--value-int {
   font-size: 48rpx;
   line-height: 88rpx;

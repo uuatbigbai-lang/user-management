@@ -30,7 +30,7 @@ const activeBackendProfile = backendProfiles.landianhui;
  * useLocal = false -> 调云托管 callContainer（生产环境）
  */
 export const backendConfig = {
-  useLocal: false,
+  useLocal: true,
   localBase: 'http://127.0.0.1:3000',
   publicBase: activeBackendProfile.publicBase,
   cloud: activeBackendProfile.cloud,

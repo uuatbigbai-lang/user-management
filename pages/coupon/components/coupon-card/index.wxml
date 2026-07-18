@@ -2,6 +2,8 @@
   title="{{couponDTO.title || ''}}"
   type="{{couponDTO.type || ''}}"
   value="{{couponDTO.value || '0'}}"
+  valueLabel="{{couponDTO.valueLabel || ''}}"
+  unitLabel="{{couponDTO.unitLabel || ''}}"
   tag="{{couponDTO.tag || ''}}"
   desc="{{couponDTO.desc || ''}}"
   currency="{{couponDTO.currency || ''}}"

@@ -5,12 +5,17 @@
 </wxs>
 <view class="wr-coupon coupon-class theme-{{theme}}">
   <view class="wr-coupon__left">
-    <view wx:if="{{type == CouponType.ZK_COUPON || type === CouponType.MERCHANT_ZK_COUPON}}">
+    <view wx:if="{{valueLabel}}">
+      <text class="wr-coupon__left--label">{{valueLabel}}</text>
+      <text wx:if="{{unitLabel}}" class="wr-coupon__left--unit">{{unitLabel}}</text>
+      <view class="wr-coupon__left--desc">{{desc}}</view>
+    </view>
+    <view wx:elif="{{type == CouponType.ZK_COUPON || type === CouponType.MERCHANT_ZK_COUPON}}">
       <text class="wr-coupon__left--value">{{value}}</text>
       <text class="wr-coupon__left--unit">折</text>
       <view class="wr-coupon__left--desc">{{desc}}</view>
     </view>
-    <view wx:if="{{type == CouponType.MJ_COUPON || type === CouponType.MERCHANT_MJ_COUPON}}">
+    <view wx:elif="{{type == CouponType.MJ_COUPON || type === CouponType.MERCHANT_MJ_COUPON}}">
       <text class="wr-coupon__left--value" wx:if="{{tools.isBigValue(value)}}">
         <text class="wr-coupon__left--value-int">{{tools.getBigValues(value)[0]}}</text>
         <text class="wr-coupon__left--value-decimal">.{{tools.getBigValues(value)[1]}}</text>
@@ -19,11 +24,11 @@
       <text class="wr-coupon__left--unit">元</text>
       <view class="wr-coupon__left--desc">{{desc}}</view>
     </view>
-    <view wx:if="{{type === CouponType.MJF_COUPON || type === CouponType.MYF_COUPON}}">
+    <view wx:elif="{{type === CouponType.MJF_COUPON || type === CouponType.MYF_COUPON}}">
       <text class="wr-coupon__left--value" style="font-family: PingFang SC; font-size: 44rpx">免邮</text>
       <view class="wr-coupon__left--desc">{{desc}}</view>
     </view>
-    <view wx:if="{{type == CouponType.GIFT_COUPON}}">
+    <view wx:elif="{{type == CouponType.GIFT_COUPON}}">
       <t-image t-class="wr-coupon__left--image" src="{{image}}" mode="aspectFill" />
     </view>
   </view>

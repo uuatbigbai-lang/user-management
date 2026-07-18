@@ -23,6 +23,14 @@ Component({
       type: String,
       value: '', // 优惠金额
     },
+    valueLabel: {
+      type: String,
+      value: '',
+    },
+    unitLabel: {
+      type: String,
+      value: '',
+    },
     tag: {
       type: String,
       value: '', // 优惠标签，优惠券名字标签，img

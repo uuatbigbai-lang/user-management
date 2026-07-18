@@ -84,6 +84,13 @@ page {
   justify-content: space-between;
 }
 
+.goods-detail-page .goods-info .employee-price-tip {
+  margin-top: 10rpx;
+  color: #2f6f3e;
+  font-size: 24rpx;
+  line-height: 34rpx;
+}
+
 .goods-detail-page .goods-info .goods-number .sold-num {
   font-size: 24rpx;
   color: #999999;

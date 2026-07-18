@@ -38,7 +38,7 @@
   <view class="admin-entry" wx:if="{{isCouponAdmin}}" data-type="coupon-manage" bindtap="onClickCell">
     <view>
       <view class="admin-entry__title">优惠券管理</view>
-      <view class="admin-entry__desc">生成并分享9折券、7折券、买二送一券</view>
+      <view class="admin-entry__desc">生成并分享8折券、7折券、5折券、买二送一券和员工特别优惠券</view>
     </view>
     <t-icon name="chevron-right" size="36rpx" color="#3075B8" />
   </view>

@@ -106,11 +106,14 @@ Page({
     });
     this.goodsRequestList = goodsRequestList;
     this.storeInfoList = storeInfoList;
+    const selectedCouponNo =
+      (couponList || []).find((item) => item && (item.selected || item.isSelected) && item.couponNo)?.couponNo || '';
     const params = {
       goodsRequestList,
       storeInfoList,
       userAddressReq,
       couponList,
+      couponNo: selectedCouponNo,
     };
 
     // 并行请求结算数据和默认地址

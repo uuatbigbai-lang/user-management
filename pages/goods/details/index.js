@@ -99,9 +99,18 @@ Page({
   },
 
   showSkuSelectPopup(type) {
+    const actionType = typeof type === 'number' ? type : 0;
+    if (!this.hasSelectableSku()) {
+      if (actionType === 1) {
+        this.gotoBuy(1);
+      } else if (actionType === 2) {
+        this.addCart();
+      }
+      return;
+    }
     this.setData({
-      buyType: type || 0,
-      outOperateStatus: type >= 1,
+      buyType: actionType,
+      outOperateStatus: actionType >= 1,
       isSpuSelectPopupShow: true,
     });
   },
@@ -255,8 +264,25 @@ Page({
     });
   },
 
+  getResolvedSkuSpecInfo(selectedSku) {
+    const { details = {} } = this.data;
+    const specList = Array.isArray(details.specList) ? details.specList : [];
+    const skuSpecInfo = Array.isArray(selectedSku?.specInfo) ? selectedSku.specInfo : [];
+
+    return skuSpecInfo.map((item) => {
+      const spec = specList.find((specItem) => specItem.specId === item.specId) || {};
+      const specValueList = Array.isArray(spec.specValueList) ? spec.specValueList : [];
+      const specValue = specValueList.find((valueItem) => valueItem.specValueId === item.specValueId) || {};
+      return {
+        ...item,
+        specTitle: item.specTitle || spec.title || '',
+        specValue: item.specValue || specValue.specValue || '',
+      };
+    });
+  },
+
   async addCart() {
-    const { isAllSelectedSku, buyNum, selectItem, details, selectedAttrStr } = this.data;
+    const { isAllSelectedSku, buyNum, selectItem, details } = this.data;
     const shouldForceSkuSelection = this.hasSelectableSku();
     if (shouldForceSkuSelection && !isAllSelectedSku) {
       Toast({
@@ -269,9 +295,10 @@ Page({
       return;
     }
     const selectedSku = selectItem || this.getEffectiveSelectedSku();
+    const specInfo = this.getResolvedSkuSpecInfo(selectedSku);
     const skuPrice = selectedSku ? (selectedSku.price || details.minSalePrice) : details.minSalePrice;
     const skuImage = selectedSku ? (selectedSku.skuImage || details.primaryImage) : details.primaryImage;
-    const specsStr = selectedAttrStr ? selectedAttrStr.split('，').map((s) => s.trim()).filter(Boolean).join('+') : '';
+    const specsStr = specInfo.map((item) => item.specValue).filter(Boolean).join('+');
 
     wx.showLoading({ title: '加车中', mask: true });
     try {
@@ -315,6 +342,7 @@ Page({
     this.handlePopupHide();
     // 获取选中 SKU 的真实价格
     const selectedSku = this.getEffectiveSelectedSku({ preferFirstSku: type === 1 });
+    const specInfo = this.getResolvedSkuSpecInfo(selectedSku);
     const skuPrice = selectedSku ? (selectedSku.price || this.data.details.minSalePrice) : this.data.details.minSalePrice;
     const skuImage = selectedSku ? (selectedSku.skuImage || this.data.details.primaryImage) : this.data.details.primaryImage;
     const query = {
@@ -325,12 +353,7 @@ Page({
       skuId: selectedSku ? selectedSku.skuId : '',
       available: this.data.details.available,
       price: skuPrice,
-      specInfo: this.hasSelectableSku()
-        ? this.data.details.specList?.map((item, index) => ({
-          specTitle: item.title,
-          specValue: this.data.selectedAttrStr.split('，')[index + 1],
-        }))
-        : [],
+      specInfo,
       primaryImage: this.data.details.primaryImage,
       thumb: skuImage,
       title: this.data.details.title,

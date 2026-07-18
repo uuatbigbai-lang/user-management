@@ -21,6 +21,8 @@
 						 status="{{coupon.status}}"
 						 desc="{{coupon.desc}}"
 						 value="{{coupon.displayValue}}"
+						 valueLabel="{{coupon.valueLabel || ''}}"
+						 unitLabel="{{coupon.unitLabel || ''}}"
 						 tag="{{coupon.tag}}"
 						 timeLimit="{{coupon.timeLimit}}"
 						>

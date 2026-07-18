@@ -34,6 +34,8 @@ function fetchFromBackend(spuId) {
         minSalePrice: d.minSalePrice || 0,
         maxSalePrice: d.maxSalePrice || 0,
         maxLinePrice: d.maxLinePrice || 0,
+        employeePrice: d.employeePrice || 0,
+        employeePriceText: d.employeePrice ? (Number(d.employeePrice) / 100).toFixed(2) : '',
         soldNum: d.soldNum || 0,
         spuStockQuantity: d.spuStockQuantity || 0,
         isPutOnSale: d.isPutOnSale !== undefined ? d.isPutOnSale : 1,

@@ -68,6 +68,7 @@ Component({
 
       this.triggerEvent('sure', {
         selectedList,
+        couponNo: targetCoupon.couponNo || targetCoupon.key || '',
       });
     },
     hide() {

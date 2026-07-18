@@ -81,14 +81,31 @@ export function checkCouponAdmin() {
   });
 }
 
-export function createCoupon(templateType) {
+export function createCoupon(templateType, scopeSpuIds = []) {
   return requestBackend({
     path: '/api/coupon/admin/create',
     method: 'POST',
-    data: { templateType },
+    data: { templateType, scopeSpuIds },
   }).then((res) => {
     if (res.data.code === 0) return res.data.data;
     throw new Error(res.data.message || '生成优惠券失败');
+  });
+}
+
+export function fetchCouponProductOptions(keyword = '') {
+  const query = keyword ? `?keyword=${encodeURIComponent(keyword)}` : '';
+  return requestBackend({
+    path: `/api/products${query}`,
+  }).then((res) => {
+    if (res.data.code === 0) {
+      return (res.data.data || []).map((item) => ({
+        spuId: item.spuId,
+        title: item.title,
+        brief: item.brief || '',
+        thumb: item.thumb || item.primaryImage || '',
+      }));
+    }
+    throw new Error(res.data.message || '获取商品列表失败');
   });
 }
 

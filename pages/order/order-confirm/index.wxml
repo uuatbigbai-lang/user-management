@@ -95,6 +95,9 @@
       >
         <block wx:if="{{submitCouponList.length}}">
           <block wx:if="{{settleDetailData.totalCouponAmount && settleDetailData.totalCouponAmount !== '0'}}">
+            <text wx:if="{{settleDetailData.selectedCoupon && settleDetailData.selectedCoupon.title}}" class="coupon-name">
+              {{settleDetailData.selectedCoupon.title}}
+            </text>
             -<price fill decimalSmaller price="{{settleDetailData.totalCouponAmount}}" />
           </block>
           <block wx:else>选择优惠券</block>

@@ -28,6 +28,9 @@
             type="delthrough"
           />
         </view>
+        <view wx:if="{{details.employeePrice > 0}}" class="employee-price-tip">
+          员工特别优惠券可享员工价 ¥{{details.employeePriceText}}
+        </view>
         <view class="sold-num">已售{{soldNum}}</view>
       </view>
       <view wx:if="{{activityList.length > 0}}" class="goods-activity" bindtap="showPromotionPopup">

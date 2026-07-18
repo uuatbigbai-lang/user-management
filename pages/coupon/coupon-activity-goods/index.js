@@ -51,6 +51,8 @@ Page({
         }
       } else if (detail.type === 4) {
         this.setData({ couponTypeDesc: detail.title || '买二送一' });
+      } else if (detail.ruleType === 'employee_price' || detail.templateType === 'employee_special') {
+        this.setData({ couponTypeDesc: '按商品员工价自动结算' });
       }
     }).catch((err) => {
       Toast({

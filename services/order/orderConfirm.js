@@ -15,12 +15,18 @@ function getWxLoginCode() {
 
 /** 获取结算数据 */
 export function fetchSettleDetail(params) {
+  const selectedCouponNo =
+    params.couponNo
+    || ((params.couponList || []).find((item) => item && (item.selected || item.isSelected) && item.couponNo)?.couponNo)
+    || ((params.couponList || [])[0] && params.couponList[0].couponNo)
+    || '';
   return requestBackend({
     path: '/api/order/settle',
     method: 'POST',
     data: {
       goodsRequestList: params.goodsRequestList,
       couponList: params.couponList || [],
+      couponNo: selectedCouponNo,
     },
   }).then((res) => {
     if (res.data.code === 0) {

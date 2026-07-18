@@ -8,6 +8,7 @@
     <view>
       <view class="coupon-title">{{item.title}}</view>
       <view class="coupon-desc">{{item.desc}}</view>
+      <view wx:if="{{item.ruleType === 'discount'}}" class="coupon-tip">生成时可多选指定商品；不选则默认全场通用</view>
     </view>
     <t-button size="small" data-type="{{item.templateType}}" bindtap="createHandle">生成</t-button>
   </view>
@@ -32,6 +33,7 @@
         <view class="record-line">券号：{{item.couponNo}}</view>
         <view class="record-line">生成：{{item.createdByOpenid || '-'}}</view>
         <view class="record-line">领取：{{item.claimedByOpenid || '-'}}</view>
+        <view class="record-line" wx:if="{{item.scopeGoodsText}}">适用商品：{{item.scopeGoodsText}}</view>
         <view class="record-line" wx:if="{{item.orderNo}}">核销订单：{{item.orderNo}}</view>
       </view>
       <view class="record-actions">
@@ -51,4 +53,47 @@
       </view>
     </view>
   </block>
+
+  <t-popup visible="{{goodsPopupVisible}}" placement="bottom" bind:visible-change="closeGoodsPopup">
+    <view class="goods-popup">
+      <view class="goods-popup__head">
+        <view>
+          <view class="goods-popup__title">选择适用商品</view>
+          <view class="goods-popup__desc">仅折扣券支持多选指定商品；不选则默认全场通用。</view>
+        </view>
+      </view>
+      <input
+        class="goods-popup__search"
+        value="{{goodsKeyword}}"
+        placeholder="搜索商品名称或 SPU ID"
+        bindinput="onGoodsKeywordInput"
+      />
+      <view class="goods-popup__summary">
+        已选 {{selectedScopeSpuIds.length}} 个商品
+        <text class="goods-popup__clear" bindtap="clearScopeGoods">清空</text>
+      </view>
+      <scroll-view scroll-y class="goods-popup__list">
+        <view wx:if="{{goodsLoading}}" class="empty">商品加载中...</view>
+        <view wx:elif="{{!filteredGoodsOptions.length}}" class="empty">暂无匹配商品</view>
+        <view
+          wx:else
+          wx:for="{{filteredGoodsOptions}}"
+          wx:key="spuId"
+          class="goods-option {{selectedScopeSpuIds.indexOf(item.spuId) > -1 ? 'goods-option--active' : ''}}"
+          data-spu-id="{{item.spuId}}"
+          bindtap="toggleScopeGoods"
+        >
+          <view class="goods-option__main">
+            <view class="goods-option__title">{{item.title}}</view>
+            <view class="goods-option__meta">{{item.spuId}}</view>
+          </view>
+          <view class="goods-option__check">{{selectedScopeSpuIds.indexOf(item.spuId) > -1 ? '已选' : '选择'}}</view>
+        </view>
+      </scroll-view>
+      <view class="goods-popup__actions">
+        <button class="goods-popup__btn goods-popup__btn--ghost" bindtap="closeGoodsPopup">取消</button>
+        <button class="goods-popup__btn goods-popup__btn--primary" bindtap="confirmScopeCreate">确认生成</button>
+      </view>
+    </view>
+  </t-popup>
 </view>

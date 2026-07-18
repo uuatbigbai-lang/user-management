@@ -194,6 +194,10 @@
   justify-content: flex-end;
   max-width: 400rpx;
 }
+.order-sure .pay-detail .pay-item .pay-item__right .coupon-name {
+  color: var(--text-sub);
+  margin-right: 8rpx;
+}
 .order-sure .pay-detail .pay-item .pay-item__right .pay-remark {
   display: -webkit-box;
   -webkit-box-orient: vertical;
