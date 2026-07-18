@@ -28,6 +28,13 @@
   <view class="order-group-wrapper">
     <t-order-group orderTagInfos="{{orderTagInfos}}" bind:onClickTop="jumpAllOrder" bind:onClickItem="jumpNav" />
   </view>
+  <view class="sales-entry" wx:if="{{isSales}}" data-type="sales-profile" bindtap="onClickCell">
+    <view>
+      <view class="sales-entry__title">我的销售资料</view>
+      <view class="sales-entry__desc">查看当前渠道代理身份、openid、绑定人数、订单数和销售额</view>
+    </view>
+    <t-icon name="chevron-right" size="36rpx" color="#3075B8" />
+  </view>
   <view class="admin-entry" wx:if="{{isCouponAdmin}}" data-type="coupon-manage" bindtap="onClickCell">
     <view>
       <view class="admin-entry__title">优惠券管理</view>

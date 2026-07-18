@@ -31,6 +31,16 @@
   line-height: 48rpx;
   color: #3075B8;
 }
+
+.pay-result .pay-result__desc {
+  margin-top: 20rpx;
+  padding: 0 64rpx;
+  color: #7a8a7c;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  text-align: center;
+}
+
 .pay-result .btn-wrapper {
   margin-top: 48rpx;
   padding: 12rpx 32rpx;

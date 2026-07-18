@@ -10,7 +10,6 @@
     "t-toast": "tdesign-miniprogram/toast/toast",
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-switch": "tdesign-miniprogram/switch/switch",
-    "t-location": "/pages/user/components/t-location/index",
     "t-cascader": "tdesign-miniprogram/cascader/cascader"
   }
 }

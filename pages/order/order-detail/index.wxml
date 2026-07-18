@@ -39,7 +39,7 @@
       </view>
 
       <!-- 物流 -->
-      <view class="order-logistics" wx:if="{{logisticsNodes[0]}}" bindtap="onDeliveryClick">
+      <view class="order-logistics" wx:if="{{hasDeliveryInfo && logisticsNodes[0]}}" bindtap="onDeliveryClick">
         <t-icon name="deliver" size="40rpx" class="logistics-icon" prefix="wr" />
         <view class="logistics-content">
           <view>{{logisticsNodes[0].desc}}</view>
@@ -63,7 +63,7 @@
         <view class="wechat-logistics__status">{{wechatLogistics.statusText}}</view>
         <t-icon class="logistics-back" name="arrow_forward" size="36rpx" prefix="wr" />
       </view>
-      <view class="border-bottom" wx:if="{{logisticsNodes[0]}}" />
+      <view class="border-bottom" wx:if="{{hasDeliveryInfo && logisticsNodes[0]}}" />
       <!-- 检测进度 -->
       <view class="sample-progress" wx:if="{{showSampleProgress}}">
         <view class="sample-progress__header">
@@ -88,10 +88,10 @@
         </view>
       </view>
       <!-- 收货地址 -->
-      <view class="order-logistics">
+      <view class="order-logistics" wx:if="{{hasReceiverInfo}}">
         <t-icon name="location" size="40rpx" class="logistics-icon" prefix="wr" />
         <view class="logistics-content">
-          <view>{{order.logisticsVO.receiverName + ' '}}{{order.logisticsVO.receiverPhone}}</view>
+          <view>{{order.logisticsVO.receiverName}}{{order.logisticsVO.receiverName && order.logisticsVO.receiverPhone ? ' ' : ''}}{{order.logisticsVO.receiverPhone}}</view>
           <view class="logistics-time">{{_order.receiverAddress}}</view>
         </view>
         <view wx:if="{{addressEditable}}" class="edit-text" bindtap="onEditAddressTap"> 修改 </view>
@@ -151,6 +151,12 @@
             <!-- <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" /> -->
           </view>
         </view>
+        <view class="pay-item" wx:if="{{order.salesNameSnapshot}}">
+          <text>销售</text>
+          <view class="pay-item__right">
+            <text>{{order.salesNameSnapshot}}</text>
+          </view>
+        </view>
         <view class="pay-item">
           <text>{{isPaid ? '实付' : '应付'}}</text>
           <price
@@ -188,6 +194,12 @@
         <text>备注</text>
         <view class="pay-item__right">
           <text class="order-no normal-color">{{order.remark || '-'}}</text>
+        </view>
+      </view>
+      <view class="pay-item" wx:if="{{order.salesOpenid}}">
+        <text>销售openid</text>
+        <view class="pay-item__right">
+          <text class="order-no normal-color">{{order.salesOpenid}}</text>
         </view>
       </view>
       <view class="border-bottom border-bottom-margin" wx:if="{{showContactService}}" />

@@ -41,6 +41,7 @@ Page({
     submitCouponList: [], //所有门店所选优惠券
     currentStoreId: null, //当前优惠券storeId
     userAddress: null,
+    isOnlyPayment: false,
   },
 
   payLock: false,
@@ -162,6 +163,13 @@ Page({
     }
     this.setData({ settleDetailData: data });
     this.isInvalidOrder(data);
+  },
+
+  onModeChange(e) {
+    const { mode } = e.currentTarget.dataset;
+    this.setData({
+      isOnlyPayment: mode === 'onlyPayment',
+    });
   },
 
   isInvalidOrder(data) {
@@ -383,12 +391,11 @@ Page({
   },
   // 提交订单：创建订单后，生产环境调起微信支付；未配置支付参数时保留本地模拟成功。
   submitOrder() {
-    const { settleDetailData, userAddressReq, invoiceData, storeInfoList, submitCouponList } = this.data;
+    const { settleDetailData, userAddressReq, invoiceData, storeInfoList, submitCouponList, isOnlyPayment } = this.data;
     const { goodsRequestList } = this;
 
-    // 校验收货地址
-    const address = settleDetailData.userAddress || userAddressReq;
-    if (!address || !address.name) {
+    const selectedAddress = settleDetailData.userAddress || userAddressReq;
+    if (!isOnlyPayment && (!selectedAddress || !selectedAddress.name)) {
       Toast({
         context: this,
         selector: '#t-toast',
@@ -404,9 +411,9 @@ Page({
 
     const resSubmitCouponList = this.handleCouponList(submitCouponList);
     const params = {
-      userAddressReq: settleDetailData.userAddress || userAddressReq,
+      userAddressReq: isOnlyPayment ? null : selectedAddress,
       goodsRequestList: goodsRequestList,
-      userName: (settleDetailData.userAddress && settleDetailData.userAddress.name) || (userAddressReq && userAddressReq.name) || '',
+      userName: isOnlyPayment ? '' : ((selectedAddress && selectedAddress.name) || ''),
       totalAmount: settleDetailData.totalPayAmount,
       invoiceRequest: null,
       storeInfoList,

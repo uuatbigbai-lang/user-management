@@ -3,7 +3,32 @@
 <wxs module="handleInvoice" src="./handleInvoice.wxs" />
 <wxs module="getNotes" src="./getNotes.wxs" />
 <view class="order-sure" wx:if="{{!loading}}">
-  <address-card addressData="{{userAddress}}" bind:addclick="onGotoAddress" bind:addressclick="onGotoAddress" />
+  <view class="order-mode">
+    <view
+      class="order-mode__item {{!isOnlyPayment ? 'order-mode__item--active' : ''}}"
+      data-mode="delivery"
+      bindtap="onModeChange"
+    >
+      收货下单
+    </view>
+    <view
+      class="order-mode__item {{isOnlyPayment ? 'order-mode__item--active' : ''}}"
+      data-mode="onlyPayment"
+      bindtap="onModeChange"
+    >
+      仅付款
+    </view>
+  </view>
+  <address-card
+    wx:if="{{!isOnlyPayment}}"
+    addressData="{{userAddress}}"
+    bind:addclick="onGotoAddress"
+    bind:addressclick="onGotoAddress"
+  />
+  <view wx:if="{{isOnlyPayment}}" class="delivery-tip">
+    <view class="delivery-tip__title">仅付款订单</view>
+    <view class="delivery-tip__desc">当前商品无需填写收货地址和快递信息，完成支付后订单将自动完成。</view>
+  </view>
   <view
     class="order-wrapper"
     wx:for="{{settleDetailData.storeGoodsList}}"
@@ -76,6 +101,12 @@
         </block>
         <text wx:else>无可用</text>
         <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" />
+      </view>
+    </view>
+    <view class="pay-item" wx:if="{{settleDetailData.channelAgentName || settleDetailData.salesNameSnapshot}}">
+      <text>渠道代理</text>
+      <view class="pay-item__right">
+        <text>{{settleDetailData.channelAgentName || settleDetailData.salesNameSnapshot}}</text>
       </view>
     </view>
     <view class="pay-item" wx:if="{{settleDetailData.invoiceSupport}}">

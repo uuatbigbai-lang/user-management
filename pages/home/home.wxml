@@ -2,7 +2,7 @@
 <view class="page" wx:if="{{!pageLoading}}">
   <!-- Hero Banner -->
   <view class="bg" />
-  <view class="logo" style="margin-top: calc({{statusBarHeight}}px + 8rpx);margin-bottom: 10px;">
+  <view class="logo" style="margin-top: calc({{statusBarHeight}}px + 8rpx);margin-bottom: 10px;" bindtap="handleLogoTap">
     <image wx:if="{{homeAssets.logo.src}}" class="logo-img" src="{{homeAssets.logo.src}}" mode="widthFix" bindload="onLogoImageLoad" binderror="onLogoImageError" />
     <text wx:else>{{homeAssets.logo.text}}</text>
     <view class="logo-text">

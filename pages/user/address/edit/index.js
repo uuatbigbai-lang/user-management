@@ -371,21 +371,4 @@ Page({
       },
     );
   },
-
-  getWeixinAddress(e) {
-    const { locationState } = this.data;
-    const weixinAddress = e.detail;
-    this.setData(
-      {
-        locationState: { ...locationState, ...weixinAddress },
-      },
-      () => {
-        const { isLegal, tips } = this.onVerifyInputLegal();
-        this.setData({
-          submitActive: isLegal,
-        });
-        this.privateData.verifyTips = tips;
-      },
-    );
-  },
 });

@@ -43,6 +43,11 @@ Page({
     const { nickName } = this.data.personInfo;
 
     switch (dataset.type) {
+      case 'salesProfile':
+        wx.navigateTo({
+          url: '/pages/user/sales-profile/index',
+        });
+        break;
       case 'gender':
         this.setData({
           typeVisible: true,

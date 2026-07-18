@@ -2,6 +2,8 @@
   "navigationBarTitleText": "商品详情",
   "navigationBarBackgroundColor": "#3075B8",
   "navigationBarTextStyle": "white",
+  "enableShareAppMessage": true,
+  "enableShareTimeline": true,
   "usingComponents": {
     "t-image": "/components/webp-image/index",
     "t-tag": "tdesign-miniprogram/tag/tag",

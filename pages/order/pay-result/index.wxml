@@ -14,9 +14,9 @@
 		 fill
 		/>
 	</view>
+	<view class="pay-result__desc">当前订单无需填写快递信息，支付完成后已自动完成。</view>
 	<view class="btn-wrapper">
 		<view class="status-btn" data-type="order" bindtap="onTapReturn">查看订单</view>
 		<view class="status-btn" data-type="home" bindtap="onTapReturn">返回首页</view>
 	</view>
 </view>
-

@@ -33,6 +33,7 @@ const getDefaultData = () => ({
   showKefu: true,
   versionNo: '',
   isCouponAdmin: false,
+  isSales: false,
 });
 
 Page({
@@ -109,6 +110,7 @@ Page({
       orderTagInfos: info,
       customerServiceInfo: mockCustomerServiceInfo,
       currAuthStep: 2,
+      isSales: !!userInfo?.isSales,
     });
   },
 
@@ -227,6 +229,12 @@ Page({
       case 'coupon-manage': {
         wx.navigateTo({
           url: '/pages/coupon/coupon-manage/index'
+        });
+        break;
+      }
+      case 'sales-profile': {
+        wx.navigateTo({
+          url: '/pages/user/sales-profile/index'
         });
         break;
       }

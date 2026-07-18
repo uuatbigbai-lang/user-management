@@ -12,6 +12,8 @@ const app = getApp();
 Page({
   data: {
     cartGroupData: null,
+    deleteDialogVisible: false,
+    pendingDeleteGoods: null,
   },
 
   onShow() {
@@ -21,6 +23,24 @@ Page({
 
   onLoad() {
     this.refreshData();
+  },
+
+  showDeleteDialog(goods) {
+    this.setData({
+      deleteDialogVisible: true,
+      pendingDeleteGoods: goods,
+    });
+  },
+
+  hideDeleteDialog(shouldRefresh = false) {
+    this.setData({
+      deleteDialogVisible: false,
+      pendingDeleteGoods: null,
+    });
+
+    if (shouldRefresh) {
+      this.refreshData(true);
+    }
   },
 
   refreshData(refresh) {
@@ -144,6 +164,11 @@ Page({
     const { currentGoods } = this.findGoods(spuId, skuId);
     if (!currentGoods) return;
 
+    if (Number(quantity) <= 0) {
+      this.showDeleteDialog(currentGoods);
+      return;
+    }
+
     const stockQuantity = currentGoods.stockQuantity > 0 ? currentGoods.stockQuantity : 0;
     if (quantity > stockQuantity) {
       if (currentGoods.quantity === stockQuantity && quantity - stockQuantity === 1) {
@@ -186,18 +211,26 @@ Page({
 
   // 删除商品 → 调接口删除
   onGoodsDelete(e) {
-    const {
-      goods: { spuId, skuId },
-    } = e.detail;
-    Dialog.confirm({
-      content: '确认删除该商品吗?',
-      confirmBtn: { content: '确定', variant: 'base', style: 'color: #3075B8' },
-      cancelBtn: { content: '取消', variant: 'base', style: 'color: #a3b5a6' },
-    }).then(() => {
-      deleteCartItem({ spuId, skuId }).then(() => {
-        Toast({ context: this, selector: '#t-toast', message: '商品删除成功' });
-        this.refreshData(true);
-      });
+    const { goods } = e.detail;
+    this.showDeleteDialog(goods);
+  },
+
+  onDeleteDialogCancel() {
+    this.hideDeleteDialog(true);
+  },
+
+  onDeleteDialogConfirm() {
+    const { pendingDeleteGoods } = this.data;
+    if (!pendingDeleteGoods) {
+      this.hideDeleteDialog();
+      return;
+    }
+
+    const { spuId, skuId } = pendingDeleteGoods;
+    deleteCartItem({ spuId, skuId }).then(() => {
+      this.hideDeleteDialog();
+      Toast({ context: this, selector: '#t-toast', message: '商品删除成功' });
+      this.refreshData(true);
     });
   },
 

@@ -1,4 +1,5 @@
 import { config } from '../../config/index';
+import { requestBackend } from '../../config/index';
 
 /** 获取个人中心信息 */
 function mockFetchPerson() {
@@ -22,7 +23,19 @@ export function fetchPerson() {
   if (config.useMock) {
     return mockFetchPerson();
   }
-  return new Promise((resolve) => {
-    resolve('real api');
-  });
+  const app = getApp();
+  const userInfo = app?.getUserInfo ? (app.getUserInfo() || {}) : {};
+  return requestBackend({
+    path: '/api/user/sales-profile',
+    method: 'GET',
+  }).then((res) => {
+    const result = res.data || {};
+    return {
+      ...userInfo,
+      isSales: !!result.data?.isSales,
+      salesRoleLabel: result.data?.salesRoleLabel || userInfo.salesRoleLabel || '',
+      salesName: result.data?.profile?.salesName || userInfo.salesName || '',
+      salesProfile: result.data?.profile || userInfo.salesProfile || null,
+    };
+  }).catch(() => userInfo);
 }

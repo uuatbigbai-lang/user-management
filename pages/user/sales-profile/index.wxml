@@ -1,0 +1,20 @@
+<view class="sales-profile-page">
+  <view class="hero">
+    <view class="hero__badge" wx:if="{{salesRoleLabel}}">{{salesRoleLabel}}</view>
+    <view class="hero__title">{{profile.salesName || '我的销售资料'}}</view>
+    <view class="hero__desc" wx:if="{{profile.openid}}">openid：{{profile.openid}}</view>
+  </view>
+
+  <view class="empty" wx:if="{{!loading && !isSales}}">
+    <view class="empty__title">当前账号还不是销售</view>
+    <view class="empty__desc">如果这个账号已经加入销售表，重新进入小程序后再试。</view>
+  </view>
+
+  <view class="card-list" wx:if="{{!loading && isSales}}">
+    <view class="info-card" wx:for="{{cards}}" wx:key="label" data-value="{{item.value}}" bindtap="copyValue">
+      <view class="info-card__label">{{item.label}}</view>
+      <view class="info-card__value">{{item.value}}</view>
+    </view>
+  </view>
+</view>
+<t-toast id="t-toast" />

@@ -219,7 +219,7 @@ Page({
       },
       [OrderStatus.COMPLETE]: {
         emptyTitle: '没有已完成订单',
-        emptyDesc: '完成收货后的订单会显示在这里',
+        emptyDesc: '已支付完成的订单会显示在这里',
       },
     };
 

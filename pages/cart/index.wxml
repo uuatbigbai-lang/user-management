@@ -28,4 +28,17 @@
 <!-- 购物车空态 -->
 <cart-empty wx:else bind:handleClick="onGotoHome" />
 <t-toast id="t-toast" />
+<t-dialog
+  visible="{{deleteDialogVisible}}"
+  title="删除商品"
+  content="确认删除该商品吗？"
+  confirm-btn="删除"
+  cancel-btn="取消"
+  t-class="cart-delete-dialog"
+  t-class-confirm="cart-delete-dialog__confirm"
+  t-class-cancel="cart-delete-dialog__cancel"
+  bind:confirm="onDeleteDialogConfirm"
+  bind:cancel="onDeleteDialogCancel"
+  bind:close="onDeleteDialogCancel"
+/>
 <t-dialog id="t-dialog" />

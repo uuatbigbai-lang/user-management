@@ -35,6 +35,8 @@ Page({
     payLoading: false,
     pullDownRefreshing: false,
     showWechatLogisticsEntry: false,
+    hasReceiverInfo: false,
+    hasDeliveryInfo: false,
     wechatLogistics: {
       waybillToken: '',
       logisticsNo: '',
@@ -237,6 +239,14 @@ Page({
       
       const wechatLogistics = this.buildWechatLogistics(order);
       const sampleProgress = this.buildSampleProgress(order);
+      const hasReceiverInfo = !!(
+        (order.logisticsVO && (order.logisticsVO.receiverName || order.logisticsVO.receiverPhone)) ||
+        this.composeAddress(order)
+      );
+      const hasDeliveryInfo = !!(
+        (order.logisticsVO && (order.logisticsVO.logisticsNo || order.logisticsVO.waybillToken)) ||
+        Number(order.orderStatus) === OrderStatus.PENDING_RECEIPT
+      );
 
       this.setData({
         order,
@@ -253,6 +263,8 @@ Page({
         logisticsNodes: this.flattenNodes(order.trajectoryVos || []),
         showContactService: order.orderStatus !== OrderStatus.PENDING_PAYMENT,
         showWechatLogisticsEntry: this.shouldShowWechatLogisticsEntry(order, wechatLogistics),
+        hasReceiverInfo,
+        hasDeliveryInfo,
         wechatLogistics,
         showSampleProgress: sampleProgress.show,
         sampleProgress,
@@ -280,7 +292,7 @@ Page({
   shouldShowWechatLogisticsEntry(order, wechatLogistics) {
     if (wechatLogistics.waybillToken) return true;
     if (wechatLogistics.logisticsNo) return true;
-    return [OrderStatus.PENDING_RECEIPT, OrderStatus.COMPLETE].includes(Number(order.orderStatus));
+    return false;
   },
 
   isSampleOrder(order) {

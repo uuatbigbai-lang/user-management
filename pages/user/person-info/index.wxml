@@ -20,6 +20,16 @@
       t-class-left="order-group__left"
     />
     <t-cell
+      wx:if="{{personInfo.salesRoleLabel}}"
+      title="角色"
+      note="{{personInfo.salesRoleLabel}}"
+      data-type="salesProfile"
+      bind:click="onClickCell"
+      arrow
+      t-class="t-cell-class"
+      t-class-left="order-group__left"
+    />
+    <t-cell
       title="性别"
       arrow
       note="{{genderMap[personInfo.gender]}}"

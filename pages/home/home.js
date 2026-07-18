@@ -1,6 +1,7 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { requestBackend } from '../../config/index';
 import { addToCart } from '../../services/cart/cart';
+import { bindSalesRelationship } from '../../services/usercenter/salesBinding';
 import { resolveCloudFileLocalPaths, resolveCloudFileUrls, resolveProductsImageUrls } from '../../utils/cloudImage';
 
 const app = getApp();
@@ -19,6 +20,9 @@ const HOME_ASSET_DEFAULTS = {
   nutritionPlaceholder: { text: '', src: '' },
 };
 
+const LOGO_TRIGGER_TAP_COUNT = 3;
+const LOGO_TRIGGER_WINDOW_MS = 1500;
+
 Page({
   data: {
     pageLoading: true,
@@ -36,17 +40,31 @@ Page({
     statusBarHeight: 0,
   },
 
+  logoTapCount: 0,
+  logoTapTimer: null,
+  latestUsersVisibilitySubmitting: false,
+  latestUsersVisibilityActivated: false,
+
   onShow() {
     this.getTabBar().init();
   },
 
-  onLoad() {
+  onLoad(options) {
+    this.options = options || {};
     this.setStatusBarHeight();
+    this.tryBindSalesFromShare();
     this.init();
   },
 
   onPullDownRefresh() {
     this.init();
+  },
+
+  onUnload() {
+    if (this.logoTapTimer) {
+      clearTimeout(this.logoTapTimer);
+      this.logoTapTimer = null;
+    }
   },
 
   init() {
@@ -249,5 +267,128 @@ Page({
     }
 
     wx.navigateTo({ url });
+  },
+
+  async tryBindSalesFromShare() {
+    const salesOpenid = String(this.options?.salesOpenid || '').trim();
+    if (!salesOpenid) return;
+
+    try {
+      if (app?.silentLogin) {
+        await app.silentLogin();
+      }
+      const result = await bindSalesRelationship({
+        salesOpenid,
+        sourcePage: 'home',
+        sourcePath: '/pages/home/home',
+      });
+      console.log('[home] 销售绑定结果:', result);
+    } catch (err) {
+      console.warn('[home] 销售绑定失败:', err);
+    }
+  },
+
+  onShareAppMessage() {
+    const userInfo = wx.getStorageSync('userInfo') || app.globalData?.userInfo || {};
+    const salesOpenid = String(userInfo.openid || '').trim();
+    return {
+      title: '蓝点荟商城',
+      path: `/pages/home/home${salesOpenid ? `?salesOpenid=${encodeURIComponent(salesOpenid)}` : ''}`,
+    };
+  },
+
+  onShareTimeline() {
+    const userInfo = wx.getStorageSync('userInfo') || app.globalData?.userInfo || {};
+    const salesOpenid = String(userInfo.openid || '').trim();
+    return {
+      title: '蓝点荟商城',
+      query: salesOpenid ? `salesOpenid=${encodeURIComponent(salesOpenid)}` : '',
+    };
+  },
+
+  handleLogoTap() {
+    if (this.latestUsersVisibilityActivated) return;
+
+    this.logoTapCount += 1;
+    if (this.logoTapTimer) clearTimeout(this.logoTapTimer);
+    this.logoTapTimer = setTimeout(() => {
+      this.logoTapCount = 0;
+      this.logoTapTimer = null;
+    }, LOGO_TRIGGER_WINDOW_MS);
+
+    if (this.logoTapCount < LOGO_TRIGGER_TAP_COUNT) return;
+
+    this.logoTapCount = 0;
+    clearTimeout(this.logoTapTimer);
+    this.logoTapTimer = null;
+    this.enableLatestUsersVisibility();
+  },
+
+  async enableLatestUsersVisibility() {
+    if (this.latestUsersVisibilitySubmitting || this.latestUsersVisibilityActivated) return;
+
+    this.latestUsersVisibilitySubmitting = true;
+    try {
+      await this.ensureLatestUsersVisibilityLogin();
+      let res = await this.reportLatestUsersVisibility();
+
+      if (res.data.code !== 0 && this.shouldRetryLatestUsersVisibility(res.data.message)) {
+        await this.ensureLatestUsersVisibilityLogin(true);
+        res = await this.reportLatestUsersVisibility();
+      }
+
+      if (res.data.code !== 0) {
+        throw new Error(res.data.message || '登记失败');
+      }
+
+      this.latestUsersVisibilityActivated = true;
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '已加入后台展示名单',
+      });
+    } catch (err) {
+      console.error('登记最新登录用户展示资格失败:', err);
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: err.message || '登记失败，请稍后重试',
+      });
+    } finally {
+      this.latestUsersVisibilitySubmitting = false;
+    }
+  },
+
+  async ensureLatestUsersVisibilityLogin(force = false) {
+    const appInstance = getApp();
+    if (!appInstance?.silentLogin) return;
+
+    const storedUserInfo = wx.getStorageSync('userInfo') || {};
+    const hasOpenid = Boolean(
+      storedUserInfo.openid ||
+      appInstance.globalData?.userInfo?.openid,
+    );
+    const shouldLogin = force || !appInstance.globalData?.isLoggedIn || !hasOpenid;
+
+    if (!shouldLogin && appInstance.globalData?.loginPromise) {
+      await appInstance.globalData.loginPromise;
+      return;
+    }
+
+    if (shouldLogin) {
+      await appInstance.silentLogin();
+    }
+  },
+
+  reportLatestUsersVisibility() {
+    return requestBackend({
+      path: '/api/user/latest-users-visible',
+      method: 'POST',
+    });
+  },
+
+  shouldRetryLatestUsersVisibility(message = '') {
+    const text = String(message || '');
+    return text.includes('用户不存在') || text.includes('缺少用户身份');
   },
 });

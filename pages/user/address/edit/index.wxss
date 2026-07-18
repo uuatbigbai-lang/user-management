@@ -13,16 +13,6 @@ page .divider-line {
 .address-detail {
   font-size: 30rpx;
 }
-.address-detail-wx-location {
-  background: #fff;
-  padding: 24rpx 32rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.address-detail-wx-arrow {
-  align-items: flex-end;
-}
 
 .form-cell .t-cell__title {
   width: 144rpx;

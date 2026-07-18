@@ -13,6 +13,8 @@ page {
   /* dialog 弹窗 */
   --td-dialog-confirm-btn-color: #3075B8;
   --td-dialog-border-radius: 24rpx;
+  --td-dialog-header-color: #2d3a2e;
+  --td-dialog-body-color: #6f7f71;
 }
 
 :host {
@@ -27,4 +29,42 @@ page {
 .t-button {
   --td-button-default-color: #2d3a2e;
   --td-button-primary-text-color: #3075B8;
+}
+
+.cart-delete-dialog {
+  --td-dialog-bg-color: #ffffff;
+}
+
+.cart-delete-dialog .t-dialog__footer {
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-delete-dialog__confirm {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #3075B8, #245F99) !important;
+  border-radius: 999rpx !important;
+  font-weight: 600;
+  border: none !important;
+  box-shadow: 0 8rpx 24rpx rgba(48, 117, 184, 0.22);
+  width: 216rpx !important;
+  height: 76rpx !important;
+  line-height: 76rpx !important;
+  flex: 0 0 216rpx !important;
+  margin: 0 16rpx 24rpx 8rpx !important;
+  font-size: 30rpx !important;
+}
+
+.cart-delete-dialog__cancel {
+  color: #3075B8 !important;
+  background: #F5FAFF !important;
+  border-radius: 999rpx !important;
+  border: 2rpx solid #D7E9F7 !important;
+  font-weight: 600;
+  width: 216rpx !important;
+  height: 76rpx !important;
+  line-height: 76rpx !important;
+  flex: 0 0 216rpx !important;
+  margin: 0 8rpx 24rpx 16rpx !important;
+  font-size: 30rpx !important;
 }

@@ -8,6 +8,7 @@ import {
 
 import { cdnBase } from '../../../config/index';
 import { addToCart } from '../../../services/cart/cart';
+import { bindSalesRelationship } from '../../../services/usercenter/salesBinding';
 
 const imgPrefix = `${cdnBase}/`;
 
@@ -457,12 +458,48 @@ Page({
       const count = selectedAttrStr.indexOf('件');
       shareSubTitle = selectedAttrStr.slice(count + 1, selectedAttrStr.length);
     }
+    const userInfo = wx.getStorageSync('userInfo') || getApp().globalData?.userInfo || {};
+    const salesOpenid = String(userInfo.openid || '').trim();
     const customInfo = {
       imageUrl: this.data.details.primaryImage,
       title: this.data.details.title + shareSubTitle,
-      path: `/pages/goods/details/index?spuId=${this.data.spuId}`,
+      path: `/pages/goods/details/index?spuId=${this.data.spuId}${salesOpenid ? `&salesOpenid=${encodeURIComponent(salesOpenid)}` : ''}`,
     };
     return customInfo;
+  },
+
+  onShareTimeline() {
+    const userInfo = wx.getStorageSync('userInfo') || getApp().globalData?.userInfo || {};
+    const salesOpenid = String(userInfo.openid || '').trim();
+    const query = [`spuId=${encodeURIComponent(this.data.spuId || '')}`];
+    if (salesOpenid) {
+      query.push(`salesOpenid=${encodeURIComponent(salesOpenid)}`);
+    }
+    return {
+      title: this.data.details.title || '商品详情',
+      query: query.join('&'),
+    };
+  },
+
+  async tryBindSalesFromShare(query = {}) {
+    const salesOpenid = String(query.salesOpenid || '').trim();
+    if (!salesOpenid) return;
+
+    try {
+      const app = getApp();
+      if (app?.silentLogin) {
+        await app.silentLogin();
+      }
+      const result = await bindSalesRelationship({
+        salesOpenid,
+        sourcePage: 'goods-detail',
+        sourcePath: '/pages/goods/details/index',
+        sourceSpuId: query.spuId || this.data.spuId || '',
+      });
+      console.log('[goods-detail] 销售绑定结果:', result);
+    } catch (err) {
+      console.warn('[goods-detail] 销售绑定失败:', err);
+    }
   },
 
   /** 获取评价统计 */
@@ -502,6 +539,7 @@ Page({
     this.setData({
       spuId: spuId,
     });
+    this.tryBindSalesFromShare(query);
     this.getDetail(spuId);
     this.getCommentsList(spuId);
     this.getCommentsStatistics(spuId);

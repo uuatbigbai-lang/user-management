@@ -1,0 +1,91 @@
+.sales-profile-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: linear-gradient(180deg, #eef6ff 0%, #f8faf5 220rpx);
+  box-sizing: border-box;
+}
+
+.hero {
+  padding: 36rpx 32rpx;
+  border-radius: 28rpx;
+  background: linear-gradient(140deg, #3075B8 0%, #5a9cd7 100%);
+  color: #fff;
+  box-shadow: 0 14rpx 32rpx rgba(48, 117, 184, 0.2);
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.hero__title {
+  margin-top: 18rpx;
+  font-size: 42rpx;
+  line-height: 58rpx;
+  font-weight: 700;
+}
+
+.hero__desc {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  word-break: break-all;
+  opacity: 0.92;
+}
+
+.card-list {
+  margin-top: 24rpx;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+  padding: 28rpx 30rpx;
+  background: #fff;
+  border-radius: 22rpx;
+  box-shadow: 0 6rpx 24rpx rgba(48, 117, 184, 0.08);
+}
+
+.info-card__label {
+  flex-shrink: 0;
+  color: #667085;
+  font-size: 24rpx;
+}
+
+.info-card__value {
+  text-align: right;
+  color: #1f2d3d;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  word-break: break-all;
+}
+
+.empty {
+  margin-top: 24rpx;
+  padding: 48rpx 32rpx;
+  border-radius: 24rpx;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 6rpx 24rpx rgba(48, 117, 184, 0.08);
+}
+
+.empty__title {
+  color: #1f2d3d;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.empty__desc {
+  margin-top: 12rpx;
+  color: #667085;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}

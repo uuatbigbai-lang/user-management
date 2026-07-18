@@ -74,7 +74,7 @@
                   <t-stepper
                     classname="stepper-info"
                     value="{{goods.quantity}}"
-                    min="{{1}}"
+                    min="{{0}}"
                     max="{{999}}"
                     data-goods="{{goods}}"
                     data-gi="{{gi}}"
