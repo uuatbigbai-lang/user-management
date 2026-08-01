@@ -8,8 +8,8 @@
   <!-- 页面内容 -->
   <view class="order-detail">
     <view class="header">
-      <view class="order-detail__header">
-        <view class="title {{statusToneClass}}">{{_order.statusDesc}}</view>
+      <view class="order-detail__header {{statusToneClass}}">
+        <view class="title">{{_order.statusDesc}}</view>
         <view class="desc">
           <block wx:if="{{ order.holdStatus === 1 }}">
             <block wx:if="{{ order.groupInfoVo.residueTime > 0 }}">
