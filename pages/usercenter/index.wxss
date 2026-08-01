@@ -252,3 +252,49 @@ page {
 .cell-box .t-cell-padding {
   padding: 24rpx 18rpx 24rpx 32rpx;
 }
+
+.phone-login-popup {
+  background: #fff;
+  margin-bottom: env(safe-area-inset-bottom);
+  border-radius: 28rpx 28rpx 0 0;
+  padding: 36rpx 32rpx 40rpx;
+}
+
+.phone-login-popup__title {
+  color: #1f2937;
+  font-size: 34rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.phone-login-popup__desc {
+  margin-top: 18rpx;
+  color: #667085;
+  font-size: 26rpx;
+  line-height: 1.7;
+}
+
+.phone-login-popup__privacy {
+  margin-top: 18rpx;
+  color: #3075B8;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.phone-login-popup__confirm {
+  margin-top: 28rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(135deg, #3075B8 0%, #245f98 100%);
+  color: #fff;
+  font-size: 30rpx;
+  border: none;
+}
+
+.phone-login-popup__cancel {
+  margin-top: 20rpx;
+  color: #98a2b3;
+  font-size: 28rpx;
+  text-align: center;
+}

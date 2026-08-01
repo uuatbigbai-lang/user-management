@@ -1,5 +1,6 @@
 import { config } from '../../config/index';
 import { requestBackend } from '../../config/index';
+import { resolveCloudFileUrls } from '../../utils/cloudImage';
 
 /** 获取个人中心信息 */
 function mockFetchPerson() {
@@ -28,14 +29,19 @@ export function fetchPerson() {
   return requestBackend({
     path: '/api/user/sales-profile',
     method: 'GET',
-  }).then((res) => {
+  }).then(async (res) => {
     const result = res.data || {};
-    return {
+    const mergedUserInfo = {
       ...userInfo,
       isSales: !!result.data?.isSales,
       salesRoleLabel: result.data?.salesRoleLabel || userInfo.salesRoleLabel || '',
       salesName: result.data?.profile?.salesName || userInfo.salesName || '',
       salesProfile: result.data?.profile || userInfo.salesProfile || null,
+    };
+    const avatarUrlMap = await resolveCloudFileUrls([mergedUserInfo.avatarUrl]);
+    return {
+      ...mergedUserInfo,
+      avatarUrl: avatarUrlMap[mergedUserInfo.avatarUrl] || mergedUserInfo.avatarUrl,
     };
   }).catch(() => userInfo);
 }

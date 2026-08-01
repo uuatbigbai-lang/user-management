@@ -176,18 +176,19 @@ page {
 }
 
 .goods-option {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
   padding: 22rpx 24rpx;
   margin-bottom: 16rpx;
   border: 2rpx solid #e4e7ec;
   border-radius: 18rpx;
+  background: #ffffff;
+  transition: all 0.2s ease;
 }
 
 .goods-option--active {
   border-color: #3075B8;
-  background: #eef6ff;
+  background: linear-gradient(135deg, #eef6ff, #e3f0ff);
+  box-shadow: 0 10rpx 24rpx rgba(48, 117, 184, 0.16);
 }
 
 .goods-option__title {
@@ -196,16 +197,14 @@ page {
   font-weight: 700;
 }
 
+.goods-option--active .goods-option__title {
+  color: #1d4f84;
+}
+
 .goods-option__meta {
   margin-top: 6rpx;
   color: #667085;
   font-size: 22rpx;
-}
-
-.goods-option__check {
-  color: #3075B8;
-  font-size: 24rpx;
-  font-weight: 700;
 }
 
 .goods-popup__actions {

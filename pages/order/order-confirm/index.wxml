@@ -106,10 +106,10 @@
         <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" />
       </view>
     </view>
-    <view class="pay-item" wx:if="{{settleDetailData.channelAgentName || settleDetailData.salesNameSnapshot}}">
-      <text>渠道代理</text>
+    <view class="pay-item" wx:if="{{settleDetailData.salesOpenid}}">
+      <text>客服经理openid</text>
       <view class="pay-item__right">
-        <text>{{settleDetailData.channelAgentName || settleDetailData.salesNameSnapshot}}</text>
+        <text>{{settleDetailData.salesOpenid}}</text>
       </view>
     </view>
     <view class="pay-item" wx:if="{{settleDetailData.invoiceSupport}}">

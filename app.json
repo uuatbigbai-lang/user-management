@@ -65,7 +65,8 @@
         "coupon-list/index",
         "coupon-detail/index",
         "coupon-activity-goods/index",
-        "coupon-manage/index"
+        "coupon-manage/index",
+        "coupon-invite/index"
       ]
     },
     {

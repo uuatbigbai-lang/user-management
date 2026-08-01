@@ -1,5 +1,6 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { checkCouponAdmin } from '../../services/coupon/index';
+import { bindPhoneNumber } from '../../services/usercenter/bindPhoneNumber';
 
 // 获取全局 App 实例
 const app = getApp();
@@ -21,6 +22,8 @@ const orderTagInfos = [
 
 const getDefaultData = () => ({
   showMakePhone: false,
+  showPhoneLoginPopup: false,
+  phoneLoginLoading: false,
   userInfo: {
     avatarUrl: '',
     nickName: '正在登录...',
@@ -109,7 +112,7 @@ Page({
       menuData,
       orderTagInfos: info,
       customerServiceInfo: mockCustomerServiceInfo,
-      currAuthStep: 2,
+      currAuthStep: userInfo?.phoneNumber ? 3 : 1,
       isSales: !!userInfo?.isSales,
     });
   },
@@ -131,7 +134,7 @@ Page({
           nickName: '正在登录...',
           phoneNumber: '',
         },
-        currAuthStep: 2,
+        currAuthStep: 1,
       });
 
       const stopRefresh = () => wx.stopPullDownRefresh();
@@ -149,7 +152,7 @@ Page({
             nickName: '请稍后重试',
             phoneNumber: '',
           },
-          currAuthStep: 2,
+          currAuthStep: 1,
         });
         stopRefresh();
       });
@@ -291,18 +294,99 @@ Page({
 
   gotoUserEditPage() {
     const isLoggedIn = app.isUserLoggedIn();
-    if (isLoggedIn) {
+    const userInfo = app.getUserInfo() || {};
+    if (isLoggedIn && userInfo.phoneNumber) {
       wx.navigateTo({
         url: '/pages/user/person-info/index'
       });
     } else {
+      this.openPhoneLoginPopup();
+    }
+  },
+
+  openPhoneLoginPopup() {
+    this.setData({
+      showPhoneLoginPopup: true,
+    });
+  },
+
+  closePhoneLoginPopup() {
+    if (this.data.phoneLoginLoading) return;
+    this.setData({
+      showPhoneLoginPopup: false,
+    });
+  },
+
+  openPrivacyContract() {
+    if (wx.openPrivacyContract) {
+      wx.openPrivacyContract({
+        fail: () => {
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '暂时无法打开隐私说明',
+            icon: '',
+            duration: 1500,
+          });
+        },
+      });
+      return;
+    }
+    Toast({
+      context: this,
+      selector: '#t-toast',
+      message: '当前基础库暂不支持查看隐私说明',
+      icon: '',
+      duration: 1500,
+    });
+  },
+
+  async onGetPhoneNumber(e) {
+    const phoneCode = e.detail?.code;
+    const errMsg = e.detail?.errMsg || '';
+    if (!phoneCode) {
+      if (errMsg && !errMsg.includes('fail user deny')) {
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: '未完成手机号授权',
+          icon: '',
+          duration: 1500,
+        });
+      }
+      return;
+    }
+
+    this.setData({ phoneLoginLoading: true });
+    try {
+      const result = await bindPhoneNumber(phoneCode);
+      const nextUserInfo = result.userInfo || {};
+      if (app.setUserInfo) {
+        app.setUserInfo(nextUserInfo);
+      } else {
+        app.globalData.userInfo = nextUserInfo;
+        wx.setStorageSync('userInfo', nextUserInfo);
+        wx.setStorageSync('isLoggedIn', true);
+      }
+      this.applyUserCenterData(nextUserInfo);
+      this.setData({
+        showPhoneLoginPopup: false,
+      });
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '请先登录',
-        icon: '',
-        duration: 1500,
+        message: '手机号登录成功',
+        theme: 'success',
       });
+    } catch (error) {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: error.message || '手机号登录失败',
+        theme: 'error',
+      });
+    } finally {
+      this.setData({ phoneLoginLoading: false });
     }
   },
 

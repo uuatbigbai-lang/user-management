@@ -8,7 +8,9 @@
       arrow
       t-class-left="order-group__left"
     >
-      <t-image slot="note" src="{{personInfo.avatarUrl}}" t-class="avatarUrl" mode="aspectFill" />
+      <button slot="note" class="avatar-picker" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" loading="{{avatarSubmitting}}">
+        <t-image src="{{personInfo.avatarUrl}}" t-class="avatarUrl" mode="aspectFill" />
+      </button>
     </t-cell>
     <t-cell
       title="昵称"
@@ -30,19 +32,10 @@
       t-class-left="order-group__left"
     />
     <t-cell
-      title="性别"
-      arrow
-      note="{{genderMap[personInfo.gender]}}"
-      data-type="gender"
-      bind:click="onClickCell"
-      t-class="t-cell-class"
-      t-class-left="order-group__left"
-    />
-    <t-cell
       bordered="{{false}}"
       title="手机号"
       arrow
-      note="{{personInfo.phoneNumber ? personInfo.phoneNumber : '去绑定手机号'}}"
+      note="{{personInfo.phoneNumberText ? personInfo.phoneNumberText : '去绑定手机号'}}"
       data-type="phoneNumber"
       bind:click="onClickCell"
       t-class="t-cell-class"
@@ -50,15 +43,20 @@
     />
   </t-cell-group>
 </view>
-<view class="person-info__wrapper">
-  <view class="person-info__btn" bind:tap="openUnbindConfirm"> 切换账号登录 </view>
-</view>
-<t-select-picker
-  show="{{typeVisible}}"
-  picker-options="{{pickerOptions}}"
-  title="选择性别"
-  value="{{personInfo.gender}}"
-  bind:confirm="onConfirm"
-  bind:close="onClose"
-/>
+<t-popup visible="{{showPhoneLoginPopup}}" placement="bottom" bind:visible-change="closePhoneLoginPopup">
+  <view class="phone-login-popup">
+    <view class="phone-login-popup__title">绑定手机号</view>
+    <view class="phone-login-popup__desc">绑定后可在这里查看手机号，也会同步保存到后台用户资料中，方便订单联系与售后服务。</view>
+    <view class="phone-login-popup__privacy" bind:tap="openPrivacyContract">查看《隐私保护指引》</view>
+    <button
+      class="phone-login-popup__confirm"
+      loading="{{phoneLoginLoading}}"
+      open-type="getPhoneNumber"
+      bind:getphonenumber="onGetPhoneNumber"
+    >
+      同意并获取手机号
+    </button>
+    <view class="phone-login-popup__cancel" bind:tap="closePhoneLoginPopup">取消</view>
+  </view>
+</t-popup>
 <t-toast id="t-toast" />

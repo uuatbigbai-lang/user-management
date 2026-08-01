@@ -1,14 +1,18 @@
 <view class="name-edit">
-  <t-input
-    borderless
-    model:value="{{nameValue}}"
-    placeholder="请输入文字"
-    label="昵称"
-    clearable
-    bind:clear="clearContent"
-  />
-  <view class="name-edit__input--desc"> 最多可输入15个字 </view>
-  <view class="name-edit__wrapper">
-    <t-button block shape="round" disabled="{{!nameValue}}" bind:tap="onSubmit">保存</t-button>
+  <view class="name-edit__card">
+    <view class="name-edit__label">昵称</view>
+    <input
+      class="name-edit__input"
+      type="nickname"
+      value="{{nameValue}}"
+      maxlength="15"
+      placeholder="请输入昵称，也可使用微信推荐昵称"
+      bindinput="onInputChange"
+    />
   </view>
+  <view class="name-edit__input--desc">最多可输入15个字，也可以直接使用微信昵称</view>
+  <view class="name-edit__wrapper">
+    <t-button block shape="round" loading="{{submitting}}" disabled="{{submitting || !nameValue}}" bind:tap="onSubmit">保存</t-button>
+  </view>
+  <t-toast id="t-toast" />
 </view>

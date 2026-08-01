@@ -9,7 +9,7 @@
   <view class="order-detail">
     <view class="header">
       <view class="order-detail__header">
-        <view class="title">{{_order.statusDesc}}</view>
+        <view class="title {{statusToneClass}}">{{_order.statusDesc}}</view>
         <view class="desc">
           <block wx:if="{{ order.holdStatus === 1 }}">
             <block wx:if="{{ order.groupInfoVo.residueTime > 0 }}">
@@ -154,12 +154,6 @@
             <!-- <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" /> -->
           </view>
         </view>
-        <view class="pay-item" wx:if="{{order.salesNameSnapshot}}">
-          <text>销售</text>
-          <view class="pay-item__right">
-            <text>{{order.salesNameSnapshot}}</text>
-          </view>
-        </view>
         <view class="pay-item">
           <text>{{isPaid ? '实付' : '应付'}}</text>
           <price
@@ -200,7 +194,7 @@
         </view>
       </view>
       <view class="pay-item" wx:if="{{order.salesOpenid}}">
-        <text>销售openid</text>
+        <text>客服经理openid</text>
         <view class="pay-item__right">
           <text class="order-no normal-color">{{order.salesOpenid}}</text>
         </view>

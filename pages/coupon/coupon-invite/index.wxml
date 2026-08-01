@@ -1,0 +1,41 @@
+<view class="invite-page">
+  <view wx:if="{{loading}}" class="state-card">正在加载邀请页...</view>
+
+  <view wx:elif="{{errorMessage}}" class="state-card state-card--error">
+    <view class="state-title">邀请页加载失败</view>
+    <view class="state-desc">{{errorMessage}}</view>
+    <button class="ghost-btn" bindtap="loadDetail">重试</button>
+  </view>
+
+  <view wx:else class="invite-shell">
+    <view class="hero-card">
+      <view class="hero-badge">限时福利</view>
+      <view class="hero-title">{{detail.title || '专属优惠券'}}</view>
+      <view class="hero-desc">点击下方分享按钮，把这张优惠券发送给好友领取。</view>
+      <view class="coupon-pill">{{detail.statusText || '待领取'}}</view>
+    </view>
+
+    <view class="info-card">
+      <view class="info-row">
+        <view class="info-label">券号</view>
+        <view class="info-value">{{detail.couponNo || couponNo}}</view>
+      </view>
+      <view class="info-row" wx:if="{{detail.desc}}">
+        <view class="info-label">优惠说明</view>
+        <view class="info-value">{{detail.desc}}</view>
+      </view>
+      <view class="info-row" wx:if="{{detail.storeAdapt}}">
+        <view class="info-label">适用范围</view>
+        <view class="info-value">{{detail.storeAdapt}}</view>
+      </view>
+      <view class="info-row" wx:if="{{detail.useNotes}}">
+        <view class="info-label">使用须知</view>
+        <view class="info-value">{{detail.useNotes}}</view>
+      </view>
+    </view>
+
+    <view class="share-tip">分享卡片将展示当前邀请页，不会暴露管理员优惠券列表。</view>
+
+    <button class="share-btn" open-type="share">立即分享给好友</button>
+  </view>
+</view>

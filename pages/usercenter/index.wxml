@@ -76,4 +76,20 @@
     <view class="popup-close" bind:tap="closeMakePhone">取消</view>
   </view>
 </t-popup>
+<t-popup visible="{{showPhoneLoginPopup}}" placement="bottom" bind:visible-change="closePhoneLoginPopup">
+  <view class="phone-login-popup">
+    <view class="phone-login-popup__title">手机号登录</view>
+    <view class="phone-login-popup__desc">为完成登录，我们会申请使用你的手机号，用于账号识别、订单联系与售后服务。</view>
+    <view class="phone-login-popup__privacy" bind:tap="openPrivacyContract">查看《隐私保护指引》</view>
+    <button
+      class="phone-login-popup__confirm"
+      loading="{{phoneLoginLoading}}"
+      open-type="getPhoneNumber"
+      bind:getphonenumber="onGetPhoneNumber"
+    >
+      同意并获取手机号
+    </button>
+    <view class="phone-login-popup__cancel" bind:tap="closePhoneLoginPopup">暂不登录</view>
+  </view>
+</t-popup>
 <t-toast id="t-toast" />

@@ -5,14 +5,34 @@ page view {
   box-sizing: border-box;
 }
 .name-edit {
-  padding-top: 20rpx;
+  padding: 20rpx 32rpx 0;
 }
+
+.name-edit__card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx 28rpx;
+}
+
+.name-edit__label {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.name-edit__input {
+  margin-top: 18rpx;
+  font-size: 30rpx;
+  color: #111827;
+  min-height: 72rpx;
+}
+
 .name-edit .name-edit__input--desc {
   font-size: 26rpx;
-  padding: 16rpx 32rpx;
+  padding: 16rpx 4rpx;
   color: #999;
   margin-bottom: 200rpx;
 }
 .name-edit .name-edit__wrapper {
-  margin: 0 32rpx;
+  margin: 0;
 }

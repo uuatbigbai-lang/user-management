@@ -24,6 +24,7 @@ Page({
     pageLoading: true,
     order: {}, // 后台返回的原始数据
     _order: {}, // 内部使用和提供给 order-card 的数据
+    statusToneClass: 'title--default',
     storeDetail: {},
     countDownTime: null,
     addressEditable: false,
@@ -72,6 +73,26 @@ Page({
       query.orderId ||
       '';
     return decodeURIComponent(String(raw || '')).trim();
+  },
+
+  getStatusToneClass(order = {}) {
+    switch (Number(order.orderStatus)) {
+      case OrderStatus.COMPLETE:
+        return 'title--complete';
+      case OrderStatus.PENDING_PAYMENT:
+        return 'title--pending-payment';
+      case OrderStatus.PENDING_DELIVERY:
+        return 'title--pending-delivery';
+      case OrderStatus.PENDING_RECEIPT:
+        return 'title--pending-receipt';
+      case 60:
+        return 'title--returning';
+      case 70:
+      case 80:
+        return 'title--closed';
+      default:
+        return 'title--default';
+    }
   },
 
   onShow() {
@@ -251,6 +272,7 @@ Page({
       this.setData({
         order,
         _order,
+        statusToneClass: this.getStatusToneClass(order),
         formatCreateTime: formatTime(parseFloat(`${order.createTime || Date.now()}`), 'YYYY-MM-DD HH:mm'), // 格式化订单创建时间
         countDownTime: this.computeCountDownTime(order),
         addressEditable:

@@ -33,17 +33,16 @@
         <view class="record-line">券号：{{item.couponNo}}</view>
         <view class="record-line">生成：{{item.createdByOpenid || '-'}}</view>
         <view class="record-line">领取：{{item.claimedByOpenid || '-'}}</view>
-        <view class="record-line" wx:if="{{item.scopeGoodsText}}">适用商品：{{item.scopeGoodsText}}</view>
+        <view class="record-line">{{item.scopeDisplayText || '适用商品：全场通用'}}</view>
         <view class="record-line" wx:if="{{item.orderNo}}">核销订单：{{item.orderNo}}</view>
       </view>
       <view class="record-actions">
         <button
           wx:if="{{item.recordStatus === 'generated'}}"
           class="record-share"
-          open-type="share"
           data-coupon-no="{{item.couponNo}}"
           bindtap="shareHandle"
-        >分享</button>
+        >去邀请页分享</button>
         <button
           wx:if="{{item.canVoid}}"
           class="record-void"
@@ -75,20 +74,20 @@
       <scroll-view scroll-y class="goods-popup__list">
         <view wx:if="{{goodsLoading}}" class="empty">商品加载中...</view>
         <view wx:elif="{{!filteredGoodsOptions.length}}" class="empty">暂无匹配商品</view>
-        <view
-          wx:else
-          wx:for="{{filteredGoodsOptions}}"
-          wx:key="spuId"
-          class="goods-option {{selectedScopeSpuIds.indexOf(item.spuId) > -1 ? 'goods-option--active' : ''}}"
-          data-spu-id="{{item.spuId}}"
-          bindtap="toggleScopeGoods"
-        >
-          <view class="goods-option__main">
-            <view class="goods-option__title">{{item.title}}</view>
-            <view class="goods-option__meta">{{item.spuId}}</view>
+        <block wx:else>
+          <view
+            wx:for="{{filteredGoodsOptions}}"
+            wx:key="spuId"
+            class="goods-option {{item.checked ? 'goods-option--active' : ''}}"
+            data-spu-id="{{item.spuId}}"
+            bindtap="toggleScopeGoods"
+          >
+            <view class="goods-option__main">
+              <view class="goods-option__title">{{item.title}}</view>
+              <view class="goods-option__meta">{{item.spuId}}</view>
+            </view>
           </view>
-          <view class="goods-option__check">{{selectedScopeSpuIds.indexOf(item.spuId) > -1 ? '已选' : '选择'}}</view>
-        </view>
+        </block>
       </scroll-view>
       <view class="goods-popup__actions">
         <button class="goods-popup__btn goods-popup__btn--ghost" bindtap="closeGoodsPopup">取消</button>

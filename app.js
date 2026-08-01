@@ -74,6 +74,18 @@ App({
     return this.globalData.userInfo;
   },
 
+  setUserInfo: function (userInfo = null) {
+    this.globalData.userInfo = userInfo;
+    this.globalData.isLoggedIn = !!userInfo;
+    if (userInfo) {
+      wx.setStorageSync('userInfo', userInfo);
+      wx.setStorageSync('isLoggedIn', true);
+      return;
+    }
+    wx.removeStorageSync('userInfo');
+    wx.removeStorageSync('isLoggedIn');
+  },
+
   // 检查登录状态的便捷方法
   isUserLoggedIn: function () {
     return this.globalData.isLoggedIn;

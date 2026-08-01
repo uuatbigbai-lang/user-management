@@ -20,6 +20,14 @@ Page({
     pendingTemplate: null,
   },
 
+  markGoodsSelection(goodsList = [], selectedScopeSpuIds = []) {
+    const selectedSet = new Set((selectedScopeSpuIds || []).map((item) => String(item)));
+    return (goodsList || []).map((item) => ({
+      ...item,
+      checked: selectedSet.has(String(item.spuId || '')),
+    }));
+  },
+
   onLoad() {
     this.fetchList();
   },
@@ -65,9 +73,10 @@ Page({
     }
     this.setData({ goodsLoading: true });
     fetchCouponProductOptions().then((goodsOptions) => {
+      const markedGoodsOptions = this.markGoodsSelection(goodsOptions, this.data.selectedScopeSpuIds);
       this.setData({
-        goodsOptions,
-        filteredGoodsOptions: goodsOptions,
+        goodsOptions: markedGoodsOptions,
+        filteredGoodsOptions: markedGoodsOptions,
         goodsLoading: false,
       });
     }).catch((err) => {
@@ -80,6 +89,8 @@ Page({
     this.setData({
       goodsPopupVisible: false,
       goodsKeyword: '',
+      goodsOptions: this.markGoodsSelection(this.data.goodsOptions, []),
+      filteredGoodsOptions: this.markGoodsSelection(this.data.filteredGoodsOptions, []),
       selectedScopeSpuIds: [],
       pendingTemplate: null,
     });
@@ -95,7 +106,7 @@ Page({
         });
     this.setData({
       goodsKeyword: keyword,
-      filteredGoodsOptions,
+      filteredGoodsOptions: this.markGoodsSelection(filteredGoodsOptions, this.data.selectedScopeSpuIds),
     });
   },
 
@@ -112,11 +123,20 @@ Page({
     } else {
       selected.add(spuId);
     }
-    this.setData({ selectedScopeSpuIds: Array.from(selected) });
+    const selectedScopeSpuIds = Array.from(selected);
+    this.setData({
+      selectedScopeSpuIds,
+      goodsOptions: this.markGoodsSelection(this.data.goodsOptions, selectedScopeSpuIds),
+      filteredGoodsOptions: this.markGoodsSelection(this.data.filteredGoodsOptions, selectedScopeSpuIds),
+    });
   },
 
   clearScopeGoods() {
-    this.setData({ selectedScopeSpuIds: [] });
+    this.setData({
+      selectedScopeSpuIds: [],
+      goodsOptions: this.markGoodsSelection(this.data.goodsOptions, []),
+      filteredGoodsOptions: this.markGoodsSelection(this.data.filteredGoodsOptions, []),
+    });
   },
 
   confirmScopeCreate() {
@@ -138,7 +158,13 @@ Page({
 
   shareHandle(e) {
     const { couponNo } = e.currentTarget.dataset;
-    this.shareCouponNo = couponNo;
+    if (!couponNo) {
+      wx.showToast({ title: '缺少优惠券编号', icon: 'none' });
+      return;
+    }
+    wx.navigateTo({
+      url: `/pages/coupon/coupon-invite/index?couponNo=${encodeURIComponent(couponNo)}`,
+    });
   },
 
   voidHandle(e) {
@@ -165,20 +191,5 @@ Page({
 
   refreshHandle() {
     this.fetchList();
-  },
-
-  onShareAppMessage(options) {
-    const couponNo = options?.target?.dataset?.couponNo || this.shareCouponNo || '';
-    const coupon = this.data.couponList.find((item) => item.couponNo === couponNo);
-    if (!coupon || !coupon.couponNo) {
-      return {
-        title: '优惠券领取',
-        path: '/pages/home/home',
-      };
-    }
-    return {
-      title: `${coupon.title}，点击领取`,
-      path: `/pages/coupon/coupon-detail/index?couponNo=${coupon.couponNo}`,
-    };
   },
 });
