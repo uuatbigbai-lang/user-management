@@ -58,6 +58,7 @@ export async function dispatchCommitPay(params) {
       goodsList,
       userAddress: params.userAddressReq,
       userName: params.userName,
+      isOnlyPayment: !!params.isOnlyPayment,
       totalAmount: params.totalAmount,
       couponNo: params.couponNo || (params.couponList && params.couponList[0] && params.couponList[0].couponNo) || '',
       remark: (params.storeInfoList && params.storeInfoList[0]?.remark) || '',

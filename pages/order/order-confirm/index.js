@@ -417,6 +417,7 @@ Page({
       userAddressReq: isOnlyPayment ? null : selectedAddress,
       goodsRequestList: goodsRequestList,
       userName: isOnlyPayment ? '' : ((selectedAddress && selectedAddress.name) || ''),
+      isOnlyPayment,
       totalAmount: settleDetailData.totalPayAmount,
       invoiceRequest: null,
       storeInfoList,

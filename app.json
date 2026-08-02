@@ -108,7 +108,7 @@
   "lazyCodeLoading": "requiredComponents",
   "plugins": {
     "logisticsPlugin": {
-      "version": "2.1.11",
+      "version": "2.3.0",
       "provider": "wx9ad912bf20548d92"
     }
   },
