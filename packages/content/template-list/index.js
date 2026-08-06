@@ -69,7 +69,7 @@ Page({
   onShareAppMessage() {
     return {
       title: '模板列表页面',
-      path: '/pages/template-list/index'
+      path: '/packages/content/template-list/index'
     };
   },
 

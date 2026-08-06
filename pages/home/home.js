@@ -31,9 +31,9 @@ Page({
     bannerProducts: [],
     bannerNavigation: { type: 'dots-bar' },
     featureLinks: [
-      { label: '菌群检测', assetKey: 'icon1', url: '/pages/products/index?category=testkit', openType: 'navigate' },
-      { label: '报告样例', assetKey: 'icon2', url: '/pages/report-preview/index', openType: 'navigate' },
-      { label: '精准干预', assetKey: 'icon3', url: '/pages/products/index?category=probiotic', openType: 'navigate' },
+      { label: '菌群检测', assetKey: 'icon1', url: '/packages/content/products/index?category=testkit', openType: 'navigate' },
+      { label: '报告样例', assetKey: 'icon2', url: '/packages/content/report-preview/index', openType: 'navigate' },
+      { label: '精准干预', assetKey: 'icon3', url: '/packages/content/products/index?category=probiotic', openType: 'navigate' },
       { label: '健康课堂', assetKey: 'icon4', action: 'nutrition' },
     ],
     homeAssets: HOME_ASSET_DEFAULTS,
@@ -230,13 +230,13 @@ Page({
 
   navToAbout() {
     wx.navigateTo({
-      url: '/pages/about/index',
+      url: '/packages/content/about/index',
     });
   },
 
   navToNutrition() {
     wx.navigateTo({
-      url: '/pages/nutrition/index',
+      url: '/packages/content/nutrition/index',
     });
   },
 
@@ -248,7 +248,7 @@ Page({
 
   navToProducts() {
     wx.navigateTo({
-      url: '/pages/products/index',
+      url: '/packages/content/products/index',
     });
   },
 

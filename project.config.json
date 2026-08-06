@@ -56,8 +56,37 @@
     "enableEngineNative": false,
     "useIsolateContext": true,
     "userConfirmedBundleSwitch": false,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
+    "packNpmManually": true,
+    "packNpmRelationList": [
+      {
+        "packageJsonPath": "package.json",
+        "miniprogramNpmDistDir": "miniprogram_npm"
+      },
+      {
+        "packageJsonPath": "packages/content/package.json",
+        "miniprogramNpmDistDir": "packages/content/miniprogram_npm"
+      },
+      {
+        "packageJsonPath": "pages/user/package.json",
+        "miniprogramNpmDistDir": "pages/user/miniprogram_npm"
+      },
+      {
+        "packageJsonPath": "pages/goods/package.json",
+        "miniprogramNpmDistDir": "pages/goods/miniprogram_npm"
+      },
+      {
+        "packageJsonPath": "pages/order/package.json",
+        "miniprogramNpmDistDir": "pages/order/miniprogram_npm"
+      },
+      {
+        "packageJsonPath": "pages/coupon/package.json",
+        "miniprogramNpmDistDir": "pages/coupon/miniprogram_npm"
+      },
+      {
+        "packageJsonPath": "pages/promotion/package.json",
+        "miniprogramNpmDistDir": "pages/promotion/miniprogram_npm"
+      }
+    ],
     "minifyWXSS": true,
     "disableUseStrict": false,
     "minifyWXML": true,
@@ -82,7 +111,7 @@
       "list": [
         {
           "name": "llm",
-          "pathName": "pages/llm/llm",
+          "pathName": "packages/content/llm/llm",
           "query": "",
           "scene": null
         },
@@ -100,7 +129,7 @@
         },
         {
           "name": "示例页-信息登记",
-          "pathName": "pages/sample-register/index",
+          "pathName": "packages/content/sample-register/index",
           "query": "title=肠道菌群检测&type=gut",
           "scene": null
         },

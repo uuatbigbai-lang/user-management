@@ -120,7 +120,7 @@ Page({
       bindSampleVisible: false,
     });
     wx.navigateTo({
-      url: `/pages/sample-register/index?title=${encodeURIComponent(
+      url: `/packages/content/sample-register/index?title=${encodeURIComponent(
         title,
       )}&type=${type}`,
     });
@@ -182,7 +182,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: `/pages/sample-register/index?id=${id}`,
+      url: `/packages/content/sample-register/index?id=${id}`,
     });
   },
 });

@@ -1,4 +1,4 @@
-import { fetchSampleDetail, saveSample } from '../../services/sample/index';
+import { fetchSampleDetail, saveSample } from '../../../services/sample/index';
 
 Page({
   data: {

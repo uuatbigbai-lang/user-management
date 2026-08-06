@@ -113,7 +113,7 @@ Page({
    */
   onTestSignIn() {
     wx.navigateTo({
-      url: '/pages/signIn/signIn'
+      url: '/packages/content/signIn/signIn'
     });
   },
 

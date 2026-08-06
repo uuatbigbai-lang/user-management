@@ -1,4 +1,4 @@
-// pages/signInSuccess/signInSuccess.js
+// packages/content/signInSuccess/signInSuccess.js
 Page({
 
   /**
@@ -92,7 +92,7 @@ Page({
     return {
       title: `我刚刚完成了${config?.pageInfo?.title || '签到'}！`,
       desc: successMessage,
-      path: '/pages/signIn/signIn'
+      path: '/packages/content/signIn/signIn'
     };
   },
 

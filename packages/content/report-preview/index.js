@@ -152,7 +152,7 @@ Page({
 
   goProducts() {
     wx.navigateTo({
-      url: '/pages/products/index?category=testkit',
+      url: '/packages/content/products/index?category=testkit',
     });
   },
 

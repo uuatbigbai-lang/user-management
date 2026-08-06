@@ -1,4 +1,4 @@
-import { resolveCloudFileLocalPaths, resolveCloudFileUrls } from '../../utils/cloudImage';
+import { resolveCloudFileLocalPaths, resolveCloudFileUrls } from '../../../utils/cloudImage';
 
 const ABOUT_ICON_CLOUD_BASE = 'cloud://cloud1-1gr581cp70dbd77a.636c-cloud1-1gr581cp70dbd77a-1382535808/aboutMe';
 const ABOUT_ICON_FILE_IDS = {

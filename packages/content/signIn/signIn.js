@@ -1,4 +1,4 @@
-// pages/signIn/signIn.js
+// packages/content/signIn/signIn.js
 Page({
 
   /**
@@ -258,7 +258,7 @@ Page({
       setTimeout(() => {
         const signInData = encodeURIComponent(JSON.stringify(result.data));
         wx.navigateTo({
-          url: `/pages/signInSuccess/signInSuccess?signInData=${signInData}`
+          url: `/packages/content/signInSuccess/signInSuccess?signInData=${signInData}`
         });
       }, 0);
 

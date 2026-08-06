@@ -4,19 +4,25 @@
     "pages/category/index",
     "pages/cart/index",
     "pages/sample/index",
-    "pages/sample-register/index",
-    "pages/usercenter/index",
-    "pages/llm/llm",
-    "pages/signIn/signIn",
-    "pages/signInSuccess/signInSuccess",
-    "pages/template-list/index",
-    "pages/about/index",
-    "pages/report-preview/index",
-    "pages/products/index",
-    "pages/nutrition/index",
-    "pages/promotion-share/index"
+    "pages/usercenter/index"
   ],
   "subpackages": [
+    {
+      "root": "packages/content",
+      "name": "content",
+      "pages": [
+        "llm/llm",
+        "sample-register/index",
+        "signIn/signIn",
+        "signInSuccess/signInSuccess",
+        "template-list/index",
+        "about/index",
+        "report-preview/index",
+        "products/index",
+        "nutrition/index",
+        "promotion-share/index"
+      ]
+    },
     {
       "root": "pages/user",
       "name": "user",

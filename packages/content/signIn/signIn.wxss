@@ -1,4 +1,4 @@
-/* pages/signIn/signIn.wxss */
+/* packages/content/signIn/signIn.wxss */
 page {
   background: linear-gradient(135deg, #3075B8 0%, #245F99 100%);
   min-height: 100vh;

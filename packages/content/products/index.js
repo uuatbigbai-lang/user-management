@@ -1,6 +1,6 @@
 import Toast from 'tdesign-miniprogram/toast/index';
-import { requestBackend } from '../../config/index';
-import { resolveProductsImageUrls } from '../../utils/cloudImage';
+import { requestBackend } from '../../../config/index';
+import { resolveProductsImageUrls } from '../../../utils/cloudImage';
 
 const TESTKIT_KEYWORDS = ['检测', '检测盒', '采样', '样本', '试剂', '报告'];
 

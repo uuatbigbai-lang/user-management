@@ -169,7 +169,7 @@ Page({
     switch (type) {
       case 'revenue': {
          wx.navigateTo({
-          url: '/pages/template-list/index',
+          url: '/packages/content/template-list/index',
           success: () => {},
           fail: () => {
     
