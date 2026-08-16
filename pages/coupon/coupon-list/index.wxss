@@ -73,6 +73,24 @@ page {
 .coupon-list-wrap .t-pull-down-refresh__bar {
   background: #fff !important;
 }
+
+.coupon-empty {
+  padding: 150rpx 32rpx;
+  color: #667085;
+  text-align: center;
+}
+
+.coupon-empty__title {
+  color: #344054;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.coupon-empty__desc {
+  margin-top: 14rpx;
+  font-size: 24rpx;
+}
+
 .t-class-indicator {
   color: #b9b9b9 !important;
 }

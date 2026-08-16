@@ -1,5 +1,6 @@
 import {
   createCoupon,
+  createCouponShare,
   fetchAdminCouponList,
   fetchCouponProductOptions,
   fetchCouponTemplates,
@@ -162,8 +163,15 @@ Page({
       wx.showToast({ title: '缺少优惠券编号', icon: 'none' });
       return;
     }
-    wx.navigateTo({
-      url: `/pages/coupon/coupon-invite/index?couponNo=${encodeURIComponent(couponNo)}`,
+    wx.showLoading({ title: '生成分享链接', mask: true });
+    createCouponShare(couponNo).then((share) => {
+      wx.hideLoading();
+      wx.navigateTo({
+        url: `/pages/coupon/coupon-invite/index?couponNo=${encodeURIComponent(share.couponNo)}&shareId=${encodeURIComponent(share.shareId)}`,
+      });
+    }).catch((err) => {
+      wx.hideLoading();
+      wx.showToast({ title: err.message || '生成分享链接失败', icon: 'none' });
     });
   },
 

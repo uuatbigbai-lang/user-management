@@ -3,6 +3,7 @@ import { fetchCouponDetail } from '../../../services/coupon/index';
 Page({
   data: {
     couponNo: '',
+    shareId: '',
     detail: null,
     loading: true,
     errorMessage: '',
@@ -10,7 +11,8 @@ Page({
 
   onLoad(query) {
     const couponNo = decodeURIComponent(String(query.couponNo || '').trim());
-    this.setData({ couponNo });
+    const shareId = decodeURIComponent(String(query.shareId || '').trim());
+    this.setData({ couponNo, shareId });
     if (!couponNo) {
       this.setData({
         loading: false,
@@ -39,9 +41,10 @@ Page({
   onShareAppMessage() {
     const detail = this.data.detail || {};
     const couponNo = this.data.couponNo || detail.couponNo || '';
+    const shareId = this.data.shareId || '';
     return {
       title: `${detail.title || '优惠券'}，点击领取`,
-      path: `/pages/coupon/coupon-detail/index?couponNo=${encodeURIComponent(couponNo)}`,
+      path: `/pages/coupon/coupon-detail/index?couponNo=${encodeURIComponent(couponNo)}&shareId=${encodeURIComponent(shareId)}`,
     };
   },
 });

@@ -1,6 +1,7 @@
 import { fetchPerson } from '../../../services/usercenter/fetchPerson';
 import { bindPhoneNumber } from '../../../services/usercenter/bindPhoneNumber';
-import { updateProfile } from '../../../services/usercenter/updateProfile';
+import { updateAvatar, updateProfile } from '../../../services/usercenter/updateProfile';
+import { buildBackendUrl } from '../../../config/index';
 import { phoneEncryption } from '../../../utils/util';
 import Toast from 'tdesign-miniprogram/toast/index';
 
@@ -83,24 +84,22 @@ Page({
     }
   },
 
-  uploadAvatarToCloud(filePath) {
-    const openid = (app.getUserInfo && app.getUserInfo()?.openid) || 'anonymous';
-    const extMatch = String(filePath || '').match(/(\.[a-zA-Z0-9]+)$/);
-    const ext = extMatch ? extMatch[1] : '.png';
-    const cloudPath = `user-avatar/${openid}/${Date.now()}${ext}`;
-    return wx.cloud.uploadFile({
-      cloudPath,
-      filePath,
-    }).then((res) => res.fileID || '');
+  getAvatarMimeType(filePath = '') {
+    const ext = String(filePath || '').split('?')[0].split('.').pop().toLowerCase();
+    if (ext === 'jpg' || ext === 'jpeg') return 'image/jpeg';
+    if (ext === 'webp') return 'image/webp';
+    return 'image/png';
   },
 
-  resolveCloudAvatar(fileID) {
-    if (!fileID || !wx.cloud?.getTempFileURL) {
-      return Promise.resolve('');
-    }
-    return wx.cloud.getTempFileURL({
-      fileList: [fileID],
-    }).then((res) => res.fileList?.[0]?.tempFileURL || '').catch(() => '');
+  readFileAsBase64(filePath) {
+    return new Promise((resolve, reject) => {
+      wx.getFileSystemManager().readFile({
+        filePath,
+        encoding: 'base64',
+        success: (res) => resolve(res.data || ''),
+        fail: reject,
+      });
+    });
   },
 
   async onChooseAvatar(e) {
@@ -117,17 +116,16 @@ Page({
 
     this.setData({ avatarSubmitting: true });
     try {
-      const avatarFileId = await this.uploadAvatarToCloud(avatarTempFilePath);
-      if (!avatarFileId) {
-        throw new Error('头像上传失败');
-      }
-      const result = await updateProfile({ avatarUrl: avatarFileId });
+      const imageBase64 = await this.readFileAsBase64(avatarTempFilePath);
+      const result = await updateAvatar({
+        imageBase64,
+        mimeType: this.getAvatarMimeType(avatarTempFilePath),
+      });
       const nextUserInfo = {
         ...(app.getUserInfo ? (app.getUserInfo() || {}) : {}),
         ...(result.userInfo || {}),
       };
-      const avatarTempUrl = await this.resolveCloudAvatar(avatarFileId);
-      nextUserInfo.avatarUrl = avatarTempUrl || nextUserInfo.avatarUrl;
+      nextUserInfo.avatarUrl = buildBackendUrl(nextUserInfo.avatarUrl) || avatarTempFilePath;
       this.syncUserInfo(nextUserInfo);
       this.setData({
         'personInfo.avatarUrl': nextUserInfo.avatarUrl,

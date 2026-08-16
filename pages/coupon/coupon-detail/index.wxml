@@ -25,6 +25,38 @@
       note="{{detail && detail.timeLimit}}"
     />
     <t-cell
+      wx:if="{{fromMine && detail}}"
+      t-class="t-class-cell"
+      t-class-title="t-class-title"
+      t-class-note="t-class-note"
+      title="使用状态"
+      note="{{detail.usageStatusText}}"
+    />
+    <t-cell
+      wx:if="{{fromMine && detail && detail.recordStatus === 'used' && detail.usedAtText}}"
+      t-class="t-class-cell"
+      t-class-title="t-class-title"
+      t-class-note="t-class-note"
+      title="使用时间"
+      note="{{detail.usedAtText}}"
+    />
+    <t-cell
+      wx:if="{{fromMine && detail && detail.recordStatus === 'used' && detail.orderNo}}"
+      t-class="t-class-cell"
+      t-class-title="t-class-title"
+      t-class-note="t-class-note"
+      title="关联订单"
+      note="{{detail.orderNo}}"
+    />
+    <t-cell
+      wx:if="{{fromMine && detail && detail.recordStatus === 'used' && detail.discountAmountText}}"
+      t-class="t-class-cell"
+      t-class-title="t-class-title"
+      t-class-note="t-class-note"
+      title="实际优惠"
+      note="{{detail.discountAmountText}}"
+    />
+    <t-cell
       wx:if="{{detail && detail.storeAdapt}}"
       t-class="t-class-cell"
       t-class-title="t-class-title"
@@ -44,7 +76,9 @@
   <!-- 查看可用商品 -->
   <view class="button-wrap">
     <t-button wx:if="{{fromShare && !claimed}}" shape="round" block bindtap="claimHandle">领取优惠券</t-button>
+    <t-button wx:elif="{{detail && detail.canForward}}" shape="round" block bindtap="forwardHandle">继续转发给好友</t-button>
     <t-button wx:elif="{{fromShare && claimed}}" shape="round" block bindtap="goHomeHandle">领取成功，去首页逛逛</t-button>
+    <t-button wx:elif="{{fromMine && detail && detail.recordStatus === 'used' && detail.orderNo}}" shape="round" block bindtap="goOrderHandle">查看关联订单</t-button>
     <t-button wx:else shape="round" block bindtap="navGoodListHandle"> 查看可用商品 </t-button>
   </view>
   </view>

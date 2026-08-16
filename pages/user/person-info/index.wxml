@@ -8,7 +8,7 @@
       arrow
       t-class-left="order-group__left"
     >
-      <button slot="note" class="avatar-picker" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" loading="{{avatarSubmitting}}">
+      <button slot="note" class="avatar-picker" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar" loading="{{avatarSubmitting}}">
         <t-image src="{{personInfo.avatarUrl}}" t-class="avatarUrl" mode="aspectFill" />
       </button>
     </t-cell>

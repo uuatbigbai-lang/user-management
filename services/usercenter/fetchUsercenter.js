@@ -1,4 +1,4 @@
-import { requestBackend } from '../../config/index';
+import { buildBackendUrl, requestBackend } from '../../config/index';
 import { resolveCloudFileUrls } from '../../utils/cloudImage';
 
 const LOGIN_TIMEOUT = 8000;
@@ -55,7 +55,7 @@ export async function fetchUserCenter() {
       ...res.data.data,
       userInfo: {
         ...userInfo,
-        avatarUrl: avatarUrlMap[userInfo.avatarUrl] || userInfo.avatarUrl,
+        avatarUrl: buildBackendUrl(avatarUrlMap[userInfo.avatarUrl] || userInfo.avatarUrl),
       },
     };
   });

@@ -25,6 +25,19 @@
     </view>
   </view>
 
+  <view class="coupon-entry" data-type="coupon" bindtap="onClickCell">
+    <view class="coupon-entry__left">
+      <view class="coupon-entry__icon-wrap">
+        <text class="coupon-entry__icon">🎟️</text>
+      </view>
+      <view class="coupon-entry__text">
+        <view class="coupon-entry__title">我的优惠券</view>
+        <view class="coupon-entry__desc">查看已领取的可用、已使用及已失效优惠券</view>
+      </view>
+    </view>
+    <t-icon name="chevron-right" size="36rpx" color="#3075B8" />
+  </view>
+
   <view class="order-group-wrapper">
     <t-order-group orderTagInfos="{{orderTagInfos}}" bind:onClickTop="jumpAllOrder" bind:onClickItem="jumpNav" />
   </view>

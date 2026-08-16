@@ -2,6 +2,9 @@ import { OrderStatus } from '../config';
 import { fetchOrders, fetchOrdersCount } from '../../../services/order/orderList';
 import { cosThumb } from '../../../utils/util';
 
+// 商品图在列表中以 176rpx 展示；使用 320px 源图可覆盖高分屏显示，避免 70px 缩略图被放大后发糊。
+const ORDER_LIST_THUMB_SIZE = 320;
+
 const orderStatusTextMap = {
   [OrderStatus.PENDING_PAYMENT]: '待付款',
   [OrderStatus.PENDING_DELIVERY]: '待发货',
@@ -118,7 +121,7 @@ Page({
               createTime: order.createTime,
               goodsList: (order.orderItemVOs || []).map((goods) => ({
                 id: goods.id,
-                thumb: cosThumb(goods.thumb || goods.image || '', 70),
+                thumb: cosThumb(goods.thumb || goods.image || '', ORDER_LIST_THUMB_SIZE),
                 title: goods.goodsName,
                 skuId: goods.skuId,
                 spuId: goods.spuId,

@@ -1,4 +1,4 @@
-import { requestBackend } from '../../config/index';
+import { buildBackendUrl, requestBackend } from '../../config/index';
 
 function getWxLoginCode() {
   return new Promise((resolve, reject) => {
@@ -36,6 +36,14 @@ export async function bindPhoneNumber(phoneCode) {
     if (res.data?.code !== 0) {
       throw new Error(res.data?.message || '手机号登录失败');
     }
-    return res.data?.data || {};
+    const data = res.data?.data || {};
+    if (!data.userInfo) return data;
+    return {
+      ...data,
+      userInfo: {
+        ...data.userInfo,
+        avatarUrl: buildBackendUrl(data.userInfo.avatarUrl),
+      },
+    };
   });
 }

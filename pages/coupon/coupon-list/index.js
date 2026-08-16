@@ -19,10 +19,18 @@ Page({
     ],
 
     couponList: [],
+    loading: false,
+    errorMessage: '',
   },
 
   onLoad() {
     this.init();
+  },
+
+  onShow() {
+    if (this.hasLoaded) {
+      this.fetchList();
+    }
   },
 
   init() {
@@ -48,8 +56,14 @@ Page({
         throw new Error(`unknown fetchStatus: ${statusInFetch}`);
       }
     }
-    fetchCouponList(statusInFetch).then((couponList) => {
-      this.setData({ couponList });
+    this.setData({ loading: true, errorMessage: '' });
+    return fetchCouponList(statusInFetch).then((couponList) => {
+      this.hasLoaded = true;
+      this.setData({ couponList, loading: false });
+    }).catch((err) => {
+      const errorMessage = err.message || '获取优惠券失败';
+      this.setData({ couponList: [], loading: false, errorMessage });
+      wx.showToast({ title: errorMessage, icon: 'none' });
     });
   },
 
@@ -64,13 +78,17 @@ Page({
     wx.showToast({ title: '去领券中心', icon: 'none' });
   },
 
-  onPullDownRefresh_() {
+  onPullDownRefresh_(e) {
+    const callback = e && e.detail && e.detail.callback;
     this.setData(
       {
         couponList: [],
       },
       () => {
-        this.fetchList();
+        this.fetchList().finally(() => {
+          callback && callback();
+          wx.stopPullDownRefresh();
+        });
       },
     );
   },

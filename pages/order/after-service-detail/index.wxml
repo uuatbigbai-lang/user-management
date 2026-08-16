@@ -56,9 +56,6 @@
           >
             <t-icon prefix="wr" color="#333333" name="deliver" size="40rpx" slot="left-icon" />
           </t-cell>
-          <view style="padding: 0 32rpx">
-            <wr-after-service-button-bar service="{{service}}" />
-          </view>
         </view>
       </view>
       <!-- 微信官方退货组件 -->
@@ -72,6 +69,11 @@
             </sales-return>
           </t-cell>
         </t-cell-group>
+      </view>
+      <view class="service-section" wx:if="{{service.buttons && service.buttons.length}}">
+        <view style="padding: 24rpx 32rpx">
+          <wr-after-service-button-bar service="{{service}}" bind:refresh="onRefresh" />
+        </view>
       </view>
       <!-- 收货地址 -->
       <view class="service-section goods-refund-address" wx:if="{{service.receiverName}}">

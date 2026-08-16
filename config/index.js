@@ -71,6 +71,14 @@ export function requestBackend({ path, method = 'GET', data = {} }) {
   });
 }
 
+export function buildBackendUrl(path = '') {
+  const value = String(path || '');
+  if (!value || /^https?:\/\//i.test(value) || value.startsWith('cloud://')) return value;
+  if (!value.startsWith('/')) return value;
+  const base = backendConfig.useLocal ? backendConfig.localBase : backendConfig.publicBase;
+  return `${base}${value}`;
+}
+
 export const cdnBase =
   'https://we-retail-static-1300977798.cos.ap-guangzhou.myqcloud.com/retail-mp';
 

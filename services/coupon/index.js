@@ -74,6 +74,19 @@ export function fetchCouponDetail(id, status = 'default') {
   });
 }
 
+/** 获取当前用户已领取优惠券的详情（含核销记录） */
+export function fetchMyCouponDetail(id) {
+  const path = `/api/coupon/my/detail/${encodeURIComponent(id)}`;
+  return requestBackend({
+    path,
+  }).then((res) => {
+    if (res.data.code === 0) {
+      return { detail: res.data.data, storeInfoList: [] };
+    }
+    throw new Error(res.data.message || '获取优惠券详情失败');
+  });
+}
+
 export function checkCouponAdmin() {
   return requestBackend({ path: '/api/coupon/admin/check' }).then((res) => {
     if (res.data.code === 0) return res.data.data || {};
@@ -138,11 +151,23 @@ export function voidCoupon(couponNo) {
   });
 }
 
-export function claimCoupon(couponNo) {
+/** 生成优惠券分享链接；员工领取后可通过此接口创建下一环优惠券 */
+export function createCouponShare(couponNo) {
+  return requestBackend({
+    path: '/api/coupon/share',
+    method: 'POST',
+    data: { couponNo },
+  }).then((res) => {
+    if (res.data.code === 0) return res.data.data;
+    throw new Error(res.data.message || '生成优惠券分享链接失败');
+  });
+}
+
+export function claimCoupon(couponNo, shareId = '') {
   return requestBackend({
     path: '/api/coupon/claim',
     method: 'POST',
-    data: { couponNo },
+    data: { couponNo, shareId },
   }).then((res) => {
     if (res.data.code === 0) return res.data.data;
     throw new Error(res.data.message || '领取优惠券失败');

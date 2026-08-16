@@ -43,7 +43,7 @@ Component({
     // 跳转到详情页
     gotoDetail() {
       wx.navigateTo({
-        url: `/pages/coupon/coupon-detail/index?id=${this.data.couponDTO.key}`,
+        url: `/pages/coupon/coupon-detail/index?id=${this.data.couponDTO.key}&source=mine`,
       });
     },
 

@@ -1,5 +1,4 @@
-import { config } from '../../config/index';
-import { requestBackend } from '../../config/index';
+import { buildBackendUrl, config, requestBackend } from '../../config/index';
 import { resolveCloudFileUrls } from '../../utils/cloudImage';
 
 /** 获取个人中心信息 */
@@ -41,7 +40,7 @@ export function fetchPerson() {
     const avatarUrlMap = await resolveCloudFileUrls([mergedUserInfo.avatarUrl]);
     return {
       ...mergedUserInfo,
-      avatarUrl: avatarUrlMap[mergedUserInfo.avatarUrl] || mergedUserInfo.avatarUrl,
+      avatarUrl: buildBackendUrl(avatarUrlMap[mergedUserInfo.avatarUrl] || mergedUserInfo.avatarUrl),
     };
   }).catch(() => userInfo);
 }

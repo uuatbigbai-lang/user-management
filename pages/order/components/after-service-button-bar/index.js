@@ -86,8 +86,9 @@ Component({
           Toast({
             context: this,
             selector: '#t-toast',
-            message: '你确认撤销申请',
+            message: '已取消退货申请',
           });
+          this.triggerEvent('refresh');
         });
       });
     },

@@ -26,6 +26,14 @@
 		<view class="coupon-list-item" wx:for="{{couponList}}" wx:key="key">
 			<coupon-card couponDTO="{{item}}" />
 		</view>
+		<view wx:if="{{!loading && !couponList.length && !errorMessage}}" class="coupon-empty">
+			<view class="coupon-empty__title">暂无已领取的优惠券</view>
+			<view class="coupon-empty__desc">领取优惠券后，会展示在这里</view>
+		</view>
+		<view wx:if="{{!loading && errorMessage}}" class="coupon-empty">
+			<view class="coupon-empty__title">优惠券加载失败</view>
+			<view class="coupon-empty__desc">下拉页面可重新加载</view>
+		</view>
 	</t-pull-down-refresh>
 	<view class="center-entry">
 		<view class="center-entry-btn" bind:tap="goCouponCenterHandle">
@@ -39,4 +47,3 @@
 		</view>
 	</view>
 </view>
-
