@@ -156,9 +156,4 @@ Page({
     });
   },
 
-  goSample() {
-    wx.switchTab({
-      url: '/pages/sample/index',
-    });
-  },
 });

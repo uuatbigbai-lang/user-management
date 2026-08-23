@@ -6,7 +6,6 @@
       <text class="hero-desc">蓝点荟肠道菌群检测把一次居家采样，转化为可读、可追踪、可行动的健康报告。你不需要盲目试益生菌，先读懂自己的肠道，再做更有依据的选择。</text>
       <view class="hero-actions">
         <view class="primary-btn" bind:tap="goProducts">购买检测盒</view>
-        <view class="ghost-btn" bind:tap="goSample">报告查询</view>
       </view>
     </view>
     <view class="hero-visual">

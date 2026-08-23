@@ -3,7 +3,6 @@
     "pages/home/home",
     "pages/category/index",
     "pages/cart/index",
-    "pages/sample/index",
     "pages/usercenter/index"
   ],
   "subpackages": [
@@ -12,7 +11,6 @@
       "name": "content",
       "pages": [
         "llm/llm",
-        "sample-register/index",
         "signIn/signIn",
         "signInSuccess/signInSuccess",
         "template-list/index",

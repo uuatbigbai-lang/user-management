@@ -122,18 +122,6 @@
           "scene": null
         },
         {
-          "name": "示例页-报告查询",
-          "pathName": "pages/sample/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "示例页-信息登记",
-          "pathName": "packages/content/sample-register/index",
-          "query": "title=肠道菌群检测&type=gut",
-          "scene": null
-        },
-        {
           "name": "示例页-商品分类",
           "pathName": "pages/goods/category/index",
           "query": "",
