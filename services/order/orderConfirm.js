@@ -27,6 +27,7 @@ export function fetchSettleDetail(params) {
       goodsRequestList: params.goodsRequestList,
       couponList: params.couponList || [],
       couponNo: selectedCouponNo,
+      isOnlyPayment: !!params.isOnlyPayment,
     },
   }).then((res) => {
     if (res.data.code === 0) {

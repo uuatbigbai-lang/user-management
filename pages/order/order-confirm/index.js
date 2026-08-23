@@ -114,6 +114,7 @@ Page({
       userAddressReq,
       couponList,
       couponNo: selectedCouponNo,
+      isOnlyPayment: !!this.data.isOnlyPayment,
     };
 
     // 并行请求结算数据和默认地址
@@ -170,9 +171,13 @@ Page({
 
   onModeChange(e) {
     const { mode } = e.currentTarget.dataset;
+    const isOnlyPayment = mode === 'onlyPayment';
+    if (isOnlyPayment === this.data.isOnlyPayment) return;
     this.setData({
-      isOnlyPayment: mode === 'onlyPayment',
+      isOnlyPayment,
     });
+    const couponList = this.handleCouponList(this.data.submitCouponList);
+    this.handleOptionsParams({ goodsRequestList: this.goodsRequestList }, couponList);
   },
 
   isInvalidOrder(data) {

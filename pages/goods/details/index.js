@@ -90,6 +90,9 @@ Page({
     duration: 500,
     interval: 5000,
     soldNum: 0, // 已售数量
+    isEmployee: false,
+    showEmployeeSpecialOffer: false,
+    employeeSpecialOfferText: '',
   },
 
   handlePopupHide() {
@@ -443,9 +446,32 @@ Page({
         primaryImage,
         soldout: isPutOnSale === 0,
         soldNum,
+        showEmployeeSpecialOffer: this.data.isEmployee && Number(details.employeePrice || 0) > 0,
+        employeeSpecialOfferText: Number(details.employeePrice || 0) > 0
+          ? `员工特别优惠：员工价 ¥${(Number(details.employeePrice) / 100).toFixed(2)}`
+          : '',
       };
       this.setData(nextState);
       this.applySingleSkuDefaults(nextState);
+    });
+  },
+
+  async loadEmployeeIdentity() {
+    const app = getApp();
+    try {
+      if (app?.silentLogin) await app.silentLogin();
+    } catch (err) {
+      console.warn('[goods-detail] 获取员工身份失败:', err);
+    }
+    const userInfo = app?.getUserInfo?.() || wx.getStorageSync('userInfo') || {};
+    const isEmployee = !!userInfo.isSales;
+    const employeePrice = Number(this.data.details?.employeePrice || 0);
+    this.setData({
+      isEmployee,
+      showEmployeeSpecialOffer: isEmployee && employeePrice > 0,
+      employeeSpecialOfferText: employeePrice > 0
+        ? `员工特别优惠：员工价 ¥${(employeePrice / 100).toFixed(2)}`
+        : '',
     });
   },
 
@@ -562,6 +588,7 @@ Page({
     this.setData({
       spuId: spuId,
     });
+    this.loadEmployeeIdentity();
     this.tryBindSalesFromShare(query);
     this.getDetail(spuId);
     this.getCommentsList(spuId);
