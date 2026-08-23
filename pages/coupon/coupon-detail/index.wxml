@@ -73,13 +73,14 @@
       note="{{detail && detail.useNotes}}"
     />
   </t-cell-group>
-  <!-- 查看可用商品 -->
-  <view class="button-wrap">
+  <view
+    wx:if="{{(fromShare && !claimed) || (detail && detail.canForward) || (fromShare && claimed) || (fromMine && detail && detail.recordStatus === 'used' && detail.orderNo)}}"
+    class="button-wrap"
+  >
     <t-button wx:if="{{fromShare && !claimed}}" shape="round" block bindtap="claimHandle">领取优惠券</t-button>
     <t-button wx:elif="{{detail && detail.canForward}}" shape="round" block bindtap="forwardHandle">继续转发给好友</t-button>
     <t-button wx:elif="{{fromShare && claimed}}" shape="round" block bindtap="goHomeHandle">领取成功，去首页逛逛</t-button>
     <t-button wx:elif="{{fromMine && detail && detail.recordStatus === 'used' && detail.orderNo}}" shape="round" block bindtap="goOrderHandle">查看关联订单</t-button>
-    <t-button wx:else shape="round" block bindtap="navGoodListHandle"> 查看可用商品 </t-button>
   </view>
   </view>
 </view>

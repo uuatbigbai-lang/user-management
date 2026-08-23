@@ -3,6 +3,8 @@ export const OrderStatus = {
   PENDING_DELIVERY: 10, // 待发货
   PENDING_RECEIPT: 40, // 待收货
   COMPLETE: 50, // 已完成/待评价
+  RETURNING: 60, // 退货中
+  REFUNDED: 70, // 已退款
   PAYMENT_TIMEOUT: 80, // 已取消，支付超时
   CANCELED_NOT_PAYMENT: 80, // 已取消，未支付主动取消
   CANCELED_PAYMENT: 80, // 已取消，已支付主动取消
@@ -43,6 +45,7 @@ export const OrderButtonTypes = {
   DELETE: 7, // 删除订单
   DELIVERY: 8, // 查看物流
   REBUY: 9, // 再次购买
+  CANCEL_RETURN: 10, // 取消退货
   INVITE_GROUPON: 11, //邀请好友拼团
 };
 

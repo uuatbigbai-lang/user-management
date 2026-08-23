@@ -5,6 +5,7 @@ import {
   fetchBusinessTime,
   fetchOrderDetail,
   fetchWechatWaybillToken,
+  cancelOrderReturn,
   syncWechatOrderState,
 } from '../../../services/order/orderDetail';
 import Toast from 'tdesign-miniprogram/toast/index';
@@ -747,6 +748,36 @@ Page({
       .finally(() => {
         this.setData({ payLoading: false });
       });
+  },
+
+  onCancelReturn(e) {
+    const orderNo = e?.detail?.order?.orderNo || this.data.order?.orderNo;
+    if (!orderNo) return;
+    wx.showModal({
+      title: '确认取消退货？',
+      content: '取消后订单将恢复到发起退货前的状态。',
+      confirmText: '确认取消',
+      success: (result) => {
+        if (!result.confirm) return;
+        wx.showLoading({ title: '处理中', mask: true });
+        cancelOrderReturn({ orderNo }).then(() => {
+          wx.hideLoading();
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '已取消退货',
+          });
+          this.onRefresh();
+        }).catch((err) => {
+          wx.hideLoading();
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: err.message || '取消退货失败',
+          });
+        });
+      },
+    });
   },
 
   /** 跳转订单评价 */

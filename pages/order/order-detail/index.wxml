@@ -219,6 +219,7 @@
       order="{{_order}}"
       bindrefresh="onRefresh"
       bindpay="onOrderPay"
+      bindcancelreturn="onCancelReturn"
       bindconfirmreceived="onConfirmReceived"
       bindcontactservice="onContactServiceFromAfterSale"
       isBtnMax

@@ -99,10 +99,6 @@
         "text": "购物中心"
       },
       {
-        "pagePath": "pages/sample/index",
-        "text": "样本"
-      },
-      {
         "pagePath": "pages/usercenter/index",
         "text": "个人中心"
       }

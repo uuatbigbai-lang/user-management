@@ -74,10 +74,6 @@ Page({
     this.fetchList(value);
   },
 
-  goCouponCenterHandle() {
-    wx.showToast({ title: '去领券中心', icon: 'none' });
-  },
-
   onPullDownRefresh_(e) {
     const callback = e && e.detail && e.detail.callback;
     this.setData(

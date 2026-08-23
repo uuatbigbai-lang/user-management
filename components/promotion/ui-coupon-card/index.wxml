@@ -29,7 +29,7 @@
       <view class="wr-coupon__left--desc">{{desc}}</view>
     </view>
     <view wx:elif="{{type == CouponType.GIFT_COUPON}}">
-      <t-image t-class="wr-coupon__left--image" src="{{image}}" mode="aspectFill" />
+      <image class="wr-coupon__left--image" src="{{giftImageSrc}}" mode="aspectFill" binderror="handleGiftImageError" />
     </view>
   </view>
   <view class="wr-coupon__right">

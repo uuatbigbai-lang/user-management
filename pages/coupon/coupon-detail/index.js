@@ -102,12 +102,6 @@ Page({
     });
   },
 
-  navGoodListHandle() {
-    wx.navigateTo({
-      url: `/pages/coupon/coupon-activity-goods/index?couponNo=${this.id}`,
-    });
-  },
-
   goOrderHandle() {
     const orderNo = this.data.detail && this.data.detail.orderNo;
     if (!orderNo) return;

@@ -10,6 +10,8 @@ const orderStatusTextMap = {
   [OrderStatus.PENDING_DELIVERY]: '待发货',
   [OrderStatus.PENDING_RECEIPT]: '待收货',
   [OrderStatus.COMPLETE]: '已完成',
+  [OrderStatus.RETURNING]: '退货中',
+  [OrderStatus.REFUNDED]: '已退款',
   [OrderStatus.PAYMENT_TIMEOUT]: '已取消',
 };
 
@@ -21,6 +23,7 @@ Page({
       { key: OrderStatus.PENDING_DELIVERY, text: '待发货', info: '' },
       { key: OrderStatus.PENDING_RECEIPT, text: '待收货', info: '' },
       { key: OrderStatus.COMPLETE, text: '已完成', info: '' },
+      { key: OrderStatus.RETURNING, text: '退货中', info: '' },
     ],
     curTab: -1,
     orderList: [],
@@ -223,6 +226,10 @@ Page({
       [OrderStatus.COMPLETE]: {
         emptyTitle: '没有已完成订单',
         emptyDesc: '已支付完成的订单会显示在这里',
+      },
+      [OrderStatus.RETURNING]: {
+        emptyTitle: '没有退货中订单',
+        emptyDesc: '正在退货处理的订单会显示在这里',
       },
     };
 

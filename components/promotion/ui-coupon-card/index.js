@@ -1,3 +1,5 @@
+const FALLBACK_GIFT_IMAGE = '/pages/coupon/coupon-list/coupon.png';
+
 Component({
   options: {
     addGlobalClass: true,
@@ -73,9 +75,13 @@ Component({
       GIFT_COUPON: 4,
     },
     theme: 'primary',
+    giftImageSrc: FALLBACK_GIFT_IMAGE,
   },
 
   observers: {
+    image(value) {
+      this.setData({ giftImageSrc: String(value || '').trim() || FALLBACK_GIFT_IMAGE });
+    },
     status: function (value) {
       let theme = 'primary';
       // 已过期、已使用或当前不可用的券颜色置灰
@@ -91,5 +97,13 @@ Component({
     this.setData({
       color: `color${this.properties.colorStyle}`,
     });
+  },
+
+  methods: {
+    handleGiftImageError() {
+      if (this.data.giftImageSrc !== FALLBACK_GIFT_IMAGE) {
+        this.setData({ giftImageSrc: FALLBACK_GIFT_IMAGE });
+      }
+    },
   },
 });

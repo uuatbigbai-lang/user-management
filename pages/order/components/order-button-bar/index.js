@@ -114,6 +114,10 @@ Component({
           break;
         case OrderButtonTypes.REBUY:
           this.onBuyAgain(this.data.order);
+          break;
+        case OrderButtonTypes.CANCEL_RETURN:
+          this.onCancelReturn(this.data.order);
+          break;
       }
     },
 
@@ -157,6 +161,10 @@ Component({
         message: '你点击了再次购买',
         icon: 'check-circle',
       });
+    },
+
+    onCancelReturn(order) {
+      this.triggerEvent('cancelreturn', { order });
     },
 
     onApplyRefund(order) {

@@ -7,11 +7,12 @@
   tag="{{couponDTO.tag || ''}}"
   desc="{{couponDTO.desc || ''}}"
   currency="{{couponDTO.currency || ''}}"
+  image="{{couponDTO.image || couponDTO.thumb || ''}}"
   timeLimit="{{couponDTO.timeLimit || ''}}"
   status="{{couponDTO.status || ''}}"
   bind:tap="gotoDetail"
 >
-  <view slot="operator" class="coupon-btn-slot">
+  <view wx:if="{{!hideOperator}}" slot="operator" class="coupon-btn-slot">
     <t-button
       t-class="coupon-btn-{{btnTheme}}"
       theme="{{btnTheme}}"

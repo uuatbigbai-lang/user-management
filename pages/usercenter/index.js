@@ -14,9 +14,7 @@ const orderTagInfos = [
     },
     {  title: '待收货',  iconName: 'package',  orderNum: 0,  tabType: 40,  status: 1,
     },
-    {  title: '待评价',  iconName: 'comment',  orderNum: 0,  tabType: 60,  status: 1,
-    },
-    {  title: '退款/售后',  iconName: 'exchang',  orderNum: 0,  tabType: 0,  status: 1,
+    {  title: '退款/售后',  iconName: 'exchang',  orderNum: 0,  tabType: 60,  status: 1,
     }
   ]
 

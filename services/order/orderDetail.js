@@ -61,6 +61,21 @@ export function fetchWechatWaybillToken(params) {
   });
 }
 
+export function cancelOrderReturn({ orderNo } = {}) {
+  if (config.useMock) {
+    return Promise.resolve({ code: 'Success', data: {} });
+  }
+  return requestBackend({
+    path: '/api/order/cancel-return',
+    method: 'POST',
+    data: { orderNo },
+  }).then((res) => {
+    const result = res.data || res;
+    if (result.code === 0) return { code: 'Success', data: result.data || {} };
+    throw new Error(result.message || '取消退货失败');
+  });
+}
+
 export function syncWechatOrderState(params) {
   if (config.useMock) {
     return Promise.resolve({ code: 'Success', data: {} });

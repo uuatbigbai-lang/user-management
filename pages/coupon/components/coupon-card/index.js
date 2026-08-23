@@ -16,6 +16,10 @@ Component({
       type: Object,
       value: {}, // 优惠券数据
     },
+    hideOperator: {
+      type: Boolean,
+      value: false,
+    },
   },
 
   data: {
