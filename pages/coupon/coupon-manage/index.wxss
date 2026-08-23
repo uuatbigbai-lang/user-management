@@ -53,6 +53,29 @@ page {
   font-size: 22rpx;
 }
 
+.experience-config {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #eef1f4;
+}
+
+.experience-config__title {
+  color: #344054;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.experience-config__desc {
+  margin-top: 4rpx;
+  color: #667085;
+  font-size: 22rpx;
+  line-height: 32rpx;
+}
+
 .list-head {
   display: flex;
   align-items: center;

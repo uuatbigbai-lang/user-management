@@ -94,11 +94,11 @@ export function checkCouponAdmin() {
   });
 }
 
-export function createCoupon(templateType, scopeSpuIds = []) {
+export function createCoupon(templateType, scopeSpuIds = [], options = {}) {
   return requestBackend({
     path: '/api/coupon/admin/create',
     method: 'POST',
-    data: { templateType, scopeSpuIds },
+    data: { templateType, scopeSpuIds, ...options },
   }).then((res) => {
     if (res.data.code === 0) return res.data.data;
     throw new Error(res.data.message || '生成优惠券失败');

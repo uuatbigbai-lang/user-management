@@ -9,6 +9,13 @@
       <view class="coupon-title">{{item.title}}</view>
       <view class="coupon-desc">{{item.desc}}</view>
       <view wx:if="{{item.ruleType === 'discount'}}" class="coupon-tip">生成时可多选指定商品；不选则默认全场通用</view>
+      <view wx:if="{{item.templateType === 'third_gen_16s_experience'}}" class="experience-config">
+        <view>
+          <view class="experience-config__title">符合条件商品是否同享</view>
+          <view class="experience-config__desc">关闭后，仅购物车中价格最高的一件商品享受体验价。</view>
+        </view>
+        <t-switch value="{{experienceShared}}" colors="{{['#3075B8', '#c6c6c6']}}" bind:change="onExperienceSharedChange" />
+      </view>
     </view>
     <t-button size="small" data-type="{{item.templateType}}" bindtap="createHandle">生成</t-button>
   </view>
@@ -34,6 +41,7 @@
         <view class="record-line">生成：{{item.createdByOpenid || '-'}}</view>
         <view class="record-line">领取：{{item.claimedByOpenid || '-'}}</view>
         <view class="record-line">{{item.scopeDisplayText || '适用商品：全场通用'}}</view>
+        <view class="record-line" wx:if="{{item.templateType === 'third_gen_16s_experience'}}">是否同享：{{item.experienceShared ? '是' : '否'}}</view>
         <view class="record-line" wx:if="{{item.orderNo}}">核销订单：{{item.orderNo}}</view>
       </view>
       <view class="record-actions">

@@ -19,6 +19,7 @@ Page({
     filteredGoodsOptions: [],
     selectedScopeSpuIds: [],
     pendingTemplate: null,
+    experienceShared: true,
   },
 
   markGoodsSelection(goodsList = [], selectedScopeSpuIds = []) {
@@ -58,7 +59,13 @@ Page({
       this.openGoodsPopup(type);
       return;
     }
-    this.submitCreateCoupon(type, []);
+    this.submitCreateCoupon(type, [], type === 'third_gen_16s_experience'
+      ? { experienceShared: this.data.experienceShared }
+      : {});
+  },
+
+  onExperienceSharedChange(e) {
+    this.setData({ experienceShared: !!e.detail.value });
   },
 
   openGoodsPopup(templateType) {
@@ -144,9 +151,9 @@ Page({
     this.submitCreateCoupon(this.data.pendingTemplate, this.data.selectedScopeSpuIds || []);
   },
 
-  submitCreateCoupon(templateType, scopeSpuIds = []) {
+  submitCreateCoupon(templateType, scopeSpuIds = [], options = {}) {
     wx.showLoading({ title: '生成中', mask: true });
-    createCoupon(templateType, scopeSpuIds).then(() => {
+    createCoupon(templateType, scopeSpuIds, options).then(() => {
       wx.hideLoading();
       this.closeGoodsPopup();
       this.fetchList();
