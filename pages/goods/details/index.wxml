@@ -54,9 +54,9 @@
         </view>
       </view>
       <view class="goods-intro">{{intro}}</view>
-      <view wx:if="{{showEmployeeSpecialOffer}}" class="employee-special-offer">
+      <!-- <view wx:if="{{showEmployeeSpecialOffer}}" class="employee-special-offer">
         {{employeeSpecialOfferText}}
-      </view>
+      </view> -->
     </view>
     <view class="spu-select" bindtap="showSkuSelectPopup">
       <view class="label">已选</view>

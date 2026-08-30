@@ -72,6 +72,14 @@
       title="使用须知"
       note="{{detail && detail.useNotes}}"
     />
+    <t-cell
+      wx:if="{{detail && detail.forwardHint}}"
+      t-class="t-class-cell"
+      t-class-title="t-class-title"
+      t-class-note="t-class-note"
+      title="转发说明"
+      note="{{detail.forwardHint}}"
+    />
   </t-cell-group>
   <view
     wx:if="{{(fromShare && !claimed) || (detail && detail.canForward) || (fromShare && claimed) || (fromMine && detail && detail.recordStatus === 'used' && detail.orderNo)}}"

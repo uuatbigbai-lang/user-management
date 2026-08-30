@@ -54,7 +54,7 @@ Page({
       } else if (detail.ruleType === 'employee_price' || detail.templateType === 'employee_special') {
         this.setData({ couponTypeDesc: '按商品员工价自动结算' });
       } else if (detail.ruleType === 'experience_price' || detail.templateType === 'third_gen_16s_experience') {
-        this.setData({ couponTypeDesc: '第三代16S 380元/次；二代肠道及阴道检测280元/次，包邮' });
+        this.setData({ couponTypeDesc: '第三代16S及阴道检测380元/次；二代肠道检测280元/次，包邮' });
       }
     }).catch((err) => {
       Toast({

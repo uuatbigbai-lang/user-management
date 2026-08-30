@@ -10,6 +10,7 @@ export const commitPay = (params) => {
     invoiceRequest: params.invoiceRequest, // 发票信息
     // isIgnore: params.isIgnore || false, // 删掉 是否忽视库存不足和商品失效,继续结算,true=继续结算 购物车请赋值false
     userAddressReq: params.userAddressReq, // 地址信息(用户在购物选择更换地址)
+    isOnlyPayment: !!params.isOnlyPayment,
     currency: params.currency || 'CNY', // 支付货币: 人民币=CNY，美元=USD
     logisticsType: params.logisticsType || 1, // 配送方式 0=无需配送 1=快递 2=商家 3=同城 4=自提
     // orderMark: params.orderMark, // 下单备注
